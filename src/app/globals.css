@@ -19,10 +19,30 @@
     }
   }
 
+  --animate-wipe-out: wipe-out ease-out forwards;
+  @keyframes wipe-out {
+    from {
+      clip-path: inset(0 0% 0 0);
+    }
+    to {
+      clip-path: inset(0 100% 0 0);
+    } 
+  }
+
   --animate-drop-down: drop-down ease-out forwards;
   @keyframes drop-down {
     0% {
       transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  --animate-lift-up: lift-up ease-out forwards;
+  @keyframes lift-up {
+    0% {
+      transform: translateY(30px);
     }
     100% {
       transform: translateY(0);
