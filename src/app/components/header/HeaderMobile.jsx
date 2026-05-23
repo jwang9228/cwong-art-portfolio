@@ -5,7 +5,7 @@ import Link from 'next/link';
 import FadeContent from '../utils/FadeContent';
 
 export default function HeaderMobile({
-  headerSections, activeTab, setActiveTab
+  headerSections, activeTab, setActiveTab, isHome
 }) {
   const [showMenu, setShowMenu] = useState(false);
   
@@ -27,18 +27,18 @@ export default function HeaderMobile({
     <>
       <header className='flex justify-between items-center'>
         <IoIosMenu 
-          className='size-10 cursor-pointer' 
+          className={`size-10 cursor-pointer
+            ${isHome ? 'text-light' : 'text-zinc-600'}`}
           onClick={handleOpen}
         />
         <Link 
           href={'/'} 
-          className='text-2xl font-bold'
+          className={`text-2xl font-bold 
+            ${isHome ? 'text-light' : 'text-zinc-600'}`}
         >
           Courtney Wong
         </Link>
       </header>
-      
-      {/* Overlay */}
       <div 
         className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-500
           ${showMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
