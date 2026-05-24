@@ -1,56 +1,105 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-dark: #0a0a0a;
-  --color-light: #FFFFFF;
-  --breakpoint-*: initial;
-  --breakpoint-mobile: 299px;
-  --breakpoint-tablet: 767px;
-  --breakpoint-laptop: 1024px;
-  --breakpoint-desktop: 1199px;
-
-  --animate-wipe: wipe ease-out forwards;
-  @keyframes wipe {
-    from {
-      clip-path: inset(0 100% 0 0);
-    } 
-    to {
-      clip-path: inset(0 0% 0 0);
-    }
+/* Default Styling */
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+  
+  body {
+    background-color:   var(--color-background);
+    color:              var(--color-primary);
+    @apply text-base antialiased; 
   }
 
-  --animate-wipe-out: wipe-out ease-out forwards;
-  @keyframes wipe-out {
-    from {
-      clip-path: inset(0 0% 0 0);
-    }
-    to {
-      clip-path: inset(0 100% 0 0);
-    } 
-  }
-
-  --animate-drop-down: drop-down ease-out forwards;
-  @keyframes drop-down {
-    0% {
-      transform: translateY(-15px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-
-  --animate-lift-up: lift-up ease-out forwards;
-  @keyframes lift-up {
-    0% {
-      transform: translateY(30px);
-    }
-    100% {
-      transform: translateY(0);
-    }
+  ::selection {
+    background-color:   var(--color-accent);
+    color:              var(--color-background);
   }
 }
 
-body {
-  background: theme(--color-dark);
-  color: theme(--color-light);
+/* Typescale */
+@theme {
+  --text-micro: 0.75rem;
+  --text-micro--font-weight: 500;
+  --text-micro--line-height: 1.5;
+  --text-micro--letter-spacing: 0.05em;
+  
+  --text-xs: 0.875rem;
+  --text-xs--font-weight: 500;
+  --text-xs--line-height: 1.6;
+  --text-xs--letter-spacing: 0.1em;
+
+  --text-sm: 1rem;
+  --text-sm--font-weight: 400;
+  --text-sm--line-height: 1.5;
+  --text-sm--letter-spacing: 0em;
+
+  --text-base: 1.125rem;
+  --text-base--font-weight: 400;
+  --text-base--line-height: 1.5;
+  --text-base--letter-spacing: 0em;
+
+  --text-lg: 1.375rem;
+  --text-lg--font-weight: 500;
+  --text-lg--line-height: 1.3;
+  --text-lg--letter-spacing: -0.015em;
+
+  --text-xl: 1.625rem;
+  --text-xl--font-weight: 600;
+  --text-xl--line-height: 1.2;
+  --text-xl--letter-spacing: -0.03em;
+
+  --text-2xl: 1.875rem;
+  --text-2xl--font-weight: 600;
+  --text-2xl--line-height: 1.1;
+  --text-2xl--letter-spacing: -0.04em;
+}
+
+/* Margins and Spacing */
+@theme {
+  --spacing-xxs:    0.125rem; 
+  --spacing-xs:     0.25rem; 
+  --spacing-sm:     0.625rem; 
+  --spacing-base:   1.5rem; 
+  --spacing-lg:     2rem;     
+  --spacing-xl:     3rem;     
+}
+
+/* Fonts */
+@theme {
+  --font-base:    var(--font-rethink-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Color Palette */
+@theme {
+  --color-background:     oklch(0.10 0.003 25); 
+  --color-primary:        oklch(0.93 0.003 25);                                                                                                                                                                --color-primary: oklch(0.93 0.003 25);                                                                                                                                                                  
+  --color-primary-muted:  oklch(0.65 0.003 25);   
+  --color-accent:         oklch(0.78 0.10 65);
+  --color-accent-dark:    oklch(0.45 0.15 65);
+}
+
+/* Application layout margins */
+@utility layout-root {
+  display:          flex;
+  flex-direction:   column;
+  min-height:       100dvh;
+}
+
+@utility layout-px {
+  @apply px-5 tablet:px-6 laptop:px-8 max-w-7xl mx-auto w-full;
+}
+
+@utility layout-py {
+  @apply py-7;
+}
+
+/* Responsive Breakpoints */
+@theme {
+  --breakpoint-*:       initial;
+  --breakpoint-mobile:  320px;
+  --breakpoint-tablet:  767px;
+  --breakpoint-laptop:  1024px;
+  --breakpoint-desktop: 1199px;
 }

@@ -1,3 +1,5 @@
+/*
+
 import FooterSocials from './components/FooterSocials';
 import FadeContent from './components/utils/FadeContent';
 
@@ -38,3 +40,5 @@ export default function Home() {
     </section>
   );
 }
+
+*/
