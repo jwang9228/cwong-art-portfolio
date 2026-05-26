@@ -1,1 +1,2 @@
 export const PORTFOLIO_NAME = 'Courtney Wong';
+export const JOB_DESCRIPTION = 'ILLUSTRATION〡CONCEPT ART〡CHARACTER DESIGN';

@@ -1,5 +1,6 @@
 'use client';
 import Hero from './Hero';
+import Header from './navigation/Header';
 import { motion, Variants } from 'motion/react';
 
 const PAGE_STAGGER = 0.2;
@@ -20,6 +21,7 @@ export default function RootPage() {
 		<div className='layout-root'>
 			<main className='grow'>
 				<motion.section variants={PAGE_VARIANTS} initial='hidden' animate='show'>
+					<Header />
 					<Hero />
 				</motion.section>
 			</main>

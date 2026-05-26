@@ -3,9 +3,10 @@ import { motion, Variants } from 'motion/react';
 import { ReactNode, ElementType, memo } from 'react';
 
 const FADE_UP_PX_TRANSLATION = 20;
-const FADE_UP_DURATION = 0.45;
+const FADE_UP_DURATION = 0.8;
 const FADE_UP_EASE = 'easeOut';
-const FADE_IN_DURATION = 0.25;
+const FADE_IN_DURATION = 0.4;
+
 const FADE_UP_VARIANTS: Variants = {
   hidden: { opacity: 0, y: FADE_UP_PX_TRANSLATION },
   show: {
