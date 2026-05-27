@@ -18,9 +18,15 @@ const PAGE_VARIANTS: Variants = {
 
 export default function RootPage() {
 	return (
-		<div className='layout-root inset-0 bg-linear-to-b 
-      	from-violet-500/40 via-purple-400/45 to-transparent'>
-			<main className='grow relative'>
+		<div className='layout-root relative'>
+			<div className='absolute inset-0 -z-20
+				bg-[url(/landing-mobile.jpg)] bg-cover bg-center' />
+			
+			<div className='absolute inset-0 -z-10 bg-linear-to-b 
+				from-violet-800/55 via-violet-600/40
+				to-transparent pointer-events-none' />
+
+			<main className='grow relative z-10'>
 				<motion.section 
 					variants={PAGE_VARIANTS} 
 					initial='hidden' 

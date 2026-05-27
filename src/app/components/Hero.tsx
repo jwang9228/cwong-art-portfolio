@@ -1,4 +1,5 @@
-import { JOB_DESCRIPTION, PORTFOLIO_NAME } from '../lib/constants';
+import React from 'react';
+import { JOB_TITLES, PORTFOLIO_NAME } from '../lib/constants';
 import Fade from './utils/Fade';
 import { motion } from 'motion/react';
 
@@ -16,17 +17,29 @@ export default function Hero() {
 		<motion.section
 			variants={HERO_VARIANTS}
 			className='flex flex-col justify-center items-center 
-				layout-px gap-y-4.5 text-center min-h-[80vh]'
+				layout-px gap-y-base text-center min-h-[80vh]'
 		>
 			<Fade type='up' as='div'>
-				<h1 className='text-2xl tracking-tight'>
+				<h1 className='text-4xl tracking-tight font-medium drop-shadow-md'>
 					{PORTFOLIO_NAME}
 				</h1>
 			</Fade>
-			<Fade type='up' as='div'>
-				<h2 className='text-xs uppercase leading-loose opacity-90'>
-					{JOB_DESCRIPTION}
-				</h2>
+			<Fade type='up' as='div' className='flex flex-col tablet:flex-row
+				gap-x-4 gap-y-3'
+			>
+				{JOB_TITLES.map((title, index) => (
+					<React.Fragment key={title}>
+						<h2 className='text-xs uppercase tracking-[0.2em] drop-shadow-md'>
+              {title}
+            </h2>
+
+						{index < JOB_TITLES.length - 1 && (
+              <span className='hidden tablet:inline-block text-xs opacity-90 drop-shadow-md'>
+                〡
+              </span>
+            )}
+					</React.Fragment>
+				))}
 			</Fade>
 		</motion.section>
 	)

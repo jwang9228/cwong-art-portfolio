@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Fade from '../utils/Fade';
 
-const MENU_SIZE = 'size-10'; // Clickable hitbox size
+const MENU_SIZE = 'size-12'; // Clickable hitbox size
 
 // Dimensions
-const LINE_WIDTH_CLOSED = '20px';
-const LINE_WIDTH_OPEN = '24px';
-const LINE_HEIGHT_CLOSED = 2; // in px
+const LINE_WIDTH_CLOSED = '24px';
+const LINE_WIDTH_OPEN = '28px';
+const LINE_HEIGHT_CLOSED = 2.5; // in px
 const LINE_HEIGHT_OPEN = 3;   // in px
 
 // Spacing Calculations
-const Y_OFFSET = 4;
+const Y_OFFSET = 5;
 
 // Animation Properties
 const ROTATION_DEGREES = 45;
@@ -26,7 +26,7 @@ export default function Header() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`relative flex justify-center items-center 
-          ${MENU_SIZE} focus:outline-none opacity-85`}
+          ${MENU_SIZE} focus:outline-none opacity-90`}
       >
         <motion.span
           initial={false}
