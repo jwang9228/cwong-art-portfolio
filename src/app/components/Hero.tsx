@@ -6,8 +6,7 @@ const HERO_VARIANTS = {
 	hidden: {},
 	show: {
 		transition: {
-			delayChildren: 0.2,
-			staggerChildren: 0.15
+			staggerChildren: 0.2
 		}
 	}
 };
@@ -16,14 +15,18 @@ export default function Hero() {
 	return (
 		<motion.section
 			variants={HERO_VARIANTS}
-			initial='hidden'
-			whileInView='show'
+			className='flex flex-col justify-center items-center 
+				layout-px gap-y-4.5 text-center min-h-[80vh]'
 		>
 			<Fade type='up' as='div'>
-				{PORTFOLIO_NAME}
+				<h1 className='text-2xl tracking-tight'>
+					{PORTFOLIO_NAME}
+				</h1>
 			</Fade>
 			<Fade type='up' as='div'>
-				{JOB_DESCRIPTION}
+				<h2 className='text-xs uppercase leading-loose opacity-90'>
+					{JOB_DESCRIPTION}
+				</h2>
 			</Fade>
 		</motion.section>
 	)

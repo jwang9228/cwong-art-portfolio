@@ -4,7 +4,7 @@ import Header from './navigation/Header';
 import { motion, Variants } from 'motion/react';
 
 const PAGE_STAGGER = 0.2;
-const PAGE_DELAY = 0.1;
+const PAGE_DELAY = 0.2;
 const PAGE_VARIANTS: Variants = {
 	hidden: { opacity: 0 },
 	show: {
@@ -18,9 +18,14 @@ const PAGE_VARIANTS: Variants = {
 
 export default function RootPage() {
 	return (
-		<div className='layout-root'>
-			<main className='grow'>
-				<motion.section variants={PAGE_VARIANTS} initial='hidden' animate='show'>
+		<div className='layout-root inset-0 bg-linear-to-b 
+      	from-violet-500/40 via-purple-400/45 to-transparent'>
+			<main className='grow relative'>
+				<motion.section 
+					variants={PAGE_VARIANTS} 
+					initial='hidden' 
+					animate='show'
+				>
 					<Header />
 					<Hero />
 				</motion.section>
