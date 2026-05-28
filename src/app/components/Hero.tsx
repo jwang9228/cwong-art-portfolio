@@ -20,7 +20,7 @@ export default function Hero() {
 				layout-px gap-y-base text-center min-h-[80vh]'
 		>
 			<Fade type='up' as='div'>
-				<h1 className='text-4xl tracking-tight font-medium drop-shadow-md'>
+				<h1 className='text-4xl font-semibold drop-shadow-md font-accent'>
 					{PORTFOLIO_NAME}
 				</h1>
 			</Fade>

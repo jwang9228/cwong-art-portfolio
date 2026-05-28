@@ -69,6 +69,7 @@
 /* Fonts */
 @theme {
   --font-base:    var(--font-rethink-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-accent:  var(--font-philosopher), serif;
 }
 
 /* Color Palette */

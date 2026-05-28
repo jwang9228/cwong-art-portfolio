@@ -1,4 +1,4 @@
-import { Rethink_Sans } from "next/font/google";
+import { Rethink_Sans, Philosopher } from 'next/font/google';
 import './globals.css';
 import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
@@ -6,6 +6,12 @@ import { ReactNode } from 'react';
 const rethinkSans = Rethink_Sans({
   subsets: ['latin'],
   variable: '--font-rethink-sans'
+});
+
+const philosopher = Philosopher({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-philosopher'
 });
 
 export const metadata: Metadata = {
@@ -25,7 +31,7 @@ export default function Layout({ children } : { children: ReactNode }) {
   return (
     <html 
       lang='en' 
-      className={`${rethinkSans.variable}`}
+      className={`${rethinkSans.variable} ${philosopher.variable}`}
     >
       <body className='font-base antialiased'>
         {children}
