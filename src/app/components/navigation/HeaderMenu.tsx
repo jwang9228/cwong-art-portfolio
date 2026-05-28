@@ -15,15 +15,15 @@ const Y_OFFSET = 5;
 
 // Animation Properties
 const ROTATION_DEGREES = 45;
-const ANIM_DURATION = 0.3;
+const ANIM_DURATION = 0.4;
 const ANIM_EASE = [0.22, 1, 0.36, 1] as const;
 
-export default function HeaderMobile() {
+export default function HeaderMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <header className='fixed top-0 right-0 z-60 p-4'>
+      <section className='absolute top-0 right-0 z-60 p-4'>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={`relative flex justify-center items-center 
@@ -39,7 +39,7 @@ export default function HeaderMobile() {
             }}
             transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
             className={`absolute rounded-full origin-center
-              ${isOpen ? 'bg-background' : 'bg-primary'} transition-colors duration-200`}
+              ${isOpen ? 'bg-background/80' : 'bg-primary'} transition-colors duration-300`}
           />
 
           <motion.span
@@ -52,10 +52,10 @@ export default function HeaderMobile() {
             }}
             transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
             className={`absolute rounded-full origin-center
-              ${isOpen ? 'bg-background' : 'bg-primary'} transition-colors duration-200`}
+              ${isOpen ? 'bg-background/80' : 'bg-primary'} transition-colors duration-300`}
           />
         </button>
-      </header>
+      </section>
 
       <NavigationDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
     </>

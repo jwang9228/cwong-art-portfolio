@@ -75,10 +75,8 @@
 /* Color Palette */
 @theme {
   --color-background:     oklch(0.10 0.003 25); 
-  --color-primary:        oklch(0.98 0.003 25);                                                                                                                                                                --color-primary: oklch(0.93 0.003 25);                                                                                                                                                                  
-  --color-primary-muted:  oklch(0.70 0.003 25);   
+  --color-primary:        oklch(0.98 0.003 25);                                                                                                                                                                                                                                                                                                    
   --color-accent:         oklch(0.78 0.10 65);
-  --color-accent-dark:    oklch(0.45 0.15 65);
 }
 
 /* Application layout margins */

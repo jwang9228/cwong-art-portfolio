@@ -1,6 +1,9 @@
+import PageHeader from '../navigation/PageHeader';
+
 export default function Illustration() {
   return (
-    // TODO: gradient here?
+    <PageHeader />
+    /*
     <div className='flex flex-col bg-white gap-y-4 px-6 pt-24 pb-8'>
       <img 
         src={`/illustration/xiao.jpg`}
@@ -23,5 +26,6 @@ export default function Illustration() {
         loading='lazy' 
         alt='' />
     </div>
+    */
   )
 }
