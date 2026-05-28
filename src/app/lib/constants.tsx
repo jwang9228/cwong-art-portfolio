@@ -1,6 +1,6 @@
 import { IconType } from 'react-icons';
-import { AiOutlineMail } from 'react-icons/ai';
-import { PiTwitterLogoDuotone, PiInstagramLogoDuotone } from 'react-icons/pi';
+import { GoMail } from 'react-icons/go';
+import { PiTwitterLogo, PiInstagramLogo } from 'react-icons/pi';
 
 export const PORTFOLIO_NAME = 'Courtney Wong';
 export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
@@ -36,15 +36,15 @@ export interface SocialItem {
 
 export const SOCIALS = [
   {
-    icon: PiTwitterLogoDuotone,
+    icon: PiTwitterLogo,
     href: 'https://twitter.com/wongtonsoop'
   },
   { 
-    icon: PiInstagramLogoDuotone,
+    icon: PiInstagramLogo,
     href: 'https://instagram.com/wongtonsoop'
   },
   {
-    icon: AiOutlineMail,
+    icon: GoMail,
     href: 'mailto:cwongart@gmail.com'
   }
 ];
