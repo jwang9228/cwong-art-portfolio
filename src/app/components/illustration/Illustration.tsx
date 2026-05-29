@@ -1,8 +1,6 @@
-import PageHeader from '../navigation/PageHeader';
-
 export default function Illustration() {
   return (
-    <PageHeader />
+    <>Test</>
     /*
     <div className='flex flex-col bg-white gap-y-4 px-6 pt-24 pb-8'>
       <img 

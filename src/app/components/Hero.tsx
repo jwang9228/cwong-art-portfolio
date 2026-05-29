@@ -1,13 +1,13 @@
-import React from 'react';
-import { JOB_TITLES, PORTFOLIO_NAME } from '../lib/constants';
-import Fade from './utils/Fade';
+import { EMAIL, JOB_TITLES } from '../lib/constants';
 import { motion } from 'motion/react';
+import Fade from './utils/Fade';
+import Link from 'next/link';
 
 const HERO_VARIANTS = {
 	hidden: {},
 	show: {
 		transition: {
-			staggerChildren: 0.2
+			staggerChildren: 0.15
 		}
 	}
 };
@@ -16,35 +16,28 @@ export default function Hero() {
 	return (
 		<motion.section
 			variants={HERO_VARIANTS}
-			className='flex flex-col justify-center items-center 
-				layout-px gap-y-base text-center min-h-[80vh]'
+			className='flex flex-col items-center gap-y-xl text-center'
 		>
-			<Fade type='up' as='div'>
-				<h1 className='text-4xl text-background 
-					font-semibold font-accent drop-shadow-md'
-				>
-					{PORTFOLIO_NAME}
-				</h1>
-			</Fade>
-			<Fade type='up' as='div' className='flex flex-col tablet:flex-row
-				gap-x-4 gap-y-3'
-			>
-				{JOB_TITLES.map((title, index) => (
-					<React.Fragment key={title}>
-						<h2 className='text-xs text-background uppercase 
-							tracking-[0.2em] drop-shadow-md'
-						>
+			<div className='flex flex-col items-center gap-y-base'>
+        {JOB_TITLES.map(title => (
+          <Fade key={title}>
+            <h1 className='text-xl uppercase tracking-[0.2em] font-bold'>
               {title}
-            </h2>
+            </h1>
+          </Fade>
+        ))}
+      </div>
 
-						{index < JOB_TITLES.length - 1 && (
-              <span className='hidden tablet:inline-block text-xs text-background 
-								opacity-90 drop-shadow-md'>
-                〡
-              </span>
-            )}
-					</React.Fragment>
-				))}
+			<Fade>
+				<Link
+					href={`mailto:${EMAIL}`}
+					target='_blank'
+					rel='noopener noreferrer'
+					className='w-fit px-4 py-sm text-sm text-background bg-primary
+						font-medium tracking-widest'
+				>
+					{EMAIL}
+				</Link>
 			</Fade>
 		</motion.section>
 	)

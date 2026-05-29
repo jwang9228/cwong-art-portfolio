@@ -3,6 +3,7 @@ import { GoMail } from 'react-icons/go';
 import { PiTwitterLogo, PiInstagramLogo } from 'react-icons/pi';
 
 export const PORTFOLIO_NAME = 'Courtney Wong';
+export const EMAIL = 'cwongart@gmail.com';
 export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
 
 export interface NavItem {
@@ -45,6 +46,6 @@ export const SOCIALS = [
   },
   {
     icon: GoMail,
-    href: 'mailto:cwongart@gmail.com'
+    href: `mailto:${EMAIL}`
   }
 ];

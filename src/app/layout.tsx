@@ -1,7 +1,8 @@
 import { Rethink_Sans, Philosopher } from 'next/font/google';
-import './globals.css';
 import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
+import PageHeader from './components/navigation/PageHeader';
+import './globals.css';
 
 const rethinkSans = Rethink_Sans({
   subsets: ['latin'],
@@ -33,7 +34,8 @@ export default function Layout({ children } : { children: ReactNode }) {
       lang='en' 
       className={`${rethinkSans.variable} ${philosopher.variable}`}
     >
-      <body className='font-base antialiased'>
+      <body className='flex flex-col font-base antialiased'>
+        <PageHeader />
         {children}
       </body>
     </html>

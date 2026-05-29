@@ -27,39 +27,37 @@ export default function HeaderMenu({ transitionColors = false } : HeaderMenuProp
 
   return (
     <>
-      <section className='absolute top-0 right-0 z-60 p-4'>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className={`relative flex justify-center items-center 
-            ${MENU_SIZE} focus:outline-none opacity-90`}
-        >
-          <motion.span
-            initial={false}
-            animate={{
-              y: isOpen ? 0 : -Y_OFFSET,
-              rotate: isOpen ? ROTATION_DEGREES : 0,
-              width: isOpen ? LINE_WIDTH_OPEN : LINE_WIDTH_CLOSED,
-              height: isOpen ? `${LINE_HEIGHT_OPEN}px` : `${LINE_HEIGHT_CLOSED}px`,
-            }}
-            transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
-            className={`absolute rounded-full origin-center transition-colors duration-300
-              ${transitionColors && !isOpen ? 'bg-background/80' : 'bg-primary/85'}`}
-          />
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`relative z-60 flex justify-center items-center 
+          ${MENU_SIZE} focus:outline-none opacity-90`}
+      >
+        <motion.span
+          initial={false}
+          animate={{
+            y: isOpen ? 0 : -Y_OFFSET,
+            rotate: isOpen ? ROTATION_DEGREES : 0,
+            width: isOpen ? LINE_WIDTH_OPEN : LINE_WIDTH_CLOSED,
+            height: isOpen ? `${LINE_HEIGHT_OPEN}px` : `${LINE_HEIGHT_CLOSED}px`,
+          }}
+          transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
+          className={`absolute rounded-full origin-center transition-colors duration-300
+            ${transitionColors && !isOpen ? 'bg-background/80' : 'bg-primary/85'}`}
+        />
 
-          <motion.span
-            initial={false}
-            animate={{
-              y: isOpen ? 0 : Y_OFFSET,
-              rotate: isOpen ? -ROTATION_DEGREES : 0,
-              width: isOpen ? LINE_WIDTH_OPEN : LINE_WIDTH_CLOSED,
-              height: isOpen ? `${LINE_HEIGHT_OPEN}px` : `${LINE_HEIGHT_CLOSED}px`,
-            }}
-            transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
-            className={`absolute rounded-full origin-center transition-colors duration-300
-              ${transitionColors && !isOpen ? 'bg-background/80' : 'bg-primary/85'}`}
-          />
-        </button>
-      </section>
+        <motion.span
+          initial={false}
+          animate={{
+            y: isOpen ? 0 : Y_OFFSET,
+            rotate: isOpen ? -ROTATION_DEGREES : 0,
+            width: isOpen ? LINE_WIDTH_OPEN : LINE_WIDTH_CLOSED,
+            height: isOpen ? `${LINE_HEIGHT_OPEN}px` : `${LINE_HEIGHT_CLOSED}px`,
+          }}
+          transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
+          className={`absolute rounded-full origin-center transition-colors duration-300
+            ${transitionColors && !isOpen ? 'bg-background/80' : 'bg-primary/85'}`}
+        />
+      </button>
 
       <NavigationDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
     </>

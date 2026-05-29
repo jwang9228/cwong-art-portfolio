@@ -7,7 +7,7 @@ const DRAWER_VARIANTS = {
   hidden: {},
 	show: {
 		transition: {
-      delayChildren: 0.3,
+      delayChildren: 0.25,
 			staggerChildren: 0.1
 		}
 	}
@@ -48,14 +48,15 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
               initial='hidden'
               animate='show'
               className='flex flex-col justify-between 
-                h-full px-10 pt-32 pb-10'
+                h-full px-10 pt-24 pb-10'
             >
-              <div className='flex flex-col gap-y-16'>
+              <div className='flex flex-col gap-y-12'>
                 {NAV_TABS.map(nav => (
                   <Fade key={nav.href}>
                     <Link
                       href={nav.href}
-                      className='text-lg font-light uppercase tracking-widest text-primary
+                      onClick={() => setIsOpen(false)}
+                      className='text-lg font-normal uppercase tracking-widest text-primary
                        hover:text-accent transition-colors duration-300'
                     >
                       {nav.label}

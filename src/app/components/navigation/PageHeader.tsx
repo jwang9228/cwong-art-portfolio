@@ -2,23 +2,20 @@
 
 import Link from 'next/link';
 import HeaderMenu from './HeaderMenu';
-import Fade from '../utils/Fade';
+import { PORTFOLIO_NAME } from '../../lib/constants';
 
 export default function PageHeader() {
   return (
-    // TODO: this is not triggering?
-    <Fade 
-      type='in' 
-      as='header' 
-      className=''
-    >
+    <header className='flex justify-between items-center py-2.5'>
       <Link 
         href={'/'}
-        className=''
+        className='text-lg uppercase font-semibold tracking-wider px-6'
       >
-        Signature Icon
+        {PORTFOLIO_NAME}
       </Link>
-      <HeaderMenu />
-    </Fade>
+      <div className='px-5'>
+        <HeaderMenu />
+      </div>
+    </header>
   )
 }

@@ -1,7 +1,9 @@
 'use client';
-import Hero from './Hero';
+
 import { motion, Variants } from 'motion/react';
-import HeaderMenu from './navigation/HeaderMenu';
+import Hero from './Hero';
+import Image from 'next/image';
+import Fade from './utils/Fade';
 
 const PAGE_STAGGER = 0.2;
 const PAGE_DELAY = 0.2;
@@ -18,28 +20,24 @@ const PAGE_VARIANTS: Variants = {
 
 export default function RootPage() {
 	return (
-		<div className='layout-root relative'>
-			<div className='absolute inset-0 -z-20
-				bg-[url(/landing-mobile.jpg)] laptop:bg-[url(/landing.jpg)]
-				bg-cover bg-center' />
-			
-			<div className='absolute inset-0 -z-10 bg-linear-to-b 
-				from-violet-800/55 via-violet-600/40
-				to-transparent pointer-events-none' />
+		<motion.main
+			variants={PAGE_VARIANTS} 
+			initial='hidden' 
+			animate='show'
+		>
+			<Fade type='in' className='relative w-full h-[35dvh]'>
+				<Image
+					src='/landing.jpg'
+					alt='Portfolio Banner'
+					fill
+					priority
+					className='object-cover object-center'
+				/>
+			</Fade>
 
-			<div className='laptop:hidden'>
-				<HeaderMenu transitionColors />
+			<div className='layout-px layout-py'>
+				<Hero />
 			</div>
-
-			<main className='grow relative z-10'>
-				<motion.section 
-					variants={PAGE_VARIANTS} 
-					initial='hidden' 
-					animate='show'
-				>
-					<Hero />
-				</motion.section>
-			</main>
-		</div>
+		</motion.main>
 	)
 }
