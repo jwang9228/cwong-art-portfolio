@@ -30,7 +30,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition= {{ duration: 0.3 }}
-            className='fixed inset-0 z-40 bg-background/50 pointer-events-auto'
+            className='fixed inset-0 z-40 bg-primary/50 pointer-events-auto'
             onClick={() => setIsOpen(false)}
           />
 
@@ -41,7 +41,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className='fixed top-0 right-0 bottom-0 w-4/5 tablet:w-1/2 z-50 
-              bg-primary shadow-2xl'
+              bg-background shadow-2xl'
           >
             <motion.section 
               variants={DRAWER_VARIANTS}
@@ -55,7 +55,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
                   <Fade key={nav.href}>
                     <Link
                       href={nav.href}
-                      className='text-lg font-light uppercase tracking-widest text-background
+                      className='text-lg font-light uppercase tracking-widest text-primary
                        hover:text-accent transition-colors duration-300'
                     >
                       {nav.label}
@@ -75,7 +75,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
                       target='_blank'
                       rel='noopener noreferrer'
                     >
-                      <Icon size={32} className='text-background hover:text-accent
+                      <Icon size={32} className='text-primary hover:text-accent
                         transition-colors duration-300' />
                     </Link>
                   )

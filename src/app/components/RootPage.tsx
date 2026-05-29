@@ -28,7 +28,7 @@ export default function RootPage() {
 				to-transparent pointer-events-none' />
 
 			<div className='laptop:hidden'>
-				<HeaderMenu />
+				<HeaderMenu transitionColors />
 			</div>
 
 			<main className='grow relative z-10'>

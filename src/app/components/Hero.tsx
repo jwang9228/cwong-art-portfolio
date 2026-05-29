@@ -20,7 +20,9 @@ export default function Hero() {
 				layout-px gap-y-base text-center min-h-[80vh]'
 		>
 			<Fade type='up' as='div'>
-				<h1 className='text-4xl font-semibold drop-shadow-md font-accent'>
+				<h1 className='text-4xl text-background 
+					font-semibold font-accent drop-shadow-md'
+				>
 					{PORTFOLIO_NAME}
 				</h1>
 			</Fade>
@@ -29,12 +31,15 @@ export default function Hero() {
 			>
 				{JOB_TITLES.map((title, index) => (
 					<React.Fragment key={title}>
-						<h2 className='text-xs uppercase tracking-[0.2em] drop-shadow-md'>
+						<h2 className='text-xs text-background uppercase 
+							tracking-[0.2em] drop-shadow-md'
+						>
               {title}
             </h2>
 
 						{index < JOB_TITLES.length - 1 && (
-              <span className='hidden tablet:inline-block text-xs opacity-90 drop-shadow-md'>
+              <span className='hidden tablet:inline-block text-xs text-background 
+								opacity-90 drop-shadow-md'>
                 〡
               </span>
             )}
