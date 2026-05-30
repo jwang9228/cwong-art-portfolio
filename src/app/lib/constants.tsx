@@ -6,6 +6,8 @@ export const PORTFOLIO_NAME = 'Courtney Wong';
 export const EMAIL = 'cwongart@gmail.com';
 export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
 
+export const LANDING_IMAGE_URL = 'https://res.cloudinary.com/dosmteb0a/image/upload/v1780127439/landing_lr9emr.jpg';
+
 export interface NavItem {
   label: string,
   href: string

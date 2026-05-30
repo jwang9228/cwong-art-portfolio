@@ -4,6 +4,7 @@ import { motion, Variants } from 'motion/react';
 import Hero from './Hero';
 import Image from 'next/image';
 import Fade from './utils/Fade';
+import { LANDING_IMAGE_URL } from '../lib/constants';
 
 const PAGE_STAGGER = 0.2;
 const PAGE_DELAY = 0.2;
@@ -27,7 +28,7 @@ export default function RootPage() {
 		>
 			<Fade type='in' className='relative w-full h-[35dvh]'>
 				<Image
-					src='/landing.jpg'
+					src={LANDING_IMAGE_URL}
 					alt='Portfolio Banner'
 					fill
 					priority
