@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, Variants } from 'motion/react';
-import Hero from './Hero';
+import Hero from './hero/Hero';
 import Image from 'next/image';
 import Fade from './utils/Fade';
 import { LANDING_IMAGE_URL } from '../lib/constants';

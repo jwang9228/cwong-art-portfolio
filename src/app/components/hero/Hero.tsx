@@ -1,6 +1,6 @@
-import { EMAIL, JOB_TITLES } from '../lib/constants';
+import { EMAIL, JOB_TITLES } from '../../lib/constants';
 import { motion } from 'motion/react';
-import Fade from './utils/Fade';
+import Fade from '../utils/Fade';
 import Link from 'next/link';
 
 const HERO_VARIANTS = {
