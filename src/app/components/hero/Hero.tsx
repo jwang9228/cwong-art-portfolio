@@ -4,6 +4,7 @@ import { EMAIL, JOB_TITLES } from '../../lib/constants';
 import { motion } from 'motion/react';
 import Fade from '../utils/Fade';
 import Link from 'next/link';
+import Banner from './Banner';
 
 const HERO_VARIANTS = {
 	hidden: {},
@@ -16,33 +17,37 @@ const HERO_VARIANTS = {
 
 export default function Hero({ children }: { children: React.ReactNode }) {
 	return (
-		<motion.section
-			variants={HERO_VARIANTS}
-			className='flex flex-col items-center gap-y-xl text-center'
-		>
-			<div className='flex flex-col items-center gap-y-base'>
-        {JOB_TITLES.map(title => (
-          <Fade key={title}>
-            <h1 className='text-xl uppercase tracking-[0.2em] font-bold'>
-              {title}
-            </h1>
-          </Fade>
-        ))}
-      </div>
+		<>
+			<Banner />
+			
+			<motion.section
+				variants={HERO_VARIANTS}
+				className='flex flex-col items-center gap-y-xl text-center layout-px layout-py'
+			>
+				<div className='flex flex-col items-center gap-y-base'>
+					{JOB_TITLES.map(title => (
+						<Fade key={title}>
+							<h1 className='text-xl uppercase tracking-[0.2em] font-bold'>
+								{title}
+							</h1>
+						</Fade>
+					))}
+				</div>
 
-			<Fade>
-				<Link
-					href={`mailto:${EMAIL}`}
-					target='_blank'
-					rel='noopener noreferrer'
-					className='w-fit px-4 py-sm text-sm text-background bg-primary
-						font-medium tracking-widest'
-				>
-					{EMAIL}
-				</Link>
-			</Fade>
+				<Fade>
+					<Link
+						href={`mailto:${EMAIL}`}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='w-fit px-4 py-sm text-sm text-background bg-primary
+							font-medium tracking-widest'
+					>
+						{EMAIL}
+					</Link>
+				</Fade>
 
-			{children}
-		</motion.section>
+				{children}
+			</motion.section>
+		</>
 	)
 }

@@ -19,7 +19,7 @@ export default async function HeroGallery() {
     .execute();
 
   return (
-    <section className='flex flex-col w-full gap-y-9 tablet:gap-y-xl'>
+    <section className='flex flex-col w-full gap-y-base'>
       {resources.map((art: any) => (
         <div key={art.asset_id} className='relative w-full h-[30vh]'>
           <Image

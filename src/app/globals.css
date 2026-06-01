@@ -87,7 +87,7 @@
 }
 
 @utility layout-px {
-  @apply px-5 tablet:px-6 laptop:px-8 max-w-7xl mx-auto w-full;
+  @apply px-4;
 }
 
 @utility layout-py {
