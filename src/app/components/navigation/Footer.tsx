@@ -3,7 +3,7 @@ import { COPYRIGHT, SOCIALS } from '../../lib/constants';
 
 export default function Footer() {
   return (
-    <footer className='flex flex-col items-center layout-px py-base gap-y-5'>
+    <footer className='flex flex-col items-center layout-px layout-py gap-y-base'>
       <div className='flex justify-start items-center gap-x-10'>
         {SOCIALS.map(social => {
           const Icon = social.icon
@@ -15,7 +15,7 @@ export default function Footer() {
               target='_blank'
               rel='noopener noreferrer'
             >
-              <Icon size={24} className='text-primary hover:text-accent
+              <Icon size={28} className='text-primary hover:text-accent
                 transition-colors duration-300' />
             </Link>
           )

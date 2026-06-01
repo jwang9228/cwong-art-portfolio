@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import Image from 'next/image';
+import Fade from '../utils/Fade';
 
 // Cloudinary server authentication
 cloudinary.config({
@@ -20,15 +21,20 @@ export default async function HeroGallery() {
 
   return (
     <section className='flex flex-col w-full gap-y-base'>
-      {resources.map((art: any) => (
-        <div key={art.asset_id} className='relative w-full h-[30vh]'>
+      {resources.map((art: any, index: number) => (
+        <Fade 
+          // First image is staggered by parent. Others will trigger on scroll
+          inView={index > 0}
+          key={art.asset_id} 
+          className='relative w-full h-[30vh]'
+        >
           <Image
             src={art.secure_url}
             alt='Gallery Artwork'
             fill
             className='object-contain'
           />
-        </div>
+        </Fade>
       ))}
     </section>
   )

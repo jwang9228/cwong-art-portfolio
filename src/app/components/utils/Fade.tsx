@@ -6,7 +6,7 @@ import { ReactNode, ElementType, memo } from 'react';
 const FADE_UP_PX_TRANSLATION = 10;
 const FADE_UP_DURATION = 0.4;
 const FADE_UP_EASE = [0.2, 0.65, 0.3, 0.9] as const;
-const FADE_IN_DURATION = 0.4;
+const FADE_IN_DURATION = 0.3;
 
 const FADE_UP_VARIANTS: Variants = {
   hidden: { opacity: 0, y: FADE_UP_PX_TRANSLATION },
@@ -57,7 +57,7 @@ function Fade({
   const triggerProps = inView ? {
     initial: 'hidden',
     whileInView: 'show',
-    viewport: { once: true, amount: 0 }
+    viewport: { once: true, amount: 0.2 }
   } : {};
 
   return (
