@@ -1,5 +1,3 @@
-'use client';
-
 import Header from './header/Header';
 import { useState, useEffect } from 'react';
 

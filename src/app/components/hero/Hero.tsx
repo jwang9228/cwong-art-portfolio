@@ -1,3 +1,5 @@
+'use client';
+
 import { EMAIL, JOB_TITLES } from '../../lib/constants';
 import { motion } from 'motion/react';
 import Fade from '../utils/Fade';
@@ -12,7 +14,7 @@ const HERO_VARIANTS = {
 	}
 };
 
-export default function Hero() {
+export default function Hero({ children }: { children: React.ReactNode }) {
 	return (
 		<motion.section
 			variants={HERO_VARIANTS}
@@ -39,6 +41,8 @@ export default function Hero() {
 					{EMAIL}
 				</Link>
 			</Fade>
+
+			{children}
 		</motion.section>
 	)
 }

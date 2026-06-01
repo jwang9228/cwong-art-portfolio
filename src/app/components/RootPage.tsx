@@ -1,10 +1,10 @@
-'use client';
-
-import { motion, Variants } from 'motion/react';
 import Hero from './hero/Hero';
 import Image from 'next/image';
 import Fade from './utils/Fade';
+import { motion, Variants } from 'motion/react';
 import { LANDING_IMAGE_URL } from '../lib/constants';
+import HeroGallery from './hero/HeroGallery';
+import PageWrapper from './utils/PageWrapper';
 
 const PAGE_STAGGER = 0.2;
 const PAGE_DELAY = 0.2;
@@ -21,11 +21,7 @@ const PAGE_VARIANTS: Variants = {
 
 export default function RootPage() {
 	return (
-		<motion.main
-			variants={PAGE_VARIANTS} 
-			initial='hidden' 
-			animate='show'
-		>
+		<PageWrapper>
 			<Fade type='in' className='relative w-full h-[35dvh]'>
 				<Image
 					src={LANDING_IMAGE_URL}
@@ -37,8 +33,10 @@ export default function RootPage() {
 			</Fade>
 
 			<div className='layout-px layout-py'>
-				<Hero />
+				<Hero>
+					<HeroGallery />
+				</Hero>
 			</div>
-		</motion.main>
+		</PageWrapper>
 	)
 }

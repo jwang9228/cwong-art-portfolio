@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import HeaderMenu from './HeaderMenu';
 import { PORTFOLIO_NAME } from '../../lib/constants';
