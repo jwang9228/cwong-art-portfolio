@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { NAV_TABS, SOCIALS } from '../../lib/constants';
 import Fade from '../utils/Fade';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const DRAWER_VARIANTS = {
   hidden: {},
@@ -19,6 +20,8 @@ interface NavigationDrawerProps {
 }
 
 export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawerProps) {
+  const pathname = usePathname();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -56,8 +59,11 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
                     <Link
                       href={nav.href}
                       onClick={() => setIsOpen(false)}
-                      className='text-lg font-normal uppercase tracking-widest text-primary
-                       hover:text-accent transition-colors duration-300'
+                      className={`text-lg font-normal uppercase tracking-widest text-primary
+                        ${(pathname === nav.href || pathname === '/') 
+                          ? 'opacity-100 font-medium' : 'opacity-60 hover:opacity-100'
+                        }
+                       hover:text-accent transition-all duration-300`}
                     >
                       {nav.label}
                     </Link>

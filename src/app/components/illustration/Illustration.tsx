@@ -1,6 +1,6 @@
 export default function Illustration() {
   return (
-    <>Test</>
+    <>Illustration</>
     /*
     <div className='flex flex-col bg-white gap-y-4 px-6 pt-24 pb-8'>
       <img 
