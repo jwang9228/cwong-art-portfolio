@@ -43,7 +43,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className='fixed top-0 right-0 bottom-0 w-4/5 tablet:w-1/2 z-50 
+            className='fixed top-0 right-0 bottom-0 w-4/5 tablet:w-5/12 z-50 
               bg-background shadow-2xl'
           >
             <motion.section 
@@ -51,7 +51,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
               initial='hidden'
               animate='show'
               className='flex flex-col justify-between 
-                h-full px-10 pt-24 pb-10'
+                h-full px-10 pt-24 tablet:pt-28 pb-10 tablet:pb-12'
             >
               <div className='flex flex-col gap-y-12'>
                 {NAV_TABS.map(nav => (
@@ -71,7 +71,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
                 ))}
               </div>
               
-              <Fade className='flex justify-start items-center gap-x-xl'>
+              <Fade className='flex justify-start items-center gap-x-xl tablet:gap-x-13'>
                 {SOCIALS.map(social => {
                   const Icon = social.icon
 
@@ -82,8 +82,8 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
                       target='_blank'
                       rel='noopener noreferrer'
                     >
-                      <Icon size={32} className='text-primary hover:text-accent
-                        transition-colors duration-300' />
+                      <Icon className='text-primary hover:text-accent
+                        transition-colors duration-300 size-8 tablet:size-9' />
                     </Link>
                   )
                 })}

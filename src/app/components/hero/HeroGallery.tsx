@@ -20,14 +20,15 @@ export default async function HeroGallery() {
     .execute();
 
   return (
-    <section className='flex flex-col w-full gap-y-base'>
+    <section className='flex flex-col w-full 
+      gap-y-base tablet:gap-y-10 tablet:pt-8'>
       {resources.map((art: any, index: number) => (
         <Fade 
           // First image is staggered by parent. Others will trigger on scroll
           inView={index > 0}
           key={art.asset_id} 
           speed='art'
-          className='relative w-full h-[30vh]'
+          className='relative w-full h-[30vh] tablet:h-[35vh]'
         >
           <Image
             src={art.secure_url}

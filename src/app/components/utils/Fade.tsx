@@ -5,7 +5,7 @@ import { ReactNode, ElementType, memo } from 'react';
 
 // Configurations
 const FADE_UP_UI_PX_TRANSLATION = 10;
-const FADE_UP_ART_PX_TRANSLATION = 15;
+const FADE_UP_ART_PX_TRANSLATION = 30;
 const FADE_IN_DURATION = 0.3;
 
 // UI Timing

@@ -10,7 +10,7 @@ export default function Banner() {
         alt='Portfolio Banner'
         fill
         priority
-        className='object-cover object-center'
+        className='object-cover tablet:object-contain'
       />
     </Fade>
   )

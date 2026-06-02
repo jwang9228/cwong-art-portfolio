@@ -91,7 +91,7 @@
 }
 
 @utility layout-py {
-  @apply py-8;
+  @apply py-8 tablet:py-12;
 }
 
 /* Responsive Breakpoints */
