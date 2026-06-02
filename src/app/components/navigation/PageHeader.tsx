@@ -7,7 +7,8 @@ export default function PageHeader() {
     <header className='flex justify-between items-center py-2.5'>
       <Link 
         href={'/'}
-        className='text-lg uppercase font-semibold tracking-wider px-6'
+        className='text-lg uppercase font-bold font-accent 
+          tracking-widest px-6'
       >
         {PORTFOLIO_NAME}
       </Link>

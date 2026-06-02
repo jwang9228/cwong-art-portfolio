@@ -1,6 +1,7 @@
 import { Rethink_Sans, Philosopher } from 'next/font/google';
 import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
+import PageWrapper from './components/utils/PageWrapper';
 import PageHeader from './components/navigation/PageHeader';
 import Footer from './components/navigation/Footer';
 import './globals.css';
@@ -35,9 +36,13 @@ export default function Layout({ children } : { children: ReactNode }) {
       lang='en' 
       className={`${rethinkSans.variable} ${philosopher.variable}`}
     >
-      <body className='flex flex-col font-base antialiased'>
+      <body className='layout-root font-base antialiased'>
         <PageHeader />
-        {children}
+
+        <PageWrapper>
+          {children}
+        </PageWrapper>
+
         <Footer />
       </body>
     </html>

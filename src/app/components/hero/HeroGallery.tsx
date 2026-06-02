@@ -15,7 +15,7 @@ const HERO_GALLERY_MAX_IMAGES = 30;
 export default async function HeroGallery() {
   const { resources } = await cloudinary.search
     .expression(`folder:${HERO_GALLERY_PATH}`)
-    .sort_by('created_at', 'desc') // Sort by newest entries first
+    .sort_by('public_id', 'asc') // Sort by ascending IDs
     .max_results(HERO_GALLERY_MAX_IMAGES)
     .execute();
 
@@ -26,6 +26,7 @@ export default async function HeroGallery() {
           // First image is staggered by parent. Others will trigger on scroll
           inView={index > 0}
           key={art.asset_id} 
+          speed='art'
           className='relative w-full h-[30vh]'
         >
           <Image
