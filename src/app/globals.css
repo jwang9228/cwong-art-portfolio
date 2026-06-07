@@ -20,50 +20,35 @@
 
 /* Typescale */
 @theme {
-  --text-micro: 0.75rem;
-  --text-micro--font-weight: 500;
-  --text-micro--line-height: 1.5;
-  --text-micro--letter-spacing: 0.05em;
-  
-  --text-xs: 0.875rem;
+  --text-xs: 0.75rem; /* 12px */
   --text-xs--font-weight: 500;
   --text-xs--line-height: 1.6;
   --text-xs--letter-spacing: 0.1em;
 
-  --text-sm: 1rem;
+  --text-sm: 0.875rem; /* 14px */
   --text-sm--font-weight: 400;
   --text-sm--line-height: 1.5;
   --text-sm--letter-spacing: 0em;
 
-  --text-base: 1.125rem;
+  --text-base: 1rem; /* 16px */
   --text-base--font-weight: 400;
   --text-base--line-height: 1.5;
   --text-base--letter-spacing: 0em;
 
-  --text-lg: 1.375rem;
+  --text-lg: 1.25rem; /* 20px */
   --text-lg--font-weight: 500;
   --text-lg--line-height: 1.3;
   --text-lg--letter-spacing: -0.015em;
 
-  --text-xl: 1.625rem;
+  --text-xl: 1.5rem; /* 24px */
   --text-xl--font-weight: 600;
   --text-xl--line-height: 1.2;
   --text-xl--letter-spacing: -0.03em;
 
-  --text-2xl: 1.875rem;
+  --text-2xl: 1.75rem; /* 28px */
   --text-2xl--font-weight: 600;
   --text-2xl--line-height: 1.1;
   --text-2xl--letter-spacing: -0.04em;
-}
-
-/* Margins and Spacing */
-@theme {
-  --spacing-xxs:    0.125rem; 
-  --spacing-xs:     0.25rem; 
-  --spacing-sm:     0.625rem; 
-  --spacing-base:   1.5rem; 
-  --spacing-lg:     2rem;     
-  --spacing-xl:     3rem;     
 }
 
 /* Fonts */

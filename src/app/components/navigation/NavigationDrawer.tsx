@@ -71,7 +71,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
                 ))}
               </div>
               
-              <Fade className='flex justify-start items-center gap-x-xl tablet:gap-x-13'>
+              <Fade className='flex justify-start items-center gap-x-12 tablet:gap-x-13'>
                 {SOCIALS.map(social => {
                   const Icon = social.icon
 

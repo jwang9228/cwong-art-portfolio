@@ -4,9 +4,9 @@ import { COPYRIGHT, SOCIALS } from '../../lib/constants';
 export default function Footer() {
   return (
     <footer className='flex flex-col items-center layout-px layout-py 
-      gap-y-base tablet:gap-y-lg'
+      gap-y-6 tablet:gap-y-8'
     >
-      <div className='flex justify-start items-center gap-x-10 tablet:gap-x-xl'>
+      <div className='flex justify-start items-center gap-x-10 tablet:gap-x-12'>
         {SOCIALS.map(social => {
           const Icon = social.icon
 

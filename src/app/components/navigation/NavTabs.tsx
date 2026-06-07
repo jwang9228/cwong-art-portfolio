@@ -3,7 +3,7 @@ import { NAV_TABS } from '../../lib/constants';
 
 export default function NavTabs() {
   return (
-    <div className='flex gap-x-lg'>
+    <div className='flex gap-x-8'>
       {NAV_TABS.map(nav => (
         <Link
           key={nav.href}

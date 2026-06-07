@@ -21,7 +21,7 @@ export default async function HeroGallery() {
 
   return (
     <section className='flex flex-col w-full 
-      gap-y-base tablet:gap-y-10 tablet:pt-8'>
+      gap-y-6 tablet:gap-y-10 tablet:pt-8'>
       {resources.map((art: any, index: number) => (
         <Fade 
           // First image is staggered by parent. Others will trigger on scroll

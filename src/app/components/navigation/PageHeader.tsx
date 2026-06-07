@@ -6,7 +6,7 @@ import NavTabs from './NavTabs';
 export default function PageHeader() {
   return (
     <header className='flex justify-between items-center 
-      py-2.5 tablet:py-3 laptop:py-base'>
+      py-2.5 tablet:py-3 laptop:py-6'>
       <Link 
         href={'/'}
         className='text-lg tablet:text-xl uppercase font-bold font-accent 
@@ -15,7 +15,7 @@ export default function PageHeader() {
         {PORTFOLIO_NAME}
       </Link>
 
-      <div className='px-5 tablet:px-base laptop:hidden'>
+      <div className='px-5 tablet:px-6 laptop:hidden'>
         <HeaderMenu />
       </div>
 
