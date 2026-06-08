@@ -13,9 +13,9 @@ export default function NavTabs() {
         <Link
           key={nav.href}
           href={nav.href}
-          className={`text-lg font-normal text-primary/90
+          className={`text-lg font-normal text-primary/85
             ${(pathname === nav.href || pathname === '/')
-              ? 'opacity-100' : 'opacity-60 hover:opacity-100'
+              ? 'opacity-100' : 'opacity-70 hover:opacity-100'
             }
             hover:text-accent transition-all duration-300`}
         >

@@ -37,7 +37,7 @@ export default function Hero({ children }: { children: React.ReactNode }) {
 					))}
 				</div>
 
-				<Fade className='transition-transform hover:scale-105'>
+				<Fade>
 					<Link
 						href={`mailto:${EMAIL}`}
 						target='_blank'
