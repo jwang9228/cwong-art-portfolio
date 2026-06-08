@@ -10,7 +10,7 @@ export default function PageHeader() {
       <Link 
         href={'/'}
         className='text-lg tablet:text-xl uppercase font-bold font-accent 
-          tracking-widest px-6 tablet:px-8'
+          tracking-wide px-6 tablet:px-8'
       >
         {PORTFOLIO_NAME}
       </Link>

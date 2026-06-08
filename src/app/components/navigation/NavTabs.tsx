@@ -1,14 +1,23 @@
+'use client';
+
 import Link from 'next/link';
 import { NAV_TABS } from '../../lib/constants';
+import { usePathname } from 'next/navigation';
 
 export default function NavTabs() {
+  const pathname = usePathname();
+
   return (
     <div className='flex gap-x-8'>
       {NAV_TABS.map(nav => (
         <Link
           key={nav.href}
           href={nav.href}
-          className='text-lg font-normal'
+          className={`text-lg font-normal text-primary/90
+            ${(pathname === nav.href || pathname === '/')
+              ? 'opacity-100' : 'opacity-60 hover:opacity-100'
+            }
+            hover:text-accent transition-all duration-300`}
         >
           {nav.label}
         </Link>
