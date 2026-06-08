@@ -13,7 +13,7 @@ const UI_DURATION = 0.4;
 const UI_EASE = [0.2, 0.65, 0.3, 0.9] as const;
 
 // Art Timing
-const ART_DURATION = 0.8;
+const ART_DURATION = 1.0;
 const ART_EASE = [0.25, 0.4, 0.25, 1] as const;
 
 const FADE_UP_UI_VARIANTS: Variants = {
@@ -76,7 +76,7 @@ function Fade({
     whileInView: 'show',
     viewport: { 
       once: true, 
-      margin: '0px 0px -30px 0px',
+      margin: '0px 0px -40px 0px',
       fallback: false 
     }
   } : {};

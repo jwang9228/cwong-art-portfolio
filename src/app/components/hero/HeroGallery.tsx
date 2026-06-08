@@ -20,21 +20,21 @@ export default async function HeroGallery() {
     .execute();
 
   return (
-    <section className='flex flex-col w-full 
-      gap-y-base tablet:gap-y-10 tablet:pt-8'>
+    <section className='grid grid-cols-1 tablet:grid-cols-2 max-w-6xl mx-auto
+      gap-3 tablet:gap-4 laptop:gap-5 tablet:pt-6'>
       {resources.map((art: any, index: number) => (
         <Fade 
-          // First image is staggered by parent. Others will trigger on scroll
-          inView={index > 0}
+          // First 2 images staggered by parent. Others will trigger on scroll
+          inView={index > 1}
           key={art.asset_id} 
           speed='art'
-          className='relative w-full h-[30vh] tablet:h-[35vh]'
         >
           <Image
             src={art.secure_url}
             alt='Gallery Artwork'
-            fill
-            className='object-contain'
+            width={art.width} 
+            height={art.height}
+            className='w-full h-auto'
           />
         </Fade>
       ))}
