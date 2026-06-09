@@ -48,6 +48,7 @@ interface FadeProps {
   children: ReactNode;
   type?: 'up' | 'in';
   speed?: 'ui' | 'art';
+  delay?: number;
   as?: ValidTag;
   inView?: boolean;
   className?: string;
@@ -57,6 +58,7 @@ function Fade({
   children,
   type = 'up',
   speed ='ui',
+  delay = 0,
   as = 'div' as ValidTag,
   inView = false,
   className = '',
@@ -74,11 +76,8 @@ function Fade({
   const triggerProps = inView ? {
     initial: 'hidden',
     whileInView: 'show',
-    viewport: { 
-      once: true, 
-      margin: '0px 0px -40px 0px',
-      fallback: false 
-    }
+    viewport: { once: true, margin: '0px 0px -40px 0px' },
+    transition: { delay: delay }
   } : {};
 
   return (

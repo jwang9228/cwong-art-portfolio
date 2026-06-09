@@ -24,10 +24,9 @@ export default async function HeroGallery() {
       gap-3 tablet:gap-4 laptop:gap-5 tablet:pt-6'>
       {resources.map((art: any, index: number) => (
         <Fade 
-          // First 2 images staggered by parent. Others will trigger on scroll
-          inView={index > 1}
           key={art.asset_id} 
           speed='art'
+          delay={index % 2 !== 0 ? 0.15 : 0}
         >
           <Image
             src={art.secure_url}
@@ -35,6 +34,7 @@ export default async function HeroGallery() {
             width={art.width} 
             height={art.height}
             className='w-full h-auto'
+            sizes='50vw'
           />
         </Fade>
       ))}
