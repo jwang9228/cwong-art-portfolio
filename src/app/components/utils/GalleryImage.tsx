@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Fade from './Fade'
 
 interface GalleryImageProps {
-  key: string,
   image: any,
   alt: string,
   sizes: string,
@@ -10,20 +9,21 @@ interface GalleryImageProps {
 }
 
 export default function GalleryImage({ 
-  key, 
   image, 
   alt, 
   sizes, 
   loadDelay = 0
 }: GalleryImageProps) {
-  <Fade key={key} speed='art' delay={loadDelay}>
-    <Image
-      src={image.secure_url}
-      alt={alt}
-      width={image.width}
-      height={image.height}
-      className='w-full h-auto'
-      sizes={sizes}
-    />
-  </Fade>
+  return (
+    <Fade speed='art' delay={loadDelay}>
+      <Image
+        src={image.secure_url}
+        alt={alt}
+        width={image.width}
+        height={image.height}
+        className='w-full h-auto'
+        sizes={sizes}
+      />
+    </Fade>
+  )
 }

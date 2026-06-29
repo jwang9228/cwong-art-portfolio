@@ -18,7 +18,7 @@ export default function Footer() {
               rel='noopener noreferrer'
             >
               <Icon className='text-primary hover:text-accent
-                transition-colors duration-300 size-8 tablet:size-9' />
+                transition-colors duration-300 size-7 tablet:size-9' />
             </Link>
           )
         })}
