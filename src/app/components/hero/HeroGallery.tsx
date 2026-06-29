@@ -21,7 +21,7 @@ export default async function HeroGallery() {
 
   return (
     <section className='grid grid-cols-1 tablet:grid-cols-2 max-w-6xl mx-auto
-      gap-3 tablet:gap-4 laptop:gap-5 tablet:pt-6'>
+      gap-4 tablet:gap-5 laptop:gap-6 pt-6'>
       {resources.map((art: any, index: number) => (
         <Fade 
           key={art.asset_id} 
@@ -34,7 +34,7 @@ export default async function HeroGallery() {
             width={art.width} 
             height={art.height}
             className='w-full h-auto'
-            sizes='50vw'
+            sizes='100vw'
           />
         </Fade>
       ))}
