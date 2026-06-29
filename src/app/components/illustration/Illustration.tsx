@@ -1,4 +1,5 @@
 import { getGalleryImages } from '../../lib/cloudinary';
+import GalleryImage from '../utils/GalleryImage';
 
 const ILLUSTRATION_GALLERY_PATH = 'cwong-art/illustration';
 const ILLUSTRATION_GALLERY_MAX_IMAGES = 50;
@@ -7,30 +8,16 @@ export default async function Illustration() {
   const resources = await getGalleryImages(ILLUSTRATION_GALLERY_PATH, ILLUSTRATION_GALLERY_MAX_IMAGES);
 
   return (
-    <>Illustration</>
-    /*
-    <div className='flex flex-col bg-white gap-y-4 px-6 pt-24 pb-8'>
-      <img 
-        src={`/illustration/xiao.jpg`}
-        loading='lazy' 
-        alt='' />
-      <img 
-        src={`/illustration/furina.jpg`}
-        loading='lazy' 
-        alt='' />
-      <img 
-        src={`/illustration/xiaoven.jpg`}
-        loading='lazy' 
-        alt='' />
-      <img 
-        src={`/illustration/magical_girl_juno.jpg`}
-        loading='lazy' 
-        alt='' /> 
-      <img 
-        src={`/illustration/juno.jpg`}
-        loading='lazy' 
-        alt='' />
-    </div>
-    */
+    <section className='grid grid-cols-2 max-w-6xl mx-auto gap-1'>
+      {resources.map((art: any, index: number) => (
+        <GalleryImage
+          key={art.asset_id}
+          image={art}
+          alt='Gallery Artwork'
+          sizes='100vw'
+          loadDelay={index % 2 !== 0 ? 0.15 : 0}
+        />
+      ))}
+    </section>
   )
 }
