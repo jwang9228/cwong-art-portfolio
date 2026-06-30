@@ -8,15 +8,17 @@ export default async function Illustration() {
   const resources = await getGalleryImages(ILLUSTRATION_GALLERY_PATH, ILLUSTRATION_GALLERY_MAX_IMAGES);
 
   return (
-    <section className='grid grid-cols-2 max-w-6xl mx-auto gap-1'>
+    <section className='columns-2 laptop:columns-3 gap-1 [&_>_*:not(:last-child)]:mb-1'>
       {resources.map((art: any, index: number) => (
-        <GalleryImage
-          key={art.asset_id}
-          image={art}
-          alt='Gallery Artwork'
-          sizes='100vw'
-          loadDelay={index % 2 !== 0 ? 0.15 : 0}
-        />
+        <div key={art.asset_id} className='break-inside-avoid'>
+          <GalleryImage
+            image={art}
+            alt='Gallery Artwork'
+            sizes='(max-width: 1024px) 50vw, 33vw'
+            inView   
+            priority={index < 8}    
+          />
+        </div>
       ))}
     </section>
   )

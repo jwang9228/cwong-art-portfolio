@@ -5,17 +5,21 @@ interface GalleryImageProps {
   image: any,
   alt: string,
   sizes: string,
-  loadDelay: number
+  loadDelay?: number,
+  inView?: boolean,
+  priority?: boolean
 }
 
 export default function GalleryImage({ 
   image, 
   alt, 
   sizes, 
-  loadDelay = 0
+  loadDelay = 0,
+  inView = false,
+  priority = false
 }: GalleryImageProps) {
   return (
-    <Fade speed='art' delay={loadDelay}>
+    <Fade speed='art' delay={loadDelay} inView={inView}>
       <Image
         src={image.secure_url}
         alt={alt}
@@ -23,6 +27,7 @@ export default function GalleryImage({
         height={image.height}
         className='w-full h-auto'
         sizes={sizes}
+        priority={priority}
       />
     </Fade>
   )
