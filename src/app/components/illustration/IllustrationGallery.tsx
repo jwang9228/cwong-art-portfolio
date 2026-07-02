@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { AnimatePresence, motion, Transition } from 'motion/react';
 import GalleryImage from '../utils/GalleryImage';
 import Image from 'next/image';
+import { IoMdClose } from 'react-icons/io';
+import { RemoveScroll } from 'react-remove-scroll';
 
 const layoutTransition = {
   type: 'spring',
@@ -13,7 +15,8 @@ const layoutTransition = {
 
 export default function IllustrationGallery({ resources } : { resources: any[] }) {
   // Track current image in 'focus' - expand and show in main viewport
-  const [selectedImage, setSelectedImage] = useState<any | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const selectedImage = selectedImageIndex != null ? resources[selectedImageIndex] : null;
 
   return (
     <> 
@@ -23,7 +26,7 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
             key={image.asset_id} 
             layoutId={`gallery-image-${image.asset_id}`}
             transition={layoutTransition}
-            onClick={() => setSelectedImage(image)}
+            onClick={() => setSelectedImageIndex(index)}
             className='break-inside-avoid cursor-zoom-in'
           >
             <GalleryImage
@@ -37,21 +40,28 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
         ))}
       </section>
 
+      {selectedImage && (
+        <IoMdClose 
+          onClick={() => setSelectedImageIndex(null)}
+          className='fixed top-4.5 right-4.5 z-80 
+            size-8 text-primary/80 cursor-pointer' />
+      )}
+
       <AnimatePresence>
         {selectedImage && (
-          <div className='fixed inset-0 z-70 flex items-center justify-center'>
+          <RemoveScroll className='fixed inset-0 z-70 flex items-center justify-center'>
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedImage(null)}
-              className='absolute inset-0 bg-white/85 cursor-pointer'
+              onClick={() => setSelectedImageIndex(null)}
+              className='absolute inset-0 bg-white/90 cursor-pointer'
             />
 
             <motion.div
               layoutId={`gallery-image-${selectedImage.asset_id}`}
               transition={layoutTransition}
-              className='relative w-full max-h-[90vh] flex items-center justify-center p-5'
+              className='relative w-full max-h-dvh flex items-center justify-center px-5'
             >
               <Image
                 src={selectedImage.secure_url}
@@ -60,10 +70,10 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
                 height={selectedImage.height}
                 priority
                 sizes='100vw'
-                className='w-full max-h-[90vh] object-contain shadow-xl'
+                className='w-full max-h-dvh object-contain shadow-2xl'
               />
             </motion.div>
-          </div>
+          </RemoveScroll>
         )}
       </AnimatePresence>
     </>
