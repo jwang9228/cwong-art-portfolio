@@ -15,7 +15,7 @@ export default function PageHeader() {
         {PORTFOLIO_NAME}
       </Link>
 
-      <div className='px-5 tablet:px-6 laptop:hidden'>
+      <div className='pr-4 tablet:pr-6 laptop:hidden'>
         <HeaderMenu />
       </div>
 

@@ -20,7 +20,7 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
 
   return (
     <> 
-      <section className='columns-2 laptop:columns-3 gap-1 [&_>_*:not(:last-child)]:mb-1'>
+      <section className='columns-2 laptop:columns-3 gap-1 [&_>_*:not(:last-child)]:mb-0.5 mx-0.5'>
         {resources.map((image: any, index: number) => (
           <motion.div 
             key={image.asset_id} 
@@ -43,8 +43,8 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
       {selectedImage && (
         <IoMdClose 
           onClick={() => setSelectedImageIndex(null)}
-          className='fixed top-4.5 right-4.5 z-80 
-            size-8 text-primary/80 cursor-pointer' />
+          className='fixed top-4.5 tablet:top-5 right-4.5 tablet:right-5.5 z-80 
+            size-8 tablet:size-9 text-primary/70 cursor-pointer' />
       )}
 
       <AnimatePresence>
@@ -61,7 +61,8 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
             <motion.div
               layoutId={`gallery-image-${selectedImage.asset_id}`}
               transition={layoutTransition}
-              className='relative w-full max-h-dvh flex items-center justify-center px-5'
+              className='relative w-full max-h-dvh flex items-center justify-center
+                p-6 tablet:p-12'
             >
               <Image
                 src={selectedImage.secure_url}
@@ -70,7 +71,7 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
                 height={selectedImage.height}
                 priority
                 sizes='100vw'
-                className='w-full max-h-dvh object-contain shadow-2xl'
+                className='w-full max-h-dvh object-contain shadow-xl'
               />
             </motion.div>
           </RemoveScroll>
