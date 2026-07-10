@@ -4,17 +4,17 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, motion, Transition } from 'motion/react';
 import GalleryImage from '../utils/GalleryImage';
 import Image from 'next/image';
-import { IoMdClose } from 'react-icons/io';
+import { IoMdClose, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { RemoveScroll } from 'react-remove-scroll';
 
 const fadeVariants = {
-  enter: { opacity: 0.2 },
+  enter: { opacity: 0.15 },
   center: { opacity: 1 },
   exit: { opacity: 0 },
 };
 
 const transition = {
-  duration: 0.8,
+  duration: 0.6,
   ease: [0.22, 1, 0.36, 1]
 } as Transition;
 
@@ -22,6 +22,18 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
   // Track current image in 'focus' - expand and show in main viewport
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const selectedImage = selectedImageIndex != null ? resources[selectedImageIndex] : null;
+
+  const setNextImage = () => {
+    if (selectedImageIndex < resources.length - 1) {
+      setSelectedImageIndex(selectedImageIndex + 1);
+    }
+  };
+
+  const setPrevImage = () => {
+    if (selectedImageIndex > 0) {
+      setSelectedImageIndex(selectedImageIndex - 1);
+    }
+  };
 
   useEffect(() => {
     /*
@@ -37,11 +49,11 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
         setSelectedImageIndex(null);
       } else if (e.key === 'ArrowRight') {
         if (selectedImageIndex < resources.length - 1) {
-          setSelectedImageIndex(selectedImageIndex + 1);
+          setNextImage();
         }
       } else if (e.key === 'ArrowLeft') {
         if (selectedImageIndex > 0) {
-          setSelectedImageIndex(selectedImageIndex - 1);
+          setPrevImage();
         }
       }
     };
@@ -60,7 +72,7 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
           <motion.div 
             key={image.asset_id} 
             onClick={() => setSelectedImageIndex(index)}
-            className='break-inside-avoid cursor-zoom-in'
+            className='break-inside-avoid'
           >
             <GalleryImage
               image={image}
@@ -73,11 +85,26 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
         ))}
       </section>
 
+      { /* UI Controls - Close / Prev / Next Buttons */}
       {selectedImage && (
-        <IoMdClose 
-          onClick={() => setSelectedImageIndex(null)}
-          className='fixed top-4.5 tablet:top-5 right-4.5 tablet:right-5.5 z-80 
-            size-8 tablet:size-9 text-primary/70 cursor-pointer' />
+        <div className='absolute inset-0 pointer-events-none text-primary/70 z-80'>
+          <IoMdClose 
+            onClick={() => setSelectedImageIndex(null)}
+            className='fixed top-4.5 tablet:top-5 right-4.5 tablet:right-5.5
+              size-8 tablet:size-9 cursor-pointer pointer-event' />
+
+          <IoIosArrowBack 
+            onClick={() => setPrevImage()}
+            className={`hidden tablet:block absolute left-6 top-1/2 -translate-y-1/2 
+              size-8 cursor-pointer pointer-events-auto transition-colors duration-200 
+              ${selectedImageIndex == 0 && 'text-primary/25'}`} />
+
+          <IoIosArrowForward
+            onClick={() => setNextImage()}
+            className={`hidden tablet:block absolute right-6 top-1/2 -translate-y-1/2 
+              size-8 cursor-pointer pointer-events-auto transition-colors duration-200 
+              ${selectedImageIndex == resources.length - 1 && 'text-primary/25'}`} />
+        </div>
       )}
 
       <AnimatePresence>
@@ -87,8 +114,7 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-       
-              className='absolute inset-0 bg-background/90 cursor-pointer'
+              className='absolute inset-0 bg-background/90'
             />
 
             <motion.div
@@ -99,7 +125,7 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
               animate='center'
               exit='exit'
               className='relative size-full flex items-center justify-center
-                p-6 tablet:p-24'
+                p-6 tablet:p-24 text-primary/70'
               onClick={() => setSelectedImageIndex(null)}
             >
               <Image
