@@ -87,22 +87,24 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
 
       { /* UI Controls - Close / Prev / Next Buttons */}
       {selectedImage && (
-        <div className='absolute inset-0 pointer-events-none text-primary/70 z-80'>
+        <div className='fixed inset-0 pointer-events-none text-primary/70 z-80'>
           <IoMdClose 
             onClick={() => setSelectedImageIndex(null)}
-            className='fixed top-4.5 tablet:top-5 right-4.5 tablet:right-5.5
-              size-8 tablet:size-9 cursor-pointer pointer-event' />
+            className='fixed top-4.5 tablet:top-5 laptop:top-7 right-4.5 tablet:right-5.5 laptop:right-7
+              size-8 tablet:size-9 cursor-pointer pointer-events-auto' />
 
           <IoIosArrowBack 
             onClick={() => setPrevImage()}
-            className={`hidden tablet:block absolute left-6 top-1/2 -translate-y-1/2 
-              size-8 cursor-pointer pointer-events-auto transition-colors duration-200 
+            className={`hidden tablet:block absolute 
+              left-6 laptop:left-10 desktop:left-14 top-1/2 -translate-y-1/2 
+              size-8 laptop:size-10 cursor-pointer pointer-events-auto transition-colors duration-200 
               ${selectedImageIndex == 0 && 'text-primary/25'}`} />
 
           <IoIosArrowForward
             onClick={() => setNextImage()}
-            className={`hidden tablet:block absolute right-6 top-1/2 -translate-y-1/2 
-              size-8 cursor-pointer pointer-events-auto transition-colors duration-200 
+            className={`hidden tablet:block absolute 
+              right-6 laptop:right-10 desktop:right-14 top-1/2 -translate-y-1/2 
+              size-8 laptop:size-10 cursor-pointer pointer-events-auto transition-colors duration-200 
               ${selectedImageIndex == resources.length - 1 && 'text-primary/25'}`} />
         </div>
       )}
