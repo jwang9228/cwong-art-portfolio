@@ -128,6 +128,17 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
               exit='exit'
               className='relative size-full flex items-center justify-center
                 p-6 tablet:p-24 text-primary/70'
+              onPanEnd={(_, { offset }) => {
+                const swipeThreshold = 50; // Pixel distance required to trigger navigation
+                
+                if (offset.x < -swipeThreshold) {
+                  setNextImage();
+                } else if (offset.x > swipeThreshold) {
+                  setPrevImage();
+                } else if (offset.y < -swipeThreshold) {
+                  setSelectedImageIndex(null)
+                }
+              }}
             >
               <Image
                 src={selectedImage.secure_url}
