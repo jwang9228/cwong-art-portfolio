@@ -128,7 +128,6 @@ export default function IllustrationGallery({ resources } : { resources: any[] }
               exit='exit'
               className='relative size-full flex items-center justify-center
                 p-6 tablet:p-24 text-primary/70'
-              onClick={() => setSelectedImageIndex(null)}
             >
               <Image
                 src={selectedImage.secure_url}
