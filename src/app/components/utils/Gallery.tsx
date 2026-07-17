@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion, Transition } from 'motion/react';
-import GalleryImage from '../utils/GalleryImage';
+import GalleryImage from './GalleryImage';
 import Image from 'next/image';
 import { IoMdClose, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { RemoveScroll } from 'react-remove-scroll';
@@ -18,7 +18,7 @@ const transition = {
   ease: [0.22, 1, 0.36, 1]
 } as Transition;
 
-export default function IllustrationGallery({ resources } : { resources: any[] }) {
+export default function Gallery({ resources } : { resources: any[] }) {
   // Track current image in 'focus' - expand and show in main viewport
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const selectedImage = selectedImageIndex != null ? resources[selectedImageIndex] : null;

@@ -1,4 +1,5 @@
-import RootPage from './components/RootPage';
+import Hero from './components/hero/Hero';
+import HeroGallery from './components/hero/HeroGallery';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <RootPage />
+  return (
+    <Hero>
+      <HeroGallery />
+    </Hero>
+  )
 }
