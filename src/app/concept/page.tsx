@@ -8,6 +8,9 @@ export default async function Page() {
   const resources = await getGalleryImages(CONCEPT_GALLERY_PATH, CONCEPT_GALLERY_MAX_IMAGES);
 
   return (
-    <Gallery resources={resources} />
+    <Gallery 
+      resources={resources} 
+      columnClass='columns-1 tablet:columns-2 desktop:columns-3'
+    />
   )
 }

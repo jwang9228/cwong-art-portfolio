@@ -18,7 +18,13 @@ const transition = {
   ease: [0.22, 1, 0.36, 1]
 } as Transition;
 
-export default function Gallery({ resources } : { resources: any[] }) {
+export default function Gallery({ 
+  resources, 
+  columnClass = 'columns-2 laptop:columns-3' 
+} : { 
+  resources: any[], 
+  columnClass?: string 
+}) {
   // Track current image in 'focus' - expand and show in main viewport
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const selectedImage = selectedImageIndex != null ? resources[selectedImageIndex] : null;
@@ -67,7 +73,7 @@ export default function Gallery({ resources } : { resources: any[] }) {
 
   return (
     <> 
-      <section className='columns-2 laptop:columns-3 gap-1 [&_>_*:not(:last-child)]:mb-0.5 mx-0.5'>
+      <section className={`${columnClass} gap-1 [&_>_*:not(:last-child)]:mb-0.5 mx-0.5`}>
         {resources.map((image: any, index: number) => (
           <motion.div 
             key={image.asset_id} 
