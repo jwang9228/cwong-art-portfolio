@@ -14,7 +14,7 @@ export interface NavItem {
   href: string
 }
 
-export const NAV_TABS = [
+export const NAV_TABS: NavItem[] = [
   {
     label: 'Professional Work',
     href: '/work'
@@ -38,7 +38,7 @@ export interface SocialItem {
   href: string
 }
 
-export const SOCIALS = [
+export const SOCIALS: SocialItem[] = [
   {
     icon: PiTwitterLogo,
     href: 'https://twitter.com/wongtonsoop'
@@ -50,5 +50,25 @@ export const SOCIALS = [
   {
     icon: GoMail,
     href: `mailto:${EMAIL}`
+  }
+];
+
+export interface ProjectItem {
+  thumbnail: string,
+  label: string
+}
+
+export const PROJECTS: ProjectItem[] = [
+  {
+    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784625992/thumbnail_blitmap1_buwba4.jpg',
+    label: 'Blit.map Comic'
+  },
+  {
+    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784618622/GenshinTarot_labzsu.jpg',
+    label: 'Genshin Tarot'
+  },
+  {
+    thumbnail: '',
+    label: 'BLIT.NET'
   }
 ];
