@@ -15,7 +15,6 @@ export default async function HeroGallery() {
           key={image.asset_id}
           image={image}
           alt='Gallery Image'
-          sizes='(max-width: 767px) 100vw, 50vw'
           inView
           priority={index < 2}
         />

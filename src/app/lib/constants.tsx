@@ -55,20 +55,24 @@ export const SOCIALS: SocialItem[] = [
 
 export interface ProjectItem {
   thumbnail: string,
-  label: string
+  label: string,
+  href: string
 }
 
 export const PROJECTS: ProjectItem[] = [
   {
     thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784625992/thumbnail_blitmap1_buwba4.jpg',
-    label: 'Blit.map Comic'
+    label: 'Blit.map Comic',
+    href: '/blitmap'
   },
   {
     thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784618622/GenshinTarot_labzsu.jpg',
-    label: 'Genshin Tarot'
+    label: 'Genshin Tarot',
+    href: '/genshin-tarot'
   },
   {
-    thumbnail: '',
-    label: 'BLIT.NET'
+    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784688569/Blitnet_thumbnail_ir3vst.png',
+    label: 'BLIT.NET',
+    href: '/blitnet'
   }
 ];

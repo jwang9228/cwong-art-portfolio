@@ -83,7 +83,6 @@ export default function Gallery({
             <GalleryImage
               image={image}
               alt='Gallery Image'
-              sizes='(max-width: 1024px) 50vw, 33vw'
               inView   
               priority={index < 8}    
             />

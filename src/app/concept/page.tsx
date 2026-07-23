@@ -10,7 +10,7 @@ export default async function Page() {
   return (
     <Gallery 
       resources={resources} 
-      columnClass='columns-1 tablet:columns-2 desktop:columns-3'
+      columnClass='columns-1 tablet:columns-2'
     />
   )
 }

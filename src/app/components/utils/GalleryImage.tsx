@@ -4,7 +4,6 @@ import Fade from './Fade'
 interface GalleryImageProps {
   image: any,
   alt: string,
-  sizes: string,
   loadDelay?: number,
   inView?: boolean,
   priority?: boolean
@@ -13,7 +12,6 @@ interface GalleryImageProps {
 export default function GalleryImage({ 
   image, 
   alt, 
-  sizes, 
   loadDelay = 0,
   inView = false,
   priority = false
@@ -26,7 +24,6 @@ export default function GalleryImage({
         width={image.width}
         height={image.height}
         className='w-full h-auto'
-        sizes={sizes}
         priority={priority}
       />
     </Fade>
