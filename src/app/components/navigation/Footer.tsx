@@ -23,7 +23,7 @@ export default function Footer() {
           )
         })}
       </div>
-      <span className='text-xs text-primary/90 font-normal'>
+      <span className='text-xs text-primary font-normal'>
         {COPYRIGHT}
       </span>
     </footer>

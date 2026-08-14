@@ -61,7 +61,7 @@ export interface ProjectItem {
 
 export const PROJECTS: ProjectItem[] = [
   {
-    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784625992/thumbnail_blitmap1_buwba4.jpg',
+    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784618657/IMG_2647_kh91i0.jpg',
     label: 'Blit.map Comic',
     href: '/blitmap'
   },
