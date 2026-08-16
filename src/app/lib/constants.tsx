@@ -61,18 +61,18 @@ export interface ProjectItem {
 
 export const PROJECTS: ProjectItem[] = [
   {
+    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784688569/Blitnet_thumbnail_ir3vst.png',
+    label: 'BLIT.NET',
+    href: '/work/blitnet'
+  },
+  {
     thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784618657/IMG_2647_kh91i0.jpg',
     label: 'Blit.map Comic',
-    href: '/blitmap'
+    href: '/work/blitmap'
   },
   {
     thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784618622/GenshinTarot_labzsu.jpg',
     label: 'Genshin Tarot',
-    href: '/genshin-tarot'
-  },
-  {
-    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784688569/Blitnet_thumbnail_ir3vst.png',
-    label: 'BLIT.NET',
-    href: '/blitnet'
+    href: '/work/genshin-tarot'
   }
 ];

@@ -60,7 +60,7 @@ export default function NavigationDrawer({ isOpen, setIsOpen }: NavigationDrawer
                       href={nav.href}
                       onClick={() => setIsOpen(false)}
                       className={`text-lg font-normal uppercase tracking-widest text-primary
-                        ${(pathname === nav.href || pathname === '/') 
+                        ${(pathname.startsWith(nav.href) || pathname === '/') 
                           ? 'opacity-100' : 'opacity-70 hover:opacity-100'
                         }
                        hover:text-accent transition-all duration-300`}
