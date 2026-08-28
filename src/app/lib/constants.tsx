@@ -8,6 +8,7 @@ export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
 export const COPYRIGHT = `\u00A9 ${new Date().getFullYear()} ${PORTFOLIO_NAME}`;
 
 export const LANDING_IMAGE_URL = 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1780127439/landing.jpg';
+export const BLITMAP_LANDING_IMAGE_URL = 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784625992/thumbnail_blitmap1_buwba4.jpg'
 
 export interface NavItem {
   label: string,
