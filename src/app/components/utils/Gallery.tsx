@@ -8,7 +8,6 @@ import { IoMdClose, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { RemoveScroll } from 'react-remove-scroll';
 import {
   CLOUDINARY_LIGHTBOX_MAX_WIDTH,
-  CLOUDINARY_LIGHTBOX_QUALITY,
   getCloudinaryUrl,
   toCloudinarySrc
 } from '../../lib/cloudinary-image';
@@ -33,9 +32,8 @@ function getLightboxWidth() {
 function preloadLightboxImage(resource: { public_id: string; version?: number | string }) {
   const preload = new window.Image();
   preload.src = getCloudinaryUrl({
-    src: toCloudinarySrc(resource),
+    src: toCloudinarySrc(resource, 'best'),
     width: getLightboxWidth(),
-    quality: CLOUDINARY_LIGHTBOX_QUALITY,
   });
 }
 
@@ -185,11 +183,10 @@ export default function Gallery({
             >
               <Image
                 key={selectedImageIndex}
-                src={toCloudinarySrc(selectedImage)}
+                src={toCloudinarySrc(selectedImage, 'best')}
                 alt='Focused Image'
                 width={selectedImage.width}
                 height={selectedImage.height}
-                quality={CLOUDINARY_LIGHTBOX_QUALITY}
                 priority
                 sizes='100vw'
                 className='size-auto max-w-full max-h-full object-contain shadow-xl'

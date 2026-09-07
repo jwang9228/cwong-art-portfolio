@@ -1,9 +1,6 @@
 import Image from 'next/image'
 import Fade from './Fade'
-import {
-  CLOUDINARY_GRID_QUALITY,
-  toCloudinarySrc
-} from '../../lib/cloudinary-image'
+import { toCloudinarySrc } from '../../lib/cloudinary-image'
 
 interface GalleryImageProps {
   image: any,
@@ -30,7 +27,6 @@ export default function GalleryImage({
         width={image.width}
         height={image.height}
         sizes={sizes}
-        quality={CLOUDINARY_GRID_QUALITY}
         className='w-full h-auto'
         priority={priority}
       />

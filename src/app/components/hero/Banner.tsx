@@ -1,7 +1,6 @@
 import { LANDING_IMAGE_SRC } from '../../lib/constants';
 import Image from 'next/image';
 import Fade from '../utils/Fade';
-import { CLOUDINARY_GRID_QUALITY } from '../../lib/cloudinary-image';
 
 export default function Banner() {
   return (
@@ -12,7 +11,6 @@ export default function Banner() {
         fill
         priority
         sizes='100vw'
-        quality={CLOUDINARY_GRID_QUALITY}
         className='object-cover laptop:object-contain'
       />
     </Fade>
