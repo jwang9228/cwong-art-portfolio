@@ -1,53 +1,82 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion, Transition } from 'motion/react';
 import GalleryImage from './GalleryImage';
 import Image from 'next/image';
 import { IoMdClose, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { RemoveScroll } from 'react-remove-scroll';
+import {
+  CLOUDINARY_LIGHTBOX_MAX_WIDTH,
+  CLOUDINARY_LIGHTBOX_QUALITY,
+  getCloudinaryUrl,
+  toCloudinarySrc
+} from '../../lib/cloudinary-image';
 
-const fadeVariants = {
-  enter: { opacity: 0.15 },
-  center: { opacity: 1 },
-  exit: { opacity: 0 },
-};
-
-const transition = {
-  duration: 0.6,
+const lightboxTransition = {
+  duration: 0.28,
   ease: [0.22, 1, 0.36, 1]
 } as Transition;
 
+// Match next/image default deviceSizes (capped by our loader max).
+const LIGHTBOX_SRC_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 2560];
+
+function getLightboxWidth() {
+  const target = Math.min(
+    window.innerWidth * (window.devicePixelRatio || 1),
+    CLOUDINARY_LIGHTBOX_MAX_WIDTH
+  );
+  return LIGHTBOX_SRC_WIDTHS.find((size) => size >= target)
+    ?? CLOUDINARY_LIGHTBOX_MAX_WIDTH;
+}
+
+function preloadLightboxImage(resource: { public_id: string; version?: number | string }) {
+  const preload = new window.Image();
+  preload.src = getCloudinaryUrl({
+    src: toCloudinarySrc(resource),
+    width: getLightboxWidth(),
+    quality: CLOUDINARY_LIGHTBOX_QUALITY,
+  });
+}
+
 export default function Gallery({ 
   resources, 
-  columnClass = 'columns-2 laptop:columns-3' 
+  columnClass = 'columns-2 laptop:columns-3',
+  sizes = '(max-width: 1024px) 50vw, 33vw',
 } : { 
   resources: any[], 
-  columnClass?: string 
+  columnClass?: string,
+  sizes?: string,
 }) {
-  // Track current image in 'focus' - expand and show in main viewport
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [lightboxReady, setLightboxReady] = useState(false);
   const selectedImage = selectedImageIndex != null ? resources[selectedImageIndex] : null;
 
   const setNextImage = () => {
-    if (selectedImageIndex < resources.length - 1) {
+    if (selectedImageIndex != null && selectedImageIndex < resources.length - 1) {
+      setLightboxReady(false);
       setSelectedImageIndex(selectedImageIndex + 1);
     }
   };
 
   const setPrevImage = () => {
-    if (selectedImageIndex > 0) {
+    if (selectedImageIndex != null && selectedImageIndex > 0) {
+      setLightboxReady(false);
       setSelectedImageIndex(selectedImageIndex - 1);
     }
   };
 
+  const openLightbox = useCallback((index: number) => {
+    preloadLightboxImage(resources[index]);
+    setLightboxReady(false);
+    setSelectedImageIndex(index);
+  }, [resources]);
+
   useEffect(() => {
-    /*
-      Keydown Handler:
-      - Close on Esc
-      - Next image on Right Arrow (stop at last)
-      - Prev image on Left Arrow (stop at first)
-    */
+    setLightboxReady(false);
+  }, [selectedImageIndex]);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedImageIndex == null) return;
       
@@ -71,26 +100,35 @@ export default function Gallery({
     }
   }, [selectedImageIndex, resources.length]);
 
+  useEffect(() => {
+    if (selectedImageIndex == null) return;
+
+    [selectedImageIndex - 1, selectedImageIndex + 1]
+      .filter((index) => index >= 0 && index < resources.length)
+      .forEach((index) => preloadLightboxImage(resources[index]));
+  }, [selectedImageIndex, resources]);
+
   return (
     <> 
       <section className={`${columnClass} gap-1 [&_>_*:not(:last-child)]:mb-0.5 mx-0.5`}>
         {resources.map((image: any, index: number) => (
           <motion.div 
             key={image.asset_id} 
-            onClick={() => setSelectedImageIndex(index)}
+            onClick={() => openLightbox(index)}
+            onPointerEnter={() => preloadLightboxImage(image)}
             className='break-inside-avoid'
           >
             <GalleryImage
               image={image}
               alt='Gallery Image'
+              sizes={sizes}
               inView   
-              priority={index < 8}    
+              priority={index < 4}    
             />
           </motion.div>
         ))}
       </section>
 
-      { /* UI Controls - Close / Prev / Next Buttons */}
       {selectedImage && (
         <div className='fixed inset-0 pointer-events-none text-primary/70 z-80'>
           <IoMdClose 
@@ -121,20 +159,20 @@ export default function Gallery({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={lightboxTransition}
               className='absolute inset-0 bg-background/90'
             />
 
             <motion.div
               key={selectedImageIndex}
-              variants={fadeVariants}
-              transition={transition}
-              initial='enter'
-              animate='center'
-              exit='exit'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: lightboxReady ? 1 : 0 }}
+              exit={{ opacity: 0 }}
+              transition={lightboxTransition}
               className='relative size-full flex items-center justify-center
                 p-6 tablet:p-24 text-primary/70'
               onPanEnd={(_, { offset }) => {
-                const swipeThreshold = 50; // Pixel distance required to trigger navigation
+                const swipeThreshold = 50;
                 
                 if (offset.x < -swipeThreshold) {
                   setNextImage();
@@ -146,14 +184,21 @@ export default function Gallery({
               }}
             >
               <Image
-                src={selectedImage.secure_url}
+                key={selectedImageIndex}
+                src={toCloudinarySrc(selectedImage)}
                 alt='Focused Image'
                 width={selectedImage.width}
                 height={selectedImage.height}
+                quality={CLOUDINARY_LIGHTBOX_QUALITY}
                 priority
                 sizes='100vw'
                 className='size-auto max-w-full max-h-full object-contain shadow-xl'
                 onClick={(e) => e.stopPropagation()}
+                onLoad={(e) => {
+                  if (e.currentTarget.naturalWidth > 0) {
+                    setLightboxReady(true);
+                  }
+                }}
               />
             </motion.div>
           </RemoveScroll>

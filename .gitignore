@@ -37,5 +37,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# environment secrets
 .env
 .env*.local
+
+# cursor
+.cursor/

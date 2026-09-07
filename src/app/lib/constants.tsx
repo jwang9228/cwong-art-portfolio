@@ -7,8 +7,9 @@ export const EMAIL = 'cwongart@gmail.com';
 export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
 export const COPYRIGHT = `\u00A9 ${new Date().getFullYear()} ${PORTFOLIO_NAME}`;
 
-export const LANDING_IMAGE_URL = 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1780127439/landing.jpg';
-export const BLITMAP_LANDING_IMAGE_URL = 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784625992/thumbnail_blitmap1_buwba4.jpg'
+// Cloudinary loader src: `{version}/{public_id}` (see cloudinary-image.ts)
+export const LANDING_IMAGE_SRC = '1780127439/landing';
+export const BLITMAP_LANDING_IMAGE_SRC = '1784625992/thumbnail_blitmap1_buwba4';
 
 export interface NavItem {
   label: string,
@@ -62,17 +63,17 @@ export interface ProjectItem {
 
 export const PROJECTS: ProjectItem[] = [
   {
-    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784688569/Blitnet_thumbnail_ir3vst.png',
+    thumbnail: '1784688569/Blitnet_thumbnail_ir3vst',
     label: 'BLIT.NET',
     href: '/work/blitnet'
   },
   {
-    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784618657/IMG_2647_kh91i0.jpg',
+    thumbnail: '1784618657/IMG_2647_kh91i0',
     label: 'Blit.map Comic',
     href: '/work/blitmap'
   },
   {
-    thumbnail: 'https://res.cloudinary.com/cwong-art-portfolio/image/upload/v1784618622/GenshinTarot_labzsu.jpg',
+    thumbnail: '1784618622/GenshinTarot_labzsu',
     label: 'Genshin Tarot',
     href: '/work/genshin-tarot'
   }

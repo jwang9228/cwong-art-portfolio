@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { PROJECTS } from '../../lib/constants';
 import Fade from '../utils/Fade';
 import { FiArrowUpRight } from 'react-icons/fi';
+import { CLOUDINARY_GRID_QUALITY } from '../../lib/cloudinary-image';
 
 export default function Work() {
   return (
@@ -20,6 +21,8 @@ export default function Work() {
               alt={project.label}
               fill
               priority
+              sizes='(max-width: 1024px) 100vw, 33vw'
+              quality={CLOUDINARY_GRID_QUALITY}
               className='object-cover transition-transform
                 duration-600 ease-out group-hover:scale-105'
             />
