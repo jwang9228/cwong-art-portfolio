@@ -45,6 +45,25 @@ function parseCloudinarySrc(src: string): {
   return { id: src, quality: 'good' };
 }
 
+/**
+ * Builds the tiny, heavily-blurred transform URL used to generate a
+ * base64 LQIP (`blurDataURL`) for next/image's blur-up placeholder.
+ * Format is pinned to `f_jpg` (rather than `f_auto`) so the resulting
+ * bytes are deterministic regardless of the server-side fetch's Accept header.
+ */
+export function getBlurPlaceholderUrl(resource: CloudinaryResourceSrc): string {
+  const id = resourceId(resource);
+  const transforms = [
+    'f_jpg',
+    'c_limit',
+    'w_24',
+    'e_blur:1000',
+    'q_auto:low',
+  ].join(',');
+
+  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/v${id}`;
+}
+
 export function getCloudinaryUrl({
   src,
   width,

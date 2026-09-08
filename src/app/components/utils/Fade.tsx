@@ -1,11 +1,10 @@
 'use client';
 
-import { motion, Variants } from 'motion/react';
-import { ReactNode, ElementType, memo } from 'react';
+import { motion, useInView, Variants } from 'motion/react';
+import { ReactNode, ElementType, memo, useEffect, useRef, useState } from 'react';
 
 // Configurations
 const FADE_UP_UI_PX_TRANSLATION = 10;
-const FADE_UP_ART_PX_TRANSLATION = 30;
 const FADE_IN_DURATION = 0.3;
 
 // UI Timing
@@ -25,11 +24,12 @@ const FADE_UP_UI_VARIANTS: Variants = {
   }
 };
 
-const FADE_UP_ART_VARIANTS: Variants = {
-  hidden: { opacity: 0, y: FADE_UP_ART_PX_TRANSLATION },
+// Opacity-only — gallery tiles reveal in place (no translation) so
+// independently-loading tiles don't visibly shift at different times.
+const FADE_ART_VARIANTS: Variants = {
+  hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    y: 0,
     transition: { duration: ART_DURATION, ease: ART_EASE }
   }
 };
@@ -44,6 +44,10 @@ export const FADE_IN_VARIANTS: Variants = {
 
 type ValidTag = 'div' | 'section' | 'main' | 'span' | 'header' | 'footer' | 'nav';
 
+// Viewport margin — how far below the fold an element is still considered 
+// "approaching" the viewport.
+const IN_VIEW_MARGIN = '0px 0px -40px 0px';
+
 interface FadeProps {
   children: ReactNode;
   type?: 'up' | 'in';
@@ -51,6 +55,13 @@ interface FadeProps {
   delay?: number;
   as?: ValidTag;
   inView?: boolean;
+  /**
+   * Only relevant when `inView` is true. Gates the reveal alongside
+   * viewport intersection so the fade doesn't complete before the
+   * wrapped content (e.g. an image) has actually finished loading.
+   * Defaults to true (reveal as soon as the element is in view).
+   */
+  ready?: boolean;
   className?: string;
 }
 
@@ -61,22 +72,39 @@ function Fade({
   delay = 0,
   as = 'div' as ValidTag,
   inView = false,
+  ready = true,
   className = '',
 }: FadeProps) {
   const Component = motion[as] as ElementType;
+  const ref = useRef(null);
+
+  // Only observe the viewport when `inView` mode is actually used —
+  // other Fade usages rely purely on ancestor variant propagation.
+  const isIntersecting = useInView(ref, {
+    once: true,
+    margin: IN_VIEW_MARGIN,
+  });
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (inView && isIntersecting && ready) {
+      setRevealed(true);
+    }
+  }, [inView, isIntersecting, ready]);
 
   let selectedVariant = FADE_UP_UI_VARIANTS;
   if (type === 'in') {
     selectedVariant = FADE_IN_VARIANTS;
   } else if (speed === 'art') {
-    selectedVariant = FADE_UP_ART_VARIANTS;
+    selectedVariant = FADE_ART_VARIANTS;
   }
 
-  // inView - apply scroll-trigger props
+  // inView - reveal only once both in viewport and ready, instead of
+  // Framer's own whileInView (which fires on intersection alone).
   const triggerProps = inView ? {
+    ref,
     initial: 'hidden',
-    whileInView: 'show',
-    viewport: { once: true, margin: '0px 0px -40px 0px' },
+    animate: revealed ? 'show' : 'hidden',
     transition: { delay: delay }
   } : {};
 

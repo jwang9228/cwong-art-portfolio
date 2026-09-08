@@ -36,6 +36,10 @@ export default function Layout({ children } : { children: ReactNode }) {
       lang='en' 
       className={`${rethinkSans.variable} ${philosopher.variable}`}
     >
+      <head>
+        <link rel='preconnect' href='https://res.cloudinary.com' crossOrigin='anonymous' />
+        <link rel='dns-prefetch' href='https://res.cloudinary.com' />
+      </head>
       <body className='layout-root font-base antialiased'>
         <PageHeader />
 

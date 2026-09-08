@@ -114,7 +114,7 @@ export default function Gallery({
             key={image.asset_id} 
             onClick={() => openLightbox(index)}
             onPointerEnter={() => preloadLightboxImage(image)}
-            className='break-inside-avoid'
+            className='break-inside-avoid cursor-zoom-in'
           >
             <GalleryImage
               image={image}
