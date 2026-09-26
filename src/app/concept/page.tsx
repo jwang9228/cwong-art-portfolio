@@ -10,8 +10,7 @@ export default async function Page() {
   return (
     <Gallery 
       resources={resources} 
-      columnClass='columns-1 tablet:columns-2'
-      sizes='(max-width: 767px) 100vw, 50vw'
+      columns={{ base: 1, tablet: 2 }}
     />
   )
 }
