@@ -23,7 +23,7 @@ export default function PageWrapper(
       variants={PAGE_VARIANTS} 
       initial='hidden' 
       animate='show'
-      className='flex flex-col grow py-3'
+      className='flex flex-col grow py-2.5'
     >
       {children}
     </motion.main>

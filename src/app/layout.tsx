@@ -1,4 +1,4 @@
-import { Rethink_Sans, Philosopher } from 'next/font/google';
+import { Rethink_Sans, Philosopher, JetBrains_Mono } from 'next/font/google';
 import { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
 import PageWrapper from './components/utils/PageWrapper';
@@ -15,6 +15,11 @@ const philosopher = Philosopher({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-philosopher'
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono'
 });
 
 export const metadata: Metadata = {
@@ -34,7 +39,7 @@ export default function Layout({ children } : { children: ReactNode }) {
   return (
     <html 
       lang='en' 
-      className={`${rethinkSans.variable} ${philosopher.variable}`}
+      className={`${rethinkSans.variable} ${philosopher.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         <link rel='preconnect' href='https://res.cloudinary.com' crossOrigin='anonymous' />

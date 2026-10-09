@@ -6,7 +6,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 export default function Work() {
   return (
-    <div className='grid grid-cols-1 laptop:grid-cols-3 px-3 gap-2'>
+    <div className='grid grid-cols-1 laptop:grid-cols-3 px-2 gap-2'>
       {PROJECTS.map(project => (
         <Fade 
           key={project.thumbnail} 
