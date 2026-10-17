@@ -21,6 +21,20 @@ export const BLITMAP_ISSUE_5_COVERS = [
     alt: 'Blitmap Issue 5 Back Cover',
   },
 ] as const;
+export const BLITMAP_THUMBNAILS = [
+  {
+    src: '1785275194/IMG_2555_1_ygisyf',
+    alt: 'Blitmap Thumbnail 1',
+  },
+  {
+    src: '1784618657/IMG_2647_kh91i0',
+    alt: 'Blitmap Thumbnail 2'
+  },
+  {
+    src: '1785275189/IMG_2616_s8owkp',
+    alt: 'Blitmap Thumbnail 3',
+  },
+] as const;
 export const BLITMAP_PROCESS_WORK_CHARACTERS_SRC = '1785445843/comic_process2_xvkw9u'
 export const BLITMAP_PROCESS_WORK_SKETCHES = [
   {

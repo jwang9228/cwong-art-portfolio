@@ -9,7 +9,7 @@ interface WhiteboardBackgroundProps {
 
 export default function WhiteboardBackground({
   children,
-  dotGap = 16,
+  dotGap = 24,
   className = '',
 }: WhiteboardBackgroundProps) {
   return (
