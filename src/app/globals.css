@@ -70,7 +70,7 @@
   background-color: var(--color-background);
   background-image: radial-gradient(
     circle,
-    color-mix(in oklch, var(--color-primary) 25%, transparent) 1px,
+    color-mix(in oklch, var(--color-primary) 35%, transparent) 1px,
     transparent 1px
   );
   background-size: var(--whiteboard-dot-gap, 22px) var(--whiteboard-dot-gap, 22px);

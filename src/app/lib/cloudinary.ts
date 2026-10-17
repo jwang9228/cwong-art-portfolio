@@ -10,7 +10,21 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-async function fetchBlurDataURL(resource: { public_id: string; version?: number | string }): Promise<string | undefined> {
+/** `{version}/{public_id}` constants → the resource shape blur fetches expect. */
+export function parseVersionedCloudinarySrc(src: string): {
+  public_id: string;
+  version?: string;
+} {
+  const slash = src.indexOf('/');
+  if (slash <= 0) return { public_id: src };
+
+  return {
+    version: src.slice(0, slash),
+    public_id: src.slice(slash + 1),
+  };
+}
+
+export async function fetchBlurDataURL(resource: { public_id: string; version?: number | string }): Promise<string | undefined> {
   try {
     const response = await fetch(getBlurPlaceholderUrl(resource));
     if (!response.ok) return undefined;
