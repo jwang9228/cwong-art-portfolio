@@ -2,20 +2,24 @@ import { ReactNode, CSSProperties } from 'react';
 
 interface WhiteboardBackgroundProps {
   children: ReactNode;
-  /** Spacing between dots, in pixels. Defaults to 22px. */
+  /** Overrides `--whiteboard-dot-gap` from the whiteboard-grid utility. */
   dotGap?: number;
   className?: string;
 }
 
 export default function WhiteboardBackground({
   children,
-  dotGap = 24,
+  dotGap,
   className = '',
 }: WhiteboardBackgroundProps) {
   return (
     <div
       className={`whiteboard-grid rounded-lg ${className}`}
-      style={{ '--whiteboard-dot-gap': `${dotGap}px` } as CSSProperties}
+      style={
+        dotGap != null
+          ? ({ '--whiteboard-dot-gap': `${dotGap}px` } as CSSProperties)
+          : undefined
+      }
     >
       {children}
     </div>
