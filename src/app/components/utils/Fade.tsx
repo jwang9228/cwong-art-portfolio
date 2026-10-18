@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useInView, Variants } from 'motion/react';
-import { ReactNode, ElementType, memo, useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'motion/react';
+import { ReactNode, ElementType, memo, useRef } from 'react';
 
 // Configurations
 const FADE_UP_UI_PX_TRANSLATION = 10;
@@ -15,7 +15,18 @@ const UI_EASE = [0.2, 0.65, 0.3, 0.9] as const;
 const ART_DURATION = 0.65;
 const ART_EASE = [0.16, 1, 0.3, 1] as const;
 
-const FADE_UP_UI_VARIANTS: Variants = {
+type FadeEase = readonly [number, number, number, number] | string;
+
+type FadeVariant = {
+  hidden: { opacity: number; y?: number };
+  show: {
+    opacity: number;
+    y?: number;
+    transition: { duration: number; ease: FadeEase; delay?: number };
+  };
+};
+
+const FADE_UP_UI_VARIANTS: FadeVariant = {
   hidden: { opacity: 0, y: FADE_UP_UI_PX_TRANSLATION },
   show: {
     opacity: 1,
@@ -26,7 +37,7 @@ const FADE_UP_UI_VARIANTS: Variants = {
 
 // Opacity-only — gallery tiles reveal in place (no translation) so
 // independently-loading tiles don't visibly shift at different times.
-const FADE_ART_VARIANTS: Variants = {
+const FADE_ART_VARIANTS: FadeVariant = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -34,7 +45,7 @@ const FADE_ART_VARIANTS: Variants = {
   }
 };
 
-export const FADE_IN_VARIANTS: Variants = {
+const FADE_IN_VARIANTS: FadeVariant = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -68,7 +79,7 @@ interface FadeProps {
 function Fade({
   children,
   type = 'up',
-  speed ='ui',
+  speed = 'ui',
   delay = 0,
   as = 'div' as ValidTag,
   inView = false,
@@ -84,41 +95,35 @@ function Fade({
     once: true,
     margin: IN_VIEW_MARGIN,
   });
-  const [revealed, setRevealed] = useState(false);
+  const revealed = isIntersecting && ready;
 
-  useEffect(() => {
-    if (inView && isIntersecting && ready) {
-      setRevealed(true);
-    }
-  }, [inView, isIntersecting, ready]);
+  const selectedVariant = type === 'in'
+    ? FADE_IN_VARIANTS
+    : speed === 'art'
+      ? FADE_ART_VARIANTS
+      : FADE_UP_UI_VARIANTS;
 
-  let selectedVariant = FADE_UP_UI_VARIANTS;
-  if (type === 'in') {
-    selectedVariant = FADE_IN_VARIANTS;
-  } else if (speed === 'art') {
-    selectedVariant = FADE_ART_VARIANTS;
-  }
+  // Delay stays on the variant. A transition prop on the element would
+  // replace this and drop the duration and ease.
+  const variants: FadeVariant = inView
+    ? {
+        ...selectedVariant,
+        show: {
+          ...selectedVariant.show,
+          transition: { ...selectedVariant.show.transition, delay },
+        },
+      }
+    : selectedVariant;
 
-  // A component `transition` replaces the variant's transition, so delay
-  // has to travel with the art/UI duration and ease or in-view fades
-  // fall back to Motion's 0.3s default.
-  const showTransition =
-    typeof selectedVariant.show === 'object' && selectedVariant.show.transition
-      ? selectedVariant.show.transition
-      : {};
-
-  // inView - reveal only once both in viewport and ready, instead of
-  // Framer's own whileInView (which fires on intersection alone).
   const triggerProps = inView ? {
     ref,
-    initial: 'hidden',
-    animate: revealed ? 'show' : 'hidden',
-    transition: { ...showTransition, delay }
+    initial: 'hidden' as const,
+    animate: revealed ? 'show' as const : 'hidden' as const,
   } : {};
 
   return (
     <Component 
-      variants={selectedVariant} 
+      variants={variants} 
       className={className}
       {...triggerProps}
     >
