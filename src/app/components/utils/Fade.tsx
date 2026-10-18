@@ -99,13 +99,21 @@ function Fade({
     selectedVariant = FADE_ART_VARIANTS;
   }
 
+  // A component `transition` replaces the variant's transition, so delay
+  // has to travel with the art/UI duration and ease or in-view fades
+  // fall back to Motion's 0.3s default.
+  const showTransition =
+    typeof selectedVariant.show === 'object' && selectedVariant.show.transition
+      ? selectedVariant.show.transition
+      : {};
+
   // inView - reveal only once both in viewport and ready, instead of
   // Framer's own whileInView (which fires on intersection alone).
   const triggerProps = inView ? {
     ref,
     initial: 'hidden',
     animate: revealed ? 'show' : 'hidden',
-    transition: { delay: delay }
+    transition: { ...showTransition, delay }
   } : {};
 
   return (
