@@ -11,6 +11,13 @@ type CloudinaryResourceSrc = {
   version?: number | string;
 };
 
+export type CloudinaryResource = CloudinaryResourceSrc & {
+  asset_id: string;
+  width: number;
+  height: number;
+  blurDataURL?: string;
+};
+
 function resourceId(resource: CloudinaryResourceSrc | string): string {
   if (typeof resource === 'string') {
     return resource.startsWith(BEST_PREFIX)

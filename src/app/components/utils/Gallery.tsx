@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import GalleryImage from './GalleryImage';
 import {
   CLOUDINARY_LIGHTBOX_MAX_WIDTH,
+  CloudinaryResource,
   getCloudinaryUrl,
   toCloudinarySrc
 } from '../../lib/cloudinary-image';
@@ -25,7 +26,7 @@ function getLightboxWidth() {
     ?? CLOUDINARY_LIGHTBOX_MAX_WIDTH;
 }
 
-function preloadLightboxImage(resource: { public_id: string; version?: number | string }) {
+function preloadLightboxImage(resource: CloudinaryResource) {
   const preload = new window.Image();
   preload.src = getCloudinaryUrl({
     src: toCloudinarySrc(resource, 'best'),
@@ -110,7 +111,7 @@ export default function Gallery({
   resources, 
   columns = DEFAULT_COLUMNS,
 } : { 
-  resources: any[], 
+  resources: CloudinaryResource[], 
   columns?: ColumnConfig,
 }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);

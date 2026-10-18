@@ -1,6 +1,6 @@
 import { cacheLife, cacheTag } from 'next/cache';
 import { v2 as cloudinary } from 'cloudinary';
-import { getBlurPlaceholderUrl } from './cloudinary-image';
+import { CloudinaryResource, getBlurPlaceholderUrl } from './cloudinary-image';
 
 // Admin Search API — server only. Image URLs / next/image loader live in cloudinary-image.ts.
 
@@ -37,7 +37,7 @@ export async function fetchBlurDataURL(resource: { public_id: string; version?: 
   }
 }
 
-export async function getGalleryImages(folderPath: string, maxImages: number = 30) {
+export async function getGalleryImages(folderPath: string, maxImages: number = 30): Promise<CloudinaryResource[]> {
   'use cache';
   cacheLife('hours');
   cacheTag('gallery-images', `gallery:${folderPath}`);
@@ -50,7 +50,7 @@ export async function getGalleryImages(folderPath: string, maxImages: number = 3
       .execute();
 
     return await Promise.all(
-      resources.map(async (resource: any) => ({
+      resources.map(async (resource: CloudinaryResource) => ({
         ...resource,
         blurDataURL: await fetchBlurDataURL(resource),
       }))

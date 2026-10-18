@@ -10,7 +10,7 @@ export default async function HeroGallery() {
   return (
     <section className='grid grid-cols-1 tablet:grid-cols-2
       gap-4 tablet:gap-5 laptop:gap-6 pt-6'>
-      {resources.map((image: any, index: number) => (
+      {resources.map((image, index) => (
         <GalleryImage
           key={image.asset_id}
           image={image}
