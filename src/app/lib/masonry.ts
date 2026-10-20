@@ -6,7 +6,6 @@ export interface MasonryDimensions {
 export interface MasonryEntry<T> {
   item: T;
   originalIndex: number;
-  columnIndex: number;
   rowIndex: number;
 }
 
@@ -37,7 +36,7 @@ export function distributeIntoColumns<T extends MasonryDimensions>(
     }
 
     const rowIndex = columns[columnIndex].length;
-    columns[columnIndex].push({ item, originalIndex, columnIndex, rowIndex });
+    columns[columnIndex].push({ item, originalIndex, rowIndex });
     columnHeights[columnIndex] += item.height / item.width;
   });
 

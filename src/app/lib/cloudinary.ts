@@ -1,6 +1,6 @@
 import { cacheLife, cacheTag } from 'next/cache';
 import { v2 as cloudinary } from 'cloudinary';
-import { CloudinaryResource, getBlurPlaceholderUrl } from './cloudinary-image';
+import { CloudinaryResource, CloudinaryResourceSrc, getBlurPlaceholderUrl } from './cloudinary-image';
 
 // Admin Search API — server only. Image URLs / next/image loader live in cloudinary-image.ts.
 
@@ -11,10 +11,7 @@ cloudinary.config({
 });
 
 /** `{version}/{public_id}` constants → the resource shape blur fetches expect. */
-export function parseVersionedCloudinarySrc(src: string): {
-  public_id: string;
-  version?: string;
-} {
+export function parseVersionedCloudinarySrc(src: string): CloudinaryResourceSrc {
   const slash = src.indexOf('/');
   if (slash <= 0) return { public_id: src };
 
@@ -24,7 +21,7 @@ export function parseVersionedCloudinarySrc(src: string): {
   };
 }
 
-export async function fetchBlurDataURL(resource: { public_id: string; version?: number | string }): Promise<string | undefined> {
+export async function fetchBlurDataURL(resource: CloudinaryResourceSrc): Promise<string | undefined> {
   try {
     const response = await fetch(getBlurPlaceholderUrl(resource));
     if (!response.ok) return undefined;

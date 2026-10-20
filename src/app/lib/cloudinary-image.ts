@@ -6,24 +6,29 @@ export type CloudinaryQuality = 'good' | 'best';
 
 const BEST_PREFIX = 'best:';
 
-type CloudinaryResourceSrc = {
+export type CloudinaryResource = {
   public_id: string;
   version?: number | string;
-};
-
-export type CloudinaryResource = CloudinaryResourceSrc & {
   asset_id: string;
   width: number;
   height: number;
   blurDataURL?: string;
 };
 
-function resourceId(resource: CloudinaryResourceSrc | string): string {
-  if (typeof resource === 'string') {
-    return resource.startsWith(BEST_PREFIX)
-      ? resource.slice(BEST_PREFIX.length)
-      : resource;
+export type CloudinaryResourceSrc = Pick<CloudinaryResource, 'public_id' | 'version'>;
+
+function parseCloudinarySrc(src: string): {
+  id: string;
+  quality: CloudinaryQuality;
+} {
+  if (src.startsWith(BEST_PREFIX)) {
+    return { id: src.slice(BEST_PREFIX.length), quality: 'best' };
   }
+  return { id: src, quality: 'good' };
+}
+
+function resourceId(resource: CloudinaryResourceSrc | string): string {
+  if (typeof resource === 'string') return parseCloudinarySrc(resource).id;
 
   return resource.version != null
     ? `${resource.version}/${resource.public_id}`
@@ -40,16 +45,6 @@ export function toCloudinarySrc(
 ): string {
   const id = resourceId(resource);
   return quality === 'best' ? `${BEST_PREFIX}${id}` : id;
-}
-
-function parseCloudinarySrc(src: string): {
-  id: string;
-  quality: CloudinaryQuality;
-} {
-  if (src.startsWith(BEST_PREFIX)) {
-    return { id: src.slice(BEST_PREFIX.length), quality: 'best' };
-  }
-  return { id: src, quality: 'good' };
 }
 
 /**

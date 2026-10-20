@@ -10,7 +10,6 @@ import Image from 'next/image';
 import { cacheLife, cacheTag } from 'next/cache';
 import { toCloudinarySrc } from '../../lib/cloudinary-image';
 import { fetchBlurDataURL, parseVersionedCloudinarySrc } from '../../lib/cloudinary';
-import WhiteboardBackground from '../../components/utils/WhiteboardBackground';
 import Fade from '../../components/utils/Fade';
 
 // Per-thumbnail scatter: mobile = fanned vertical stack; tablet+ = overlapping row.
@@ -87,7 +86,7 @@ export default async function Blitmap() {
         {fillImage(BLITMAP_LANDING_IMAGE_SRC, 'Blitmap Cover', '100vw', 'object-cover', 'best', true)}
       </figure>
 
-      <WhiteboardBackground>
+      <div className='whiteboard-grid rounded-lg'>
         <Fade
           as='header'
           speed='art'
@@ -170,7 +169,7 @@ export default async function Blitmap() {
             </p>
           </section>
         </Fade>
-      </WhiteboardBackground>
+      </div>
     </article>
   )
 }
