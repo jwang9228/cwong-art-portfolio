@@ -65,13 +65,13 @@
   --color-accent:         oklch(0.78 0.10 65);
 }
 
-/* Whiteboard-style dot grid background (see WhiteboardBackground.tsx) */
+/* Whiteboard-style dot grid background */
 @utility whiteboard-grid {
   --whiteboard-dot-gap: 24px;
   background-color: var(--color-background);
   background-image: radial-gradient(
     circle,
-    color-mix(in oklch, var(--color-primary) 35%, transparent) 1px,
+    color-mix(in oklch, var(--color-primary) 30%, transparent) 1px,
     transparent 1px
   );
   background-size: var(--whiteboard-dot-gap) var(--whiteboard-dot-gap);

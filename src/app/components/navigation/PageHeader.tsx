@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import HeaderMenu from './HeaderMenu';
-import { NAV_TABS, PORTFOLIO_NAME } from '../../lib/constants';
+import { PORTFOLIO_NAME } from '../../lib/constants';
 import NavTabs from './NavTabs';
 
 export default function PageHeader() {

@@ -3,27 +3,20 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import NavigationDrawer from './NavigationDrawer';
 
-const MENU_SIZE = 'size-12'; // Clickable hitbox size
+const MENU_SIZE = 'size-12';
+const LINE_CLASS = 'absolute rounded-full origin-center bg-primary/85';
 
-// Dimensions
 const LINE_WIDTH_CLOSED = '24px';
 const LINE_WIDTH_OPEN = '28px';
-const LINE_HEIGHT_CLOSED = 2; // in px
-const LINE_HEIGHT_OPEN = 3;   // in px
-
-// Spacing Calculations
+const LINE_HEIGHT_CLOSED = 2;
+const LINE_HEIGHT_OPEN = 3;
 const Y_OFFSET = 5;
 
-// Animation Properties
 const ROTATION_DEGREES = 45;
 const ANIM_DURATION = 0.3;
 const ANIM_EASE = [0.22, 1, 0.36, 1] as const;
 
-interface HeaderMenuProps {
-  transitionColors?: boolean;
-}
-
-export default function HeaderMenu({ transitionColors = false } : HeaderMenuProps) {
+export default function HeaderMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -42,8 +35,7 @@ export default function HeaderMenu({ transitionColors = false } : HeaderMenuProp
             height: isOpen ? `${LINE_HEIGHT_OPEN}px` : `${LINE_HEIGHT_CLOSED}px`,
           }}
           transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
-          className={`absolute rounded-full origin-center transition-colors duration-300
-            ${transitionColors && !isOpen ? 'bg-background/80' : 'bg-primary/85'}`}
+          className={LINE_CLASS}
         />
 
         <motion.span
@@ -55,8 +47,7 @@ export default function HeaderMenu({ transitionColors = false } : HeaderMenuProp
             height: isOpen ? `${LINE_HEIGHT_OPEN}px` : `${LINE_HEIGHT_CLOSED}px`,
           }}
           transition={{ duration: ANIM_DURATION, ease: ANIM_EASE }}
-          className={`absolute rounded-full origin-center transition-colors duration-300
-            ${transitionColors && !isOpen ? 'bg-background/80' : 'bg-primary/85'}`}
+          className={LINE_CLASS}
         />
       </button>
 

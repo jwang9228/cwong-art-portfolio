@@ -10,7 +10,6 @@ import Image from 'next/image';
 import { cacheLife, cacheTag } from 'next/cache';
 import { toCloudinarySrc } from '../../lib/cloudinary-image';
 import { fetchBlurDataURL, parseVersionedCloudinarySrc } from '../../lib/cloudinary';
-import WhiteboardBackground from '../../components/utils/WhiteboardBackground';
 import Fade from '../../components/utils/Fade';
 
 // Per-thumbnail scatter: mobile = fanned vertical stack; tablet+ = overlapping row.
@@ -56,30 +55,38 @@ async function getBlitmapBlurs(): Promise<Record<string, string | undefined>> {
   return Object.fromEntries(entries);
 }
 
-function blurProps(blurDataURL: string | undefined) {
-  return blurDataURL
-    ? { placeholder: 'blur' as const, blurDataURL }
-    : {};
-}
-
 export default async function Blitmap() {
   const blurs = await getBlitmapBlurs();
+
+  const fillImage = (
+    src: string,
+    alt: string,
+    sizes: string,
+    className: string,
+    quality: 'good' | 'best' = 'good',
+    priority = false,
+  ) => {
+    const blurDataURL = blurs[src];
+    return (
+      <Image
+        src={toCloudinarySrc(src, quality)}
+        alt={alt}
+        fill
+        sizes={sizes}
+        className={className}
+        {...(priority ? { priority: true } : {})}
+        {...(blurDataURL ? { placeholder: 'blur' as const, blurDataURL } : {})}
+      />
+    );
+  };
 
   return (
     <article className='flex flex-col font-mono'>
       <figure className='relative h-[70dvh] w-full'>
-        <Image
-          src={toCloudinarySrc(BLITMAP_LANDING_IMAGE_SRC, 'best')}
-          alt='Blitmap Cover'
-          fill
-          priority
-          sizes='100vw'
-          className='object-cover'
-          {...blurProps(blurs[BLITMAP_LANDING_IMAGE_SRC])}
-        />
+        {fillImage(BLITMAP_LANDING_IMAGE_SRC, 'Blitmap Cover', '100vw', 'object-cover', 'best', true)}
       </figure>
 
-      <WhiteboardBackground>
+      <div className='whiteboard-grid rounded-lg'>
         <Fade
           as='header'
           speed='art'
@@ -102,14 +109,7 @@ export default async function Blitmap() {
           <h2 className='sr-only'>Issue 5 covers</h2>
           {BLITMAP_ISSUE_5_COVERS.map(cover => (
             <figure key={cover.src} className='relative w-1/2 aspect-2/3'>
-              <Image
-                src={toCloudinarySrc(cover.src, 'good')}
-                alt={cover.alt}
-                fill
-                sizes='50vw'
-                className='object-contain'
-                {...blurProps(blurs[cover.src])}
-              />
+              {fillImage(cover.src, cover.alt, '50vw', 'object-contain')}
             </figure>
           ))}
         </Fade>
@@ -134,14 +134,7 @@ export default async function Blitmap() {
                   ring-1 ring-primary/25 overflow-hidden
                   ${layout.className}`}
               >
-                <Image
-                  src={toCloudinarySrc(thumbnail.src, 'good')}
-                  alt={thumbnail.alt}
-                  fill
-                  sizes='(max-width: 767px) 72vw, 25vw'
-                  className='object-cover'
-                  {...blurProps(blurs[thumbnail.src])}
-                />
+                {fillImage(thumbnail.src, thumbnail.alt, '(max-width: 767px) 72vw, 25vw', 'object-cover')}
               </figure>
             );
           })}
@@ -150,27 +143,13 @@ export default async function Blitmap() {
         <Fade as='section' speed='art' inView className='relative flex flex-col px-1 gap-y-2.5'>
           <h2 className='sr-only'>Process work</h2>
           <figure className='relative w-full aspect-800/486'>
-            <Image
-              src={toCloudinarySrc(BLITMAP_PROCESS_WORK_CHARACTERS_SRC, 'good')}
-              alt='Blitmap Process Work Characters'
-              fill
-              sizes='100vw'
-              className='object-contain'
-              {...blurProps(blurs[BLITMAP_PROCESS_WORK_CHARACTERS_SRC])}
-            />
+            {fillImage(BLITMAP_PROCESS_WORK_CHARACTERS_SRC, 'Blitmap Process Work Characters', '100vw', 'object-contain')}
           </figure>
 
           <section className='flex gap-x-1'>
             {BLITMAP_PROCESS_WORK_SKETCHES.map(sketch => (
               <figure key={sketch.src} className='relative w-1/2 aspect-2/3'>
-                <Image
-                  src={toCloudinarySrc(sketch.src, 'good')}
-                  alt={sketch.alt}
-                  fill
-                  sizes='50vw'
-                  className='object-contain'
-                  {...blurProps(blurs[sketch.src])}
-                />
+                {fillImage(sketch.src, sketch.alt, '50vw', 'object-contain')}
               </figure>
             ))}
           </section>
@@ -179,14 +158,7 @@ export default async function Blitmap() {
             <div className='flex gap-x-1'>
               {BLITMAP_PROCESS_WORK_COVERS.map(cover => (
                 <figure key={cover.src} className='relative w-1/3 aspect-2/3'>
-                  <Image
-                    src={toCloudinarySrc(cover.src, 'good')}
-                    alt={cover.alt}
-                    fill
-                    sizes='33vw'
-                    className='object-contain'
-                    {...blurProps(blurs[cover.src])}
-                  />
+                  {fillImage(cover.src, cover.alt, '33vw', 'object-contain')}
                 </figure>
               ))}
             </div>
@@ -197,7 +169,7 @@ export default async function Blitmap() {
             </p>
           </section>
         </Fade>
-      </WhiteboardBackground>
+      </div>
     </article>
   )
 }

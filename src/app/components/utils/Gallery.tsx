@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'motion/react';
 import GalleryImage from './GalleryImage';
 import {
   CLOUDINARY_LIGHTBOX_MAX_WIDTH,
+  CloudinaryResource,
   getCloudinaryUrl,
   toCloudinarySrc
 } from '../../lib/cloudinary-image';
@@ -25,7 +26,7 @@ function getLightboxWidth() {
     ?? CLOUDINARY_LIGHTBOX_MAX_WIDTH;
 }
 
-function preloadLightboxImage(resource: { public_id: string; version?: number | string }) {
+function preloadLightboxImage(resource: CloudinaryResource) {
   const preload = new window.Image();
   preload.src = getCloudinaryUrl({
     src: toCloudinarySrc(resource, 'best'),
@@ -110,7 +111,7 @@ export default function Gallery({
   resources, 
   columns = DEFAULT_COLUMNS,
 } : { 
-  resources: any[], 
+  resources: CloudinaryResource[], 
   columns?: ColumnConfig,
 }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
@@ -131,30 +132,22 @@ export default function Gallery({
     }
   };
 
-  const openLightbox = useCallback((index: number) => {
+  const openLightbox = (index: number) => {
     preloadLightboxImage(resources[index]);
     setLightboxReady(false);
     setSelectedImageIndex(index);
-  }, [resources]);
-
-  useEffect(() => {
-    setLightboxReady(false);
-  }, [selectedImageIndex]);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedImageIndex == null) return;
-      
+
       if (e.key === 'Escape') {
         setSelectedImageIndex(null);
       } else if (e.key === 'ArrowRight') {
-        if (selectedImageIndex < resources.length - 1) {
-          setNextImage();
-        }
+        setNextImage();
       } else if (e.key === 'ArrowLeft') {
-        if (selectedImageIndex > 0) {
-          setPrevImage();
-        }
+        setPrevImage();
       }
     };
 
@@ -173,23 +166,13 @@ export default function Gallery({
       .forEach((index) => preloadLightboxImage(resources[index]));
   }, [selectedImageIndex, resources]);
 
-  const tiers = useMemo(
-    () => getColumnTiers(columns),
-    [columns.base, columns.tablet, columns.laptop, columns.desktop]
-  );
-
-  const tierColumns = useMemo(
-    () => tiers.map((tier) => distributeIntoColumns(resources, tier.count)),
-    [resources, tiers]
-  );
+  const tiers = getColumnTiers(columns);
+  const tierColumns = tiers.map((tier) => distributeIntoColumns(resources, tier.count));
 
   // Flat `index < 4` under-covers the fold on wider layouts (e.g. a
   // 3-column tier only gets ~1.3 rows of priority loading). Scale the
   // cutoff to the widest tier so every layout gets full priority rows.
-  const priorityCutoff = useMemo(
-    () => Math.max(...tiers.map((tier) => tier.count)) * PRIORITY_ROWS,
-    [tiers]
-  );
+  const priorityCutoff = Math.max(...tiers.map((tier) => tier.count)) * PRIORITY_ROWS;
 
   return (
     <> 

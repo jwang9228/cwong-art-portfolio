@@ -4,7 +4,7 @@ import { motion, Transition } from 'motion/react';
 import Image from 'next/image';
 import { IoMdClose, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { RemoveScroll } from 'react-remove-scroll';
-import { toCloudinarySrc } from '../../lib/cloudinary-image';
+import { CloudinaryResource, toCloudinarySrc } from '../../lib/cloudinary-image';
 
 const lightboxTransition = {
   duration: 0.28,
@@ -21,7 +21,7 @@ export default function Lightbox({
   onPrev,
   onLoaded,
 }: {
-  selectedImage: any;
+  selectedImage: CloudinaryResource;
   selectedImageIndex: number;
   resourcesLength: number;
   lightboxReady: boolean;

@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react'
-import Image from 'next/image'
-import Fade from './Fade'
-import { toCloudinarySrc } from '../../lib/cloudinary-image'
+import { useState } from 'react';
+import Image from 'next/image';
+import Fade from './Fade';
+import { CloudinaryResource, toCloudinarySrc } from '../../lib/cloudinary-image';
 
 interface GalleryImageProps {
-  image: any,
+  image: CloudinaryResource,
   alt: string,
   sizes: string,
   loadDelay?: number,

@@ -6,12 +6,12 @@ import { usePathname } from 'next/navigation';
 
 const DRAWER_VARIANTS = {
   hidden: {},
-	show: {
-		transition: {
+  show: {
+    transition: {
       delayChildren: 0.25,
-			staggerChildren: 0.1
-		}
-	}
+      staggerChildren: 0.1
+    }
+  }
 }
 
 interface NavigationDrawerProps {
