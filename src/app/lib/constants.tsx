@@ -2,6 +2,7 @@ import { IconType } from 'react-icons';
 import { GoMail } from 'react-icons/go';
 import { PiTwitterLogo, PiInstagramLogo } from 'react-icons/pi';
 
+/* Header / Footer metadata */
 export const PORTFOLIO_NAME = 'Courtney Wong';
 export const EMAIL = 'cwongart@gmail.com';
 export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
@@ -10,6 +11,7 @@ export const COPYRIGHT = `\u00A9 ${new Date().getFullYear()} ${PORTFOLIO_NAME}`;
 // Cloudinary loader src: `{version}/{public_id}` (see cloudinary-image.ts)
 export const LANDING_IMAGE_SRC = '1780127439/landing';
 
+/* Blitmap project */
 export const BLITMAP_LANDING_IMAGE_SRC = '1784625992/thumbnail_blitmap1_buwba4';
 export const BLITMAP_ISSUE_5_COVERS = [
   {
@@ -61,6 +63,7 @@ export const BLITMAP_PROCESS_WORK_COVERS = [
   }
 ] as const;
 
+/* Navigation tabs */
 export interface NavItem {
   label: string,
   href: string
@@ -114,12 +117,12 @@ export interface ProjectItem {
 export const PROJECTS: ProjectItem[] = [
   {
     thumbnail: '1784688569/Blitnet_thumbnail_ir3vst',
-    label: 'BLIT.NET',
+    label: 'SUP / Blit.net',
     href: '/work/blitnet'
   },
   {
     thumbnail: '1784618657/IMG_2647_kh91i0',
-    label: 'Blit.map Comic',
+    label: 'SUP / Blitmap',
     href: '/work/blitmap'
   },
   {
