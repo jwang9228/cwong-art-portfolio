@@ -84,6 +84,15 @@ export function getCloudinaryUrl({
   return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/v${id}`;
 }
 
+/**
+ * Builds a Cloudinary video URL.
+ * Videos are served as-is without transforms to preserve format and transparency.
+ */
+export function getCloudinaryVideoUrl(resource: CloudinaryResourceSrc | string): string {
+  const id = resourceId(resource);
+  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/v${id}`;
+}
+
 /** Default export required by next.config `images.loaderFile`. */
 export default function cloudinaryLoader({
   src,
