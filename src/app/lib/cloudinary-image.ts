@@ -93,6 +93,15 @@ export function getCloudinaryVideoUrl(resource: CloudinaryResourceSrc | string):
   return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/v${id}`;
 }
 
+/**
+ * Builds a Cloudinary image URL for the original upload.
+ * No transforms, so a PNG poster stays a PNG and matches the video's first frame.
+ */
+export function getCloudinaryOriginalImageUrl(resource: CloudinaryResourceSrc | string): string {
+  const id = resourceId(resource);
+  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v${id}`;
+}
+
 /** Default export required by next.config `images.loaderFile`. */
 export default function cloudinaryLoader({
   src,
