@@ -40,7 +40,7 @@ const BLITMAP_IMAGE_SRCS = [
   ...BLITMAP_PROCESS_WORK_COVERS.map((cover) => cover.src),
 ] as const;
 
-async function getBlitmapBlurs(): Promise<Record<string, string | undefined>> {
+const getBlitmapBlurs = async (): Promise<Record<string, string | undefined>> => {
   'use cache';
   cacheLife('hours');
   cacheTag('blitmap-blurs');

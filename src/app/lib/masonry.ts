@@ -20,10 +20,10 @@ export interface MasonryEntry<T> {
  * and identical on the server and client (no DOM measurement, no
  * hydration mismatch).
  */
-export function distributeIntoColumns<T extends MasonryDimensions>(
+export const distributeIntoColumns = <T extends MasonryDimensions>(
   items: T[],
   columnCount: number
-): MasonryEntry<T>[][] {
+): MasonryEntry<T>[][] => {
   const columns: MasonryEntry<T>[][] = Array.from({ length: columnCount }, () => []);
   const columnHeights = new Array(columnCount).fill(0);
 
@@ -54,7 +54,7 @@ const ROW_STAGGER_MS = 130;
 const ROWS_PER_WAVE = 5;
 
 /** Returns a `transition.delay`-ready value, in seconds. */
-export function getCascadeDelay(columnIndex: number, rowIndex: number): number {
+export const getCascadeDelay = (columnIndex: number, rowIndex: number): number => {
   const delayMs =
     columnIndex * COLUMN_STAGGER_MS +
     (rowIndex % ROWS_PER_WAVE) * ROW_STAGGER_MS;

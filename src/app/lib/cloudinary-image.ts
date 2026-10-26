@@ -17,17 +17,17 @@ export type CloudinaryResource = {
 
 export type CloudinaryResourceSrc = Pick<CloudinaryResource, 'public_id' | 'version'>;
 
-function parseCloudinarySrc(src: string): {
+const parseCloudinarySrc = (src: string): {
   id: string;
   quality: CloudinaryQuality;
-} {
+} => {
   if (src.startsWith(BEST_PREFIX)) {
     return { id: src.slice(BEST_PREFIX.length), quality: 'best' };
   }
   return { id: src, quality: 'good' };
 }
 
-function resourceId(resource: CloudinaryResourceSrc | string): string {
+const resourceId = (resource: CloudinaryResourceSrc | string): string => {
   if (typeof resource === 'string') return parseCloudinarySrc(resource).id;
 
   return resource.version != null
@@ -39,10 +39,10 @@ function resourceId(resource: CloudinaryResourceSrc | string): string {
  * Builds the `src` passed to next/image.
  * Tier is encoded in the string (`best:…`) so the shared loaderFile can pick q_auto without Next `quality`.
  */
-export function toCloudinarySrc(
+export const toCloudinarySrc = (
   resource: CloudinaryResourceSrc | string,
   quality: CloudinaryQuality = 'good'
-): string {
+): string => {
   const id = resourceId(resource);
   return quality === 'best' ? `${BEST_PREFIX}${id}` : id;
 }
@@ -53,7 +53,7 @@ export function toCloudinarySrc(
  * Format is pinned to `f_jpg` (rather than `f_auto`) so the resulting
  * bytes are deterministic regardless of the server-side fetch's Accept header.
  */
-export function getBlurPlaceholderUrl(resource: CloudinaryResourceSrc): string {
+export const getBlurPlaceholderUrl = (resource: CloudinaryResourceSrc): string => {
   const id = resourceId(resource);
   const transforms = [
     'f_jpg',
@@ -66,13 +66,13 @@ export function getBlurPlaceholderUrl(resource: CloudinaryResourceSrc): string {
   return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/v${id}`;
 }
 
-export function getCloudinaryUrl({
+export const getCloudinaryUrl = ({
   src,
   width,
 }: {
   src: string;
   width: number;
-}): string {
+}): string => {
   const { id, quality } = parseCloudinarySrc(src);
   const transforms = [
     'f_auto',
@@ -88,7 +88,7 @@ export function getCloudinaryUrl({
  * Builds a Cloudinary video URL.
  * Videos are served as-is without transforms to preserve format and transparency.
  */
-export function getCloudinaryVideoUrl(resource: CloudinaryResourceSrc | string): string {
+export const getCloudinaryVideoUrl = (resource: CloudinaryResourceSrc | string): string => {
   const id = resourceId(resource);
   return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/v${id}`;
 }
@@ -97,18 +97,20 @@ export function getCloudinaryVideoUrl(resource: CloudinaryResourceSrc | string):
  * Builds a Cloudinary image URL for the original upload.
  * No transforms, so a PNG poster stays a PNG and matches the video's first frame.
  */
-export function getCloudinaryOriginalImageUrl(resource: CloudinaryResourceSrc | string): string {
+export const getCloudinaryOriginalImageUrl = (resource: CloudinaryResourceSrc | string): string => {
   const id = resourceId(resource);
   return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v${id}`;
 }
 
 /** Default export required by next.config `images.loaderFile`. */
-export default function cloudinaryLoader({
+const cloudinaryLoader = ({
   src,
   width,
-}: ImageLoaderProps): string {
+}: ImageLoaderProps): string => {
   return getCloudinaryUrl({
     src,
     width: Math.min(width, CLOUDINARY_LIGHTBOX_MAX_WIDTH),
   });
 }
+
+export default cloudinaryLoader

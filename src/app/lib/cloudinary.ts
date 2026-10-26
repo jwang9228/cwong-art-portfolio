@@ -11,7 +11,7 @@ cloudinary.config({
 });
 
 /** `{version}/{public_id}` constants → the resource shape blur fetches expect. */
-export function parseVersionedCloudinarySrc(src: string): CloudinaryResourceSrc {
+export const parseVersionedCloudinarySrc = (src: string): CloudinaryResourceSrc => {
   const slash = src.indexOf('/');
   if (slash <= 0) return { public_id: src };
 
@@ -21,7 +21,7 @@ export function parseVersionedCloudinarySrc(src: string): CloudinaryResourceSrc 
   };
 }
 
-export async function fetchBlurDataURL(resource: CloudinaryResourceSrc): Promise<string | undefined> {
+export const fetchBlurDataURL = async (resource: CloudinaryResourceSrc): Promise<string | undefined> => {
   try {
     const response = await fetch(getBlurPlaceholderUrl(resource));
     if (!response.ok) return undefined;
@@ -34,7 +34,7 @@ export async function fetchBlurDataURL(resource: CloudinaryResourceSrc): Promise
   }
 }
 
-export async function getGalleryImages(folderPath: string, maxImages: number = 30): Promise<CloudinaryResource[]> {
+export const getGalleryImages = async (folderPath: string, maxImages: number = 30): Promise<CloudinaryResource[]> => {
   'use cache';
   cacheLife('hours');
   cacheTag('gallery-images', `gallery:${folderPath}`);

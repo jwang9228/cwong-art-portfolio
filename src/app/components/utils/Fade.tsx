@@ -76,7 +76,7 @@ interface FadeProps {
   className?: string;
 }
 
-function Fade({
+export default memo(function Fade({
   children,
   type = 'up',
   speed = 'ui',
@@ -130,6 +130,4 @@ function Fade({
       {children}
     </Component>
   )
-}
-
-export default memo(Fade);
+});
