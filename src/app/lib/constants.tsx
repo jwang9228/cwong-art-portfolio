@@ -64,7 +64,7 @@ export const BLITMAP_PROCESS_WORK_COVERS = [
 ] as const;
 
 /* Blitnet project */
-export const BLITNET_INTRO_VIDEO_SRC = '1792735119/sup_door_open_trimmed_usmcp3';
+export const BLITNET_INTRO_VIDEO_SRC = '1793079594/sup_door_open_kxzayl';
 export const BLITNET_INTRO_POSTER_SRC = '1792735117/sup_door_open_poster_e3lhys';
 
 /* Navigation tabs */
