@@ -13,6 +13,8 @@ export default function Blitnet() {
   const posterSrc = `${getCloudinaryOriginalImageUrl(BLITNET_INTRO_POSTER_SRC)}.png`;
 
   return (
-    <Intro videoSrc={videoSrc} posterSrc={posterSrc} />
+    <Intro videoSrc={videoSrc} posterSrc={posterSrc}>
+      Hello World
+    </Intro>
   );
 }
