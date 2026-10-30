@@ -81,26 +81,22 @@ export default async function Blitmap() {
   };
 
   return (
-    <article className='flex flex-col font-mono'>
+    <article className='flex flex-col'>
       <figure className='relative h-[70dvh] w-full'>
         {fillImage(BLITMAP_LANDING_IMAGE_SRC, 'Blitmap Cover', '100vw', 'object-cover', 'best', true)}
       </figure>
 
       <Fade
         as='header'
-        speed='art'
+        speed='ui'
         inView 
-        className='flex flex-col gap-y-2 laptop:gap-y-2.5 
-          py-4.5 tablet:py-5 laptop:py-6 text-center text-balance'
+        className='flex flex-col gap-y-3 py-4.5 tablet:py-5 laptop:py-6 text-center text-balance'
       >
-        <h1 className='text-xl tablet:text-2xl laptop:text-3xl desktop:text-4xl font-semibold'>
-          Blitmap: Fragments of the Machine
+        <h1 className='text-xl tablet:text-2xl laptop:text-3xl font-semibold font-mono'>
+          SUP x Blitmap: Fragments of the Machine
         </h1>
-        <p className='font-medium tablet:text-lg laptop:text-xl desktop:text-2xl'>
-          SUP/BLITMAP x Titan Comics
-        </p>
-        <p className='mx-4 mt-2.5 font-normal text-sm tablet:text-base laptop:text-lg desktop:text-xl'>
-          Cover and character work for Blitmap's sci-fi comic series
+        <p className='font-normal text-base laptop:text-lg'>
+          Cover art for Blitmap's sci-fi comic series, in collaboration with Titan Comics
         </p>
       </Fade>
 
@@ -161,7 +157,7 @@ export default async function Blitmap() {
               </figure>
             ))}
           </div>
-          <p className='font-medium text-primary/85
+          <p className='font-normal text-primary/85
             text-sm tablet:text-base laptop:text-xl text-balance text-center'
           >
             Black-and-white variations for rapid cover ideation

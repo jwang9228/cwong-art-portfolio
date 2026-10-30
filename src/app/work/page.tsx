@@ -12,7 +12,7 @@ export default function Page() {
           key={project.thumbnail} 
           type='in' 
           className='relative h-[30dvh] laptop:h-[80dvh]
-            rounded-xl overflow-hidden cursor-pointer group'
+            rounded-lg overflow-hidden cursor-pointer group'
         >
           <Link href={project.href} className='relative block size-full'>
             <Image
