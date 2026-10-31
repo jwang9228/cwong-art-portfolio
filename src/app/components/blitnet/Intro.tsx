@@ -2,8 +2,8 @@
 
 import { useRef, useEffect, useState, type ReactNode } from 'react';
 
-const INTRO_HOLD_MS = 500;
-const ZOOM_START_TIME_SEC = 1.7;
+const INTRO_HOLD_MS = 250;
+const ZOOM_START_TIME_SEC = 1.6;
 
 interface IntroProps {
   videoSrc: string;
@@ -90,7 +90,7 @@ export default function Intro({ videoSrc, posterSrc, children }: IntroProps) {
         className={`px-4 w-auto h-auto 
           object-contain [image-rendering:pixelated]
           ${introState === 'exiting'
-            ? 'scale-[2.5] opacity-0 transition-all duration-1000 ease-in-out'
+            ? 'scale-[2.5] opacity-0 transition-all duration-850 ease-in-out'
             : 'scale-100 opacity-100'}`}
         muted
         playsInline

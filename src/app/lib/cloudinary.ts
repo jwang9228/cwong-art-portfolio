@@ -34,6 +34,25 @@ export const fetchBlurDataURL = async (resource: CloudinaryResourceSrc): Promise
   }
 }
 
+/** Batch blur placeholders for `{version}/{public_id}` constant srcs. */
+export const fetchBlurDataURLMap = async (
+  srcs: readonly string[],
+  tag: string,
+): Promise<Record<string, string | undefined>> => {
+  'use cache';
+  cacheLife('hours');
+  cacheTag(tag);
+
+  const entries = await Promise.all(
+    srcs.map(async (src) => {
+      const blurDataURL = await fetchBlurDataURL(parseVersionedCloudinarySrc(src));
+      return [src, blurDataURL] as const;
+    })
+  );
+
+  return Object.fromEntries(entries);
+}
+
 export const getGalleryImages = async (folderPath: string, maxImages: number = 30): Promise<CloudinaryResource[]> => {
   'use cache';
   cacheLife('hours');

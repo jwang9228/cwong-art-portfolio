@@ -6,11 +6,9 @@ import {
   BLITMAP_PROCESS_WORK_SKETCHES,
   BLITMAP_PROCESS_WORK_COVERS
 } from '../../lib/constants';
-import Image from 'next/image';
-import { cacheLife, cacheTag } from 'next/cache';
-import { toCloudinarySrc } from '../../lib/cloudinary-image';
-import { fetchBlurDataURL, parseVersionedCloudinarySrc } from '../../lib/cloudinary';
+import { fetchBlurDataURLMap } from '../../lib/cloudinary';
 import Fade from '../../components/utils/Fade';
+import FadeFillImage from '../../components/utils/FadeFillImage';
 
 // Per-thumbnail scatter: mobile = fanned vertical stack; tablet+ = overlapping row.
 const THUMBNAIL_LAYOUT = [
@@ -40,55 +38,27 @@ const BLITMAP_IMAGE_SRCS = [
   ...BLITMAP_PROCESS_WORK_COVERS.map((cover) => cover.src),
 ] as const;
 
-const getBlitmapBlurs = async (): Promise<Record<string, string | undefined>> => {
-  'use cache';
-  cacheLife('hours');
-  cacheTag('blitmap-blurs');
-
-  const entries = await Promise.all(
-    BLITMAP_IMAGE_SRCS.map(async (src) => {
-      const blurDataURL = await fetchBlurDataURL(parseVersionedCloudinarySrc(src));
-      return [src, blurDataURL] as const;
-    })
-  );
-
-  return Object.fromEntries(entries);
-}
-
 export default async function Blitmap() {
-  const blurs = await getBlitmapBlurs();
-
-  const fillImage = (
-    src: string,
-    alt: string,
-    sizes: string,
-    className: string,
-    quality: 'good' | 'best' = 'good',
-    priority = false,
-  ) => {
-    const blurDataURL = blurs[src];
-    return (
-      <Image
-        src={toCloudinarySrc(src, quality)}
-        alt={alt}
-        fill
-        sizes={sizes}
-        className={className}
-        {...(priority ? { priority: true } : {})}
-        {...(blurDataURL ? { placeholder: 'blur' as const, blurDataURL } : {})}
-      />
-    );
-  };
+  const blurs = await fetchBlurDataURLMap(BLITMAP_IMAGE_SRCS, 'blitmap-blurs');
 
   return (
     <article className='flex flex-col'>
       <figure className='relative h-[70dvh] w-full'>
-        {fillImage(BLITMAP_LANDING_IMAGE_SRC, 'Blitmap Cover', '100vw', 'object-cover', 'best', true)}
+        <FadeFillImage
+          src={BLITMAP_LANDING_IMAGE_SRC}
+          alt='Blitmap Cover'
+          sizes='100vw'
+          className='object-cover'
+          quality='best'
+          priority
+          blurDataURL={blurs[BLITMAP_LANDING_IMAGE_SRC]}
+        />
       </figure>
 
       <Fade
         as='header'
         speed='ui'
+        delay={0.2}
         inView 
         className='flex flex-col gap-y-3 py-4.5 tablet:py-5 laptop:py-6 text-center text-balance'
       >
@@ -100,23 +70,24 @@ export default async function Blitmap() {
         </p>
       </Fade>
 
-      <Fade as='section' speed='art' inView className='relative flex w-full'>
-        <h2 className='sr-only'>Issue 5 covers</h2>
+      <section className='relative flex w-full'>
         {BLITMAP_ISSUE_5_COVERS.map(cover => (
           <figure key={cover.src} className='relative w-1/2 aspect-2/3'>
-            {fillImage(cover.src, cover.alt, '50vw', 'object-contain')}
+            <FadeFillImage
+              src={cover.src}
+              alt={cover.alt}
+              sizes='50vw'
+              className='object-contain'
+              blurDataURL={blurs[cover.src]}
+            />
           </figure>
         ))}
-      </Fade>
+      </section>
 
-      <Fade
-        as='section'
-        speed='art'
-        inView
+      <section
         className='whiteboard-grid relative flex flex-col items-center w-full py-8 my-4
           tablet:flex-row tablet:justify-center tablet:items-center tablet:py-10'
       >
-        <h2 className='sr-only'>Thumbnails</h2>
         {BLITMAP_THUMBNAILS.map((thumbnail, index) => {
           const layout = THUMBNAIL_LAYOUT[index];
 
@@ -129,31 +100,54 @@ export default async function Blitmap() {
                 ring-1 ring-primary/25 overflow-hidden
                 ${layout.className}`}
             >
-              {fillImage(thumbnail.src, thumbnail.alt, '(max-width: 767px) 72vw, 25vw', 'object-cover')}
+              <FadeFillImage
+                src={thumbnail.src}
+                alt={thumbnail.alt}
+                sizes='(max-width: 767px) 72vw, 25vw'
+                className='object-cover'
+                blurDataURL={blurs[thumbnail.src]}
+              />
             </figure>
           );
         })}
-      </Fade>
+      </section>
 
-      <Fade as='section' speed='art' inView className='relative flex flex-col px-1 gap-y-2.5'>
-        <h2 className='sr-only'>Process work</h2>
+      <section className='relative flex flex-col px-1 gap-y-2.5'>
         <figure className='relative w-full aspect-800/486'>
-          {fillImage(BLITMAP_PROCESS_WORK_CHARACTERS_SRC, 'Blitmap Process Work Characters', '100vw', 'object-contain')}
+          <FadeFillImage
+            src={BLITMAP_PROCESS_WORK_CHARACTERS_SRC}
+            alt='Blitmap Process Work Characters'
+            sizes='100vw'
+            className='object-contain'
+            blurDataURL={blurs[BLITMAP_PROCESS_WORK_CHARACTERS_SRC]}
+          />
         </figure>
 
-        <section className='flex gap-x-1'>
+        <div className='flex gap-x-1'>
           {BLITMAP_PROCESS_WORK_SKETCHES.map(sketch => (
             <figure key={sketch.src} className='relative w-1/2 aspect-2/3'>
-              {fillImage(sketch.src, sketch.alt, '50vw', 'object-contain')}
+              <FadeFillImage
+                src={sketch.src}
+                alt={sketch.alt}
+                sizes='50vw'
+                className='object-contain'
+                blurDataURL={blurs[sketch.src]}
+              />
             </figure>
           ))}
-        </section>
+        </div>
 
-        <section className='flex flex-col gap-y-2.5 tablet:gap-y-3 laptop:gap-y-4'>
+        <div className='flex flex-col gap-y-2.5 tablet:gap-y-3 laptop:gap-y-4'>
           <div className='flex gap-x-1'>
             {BLITMAP_PROCESS_WORK_COVERS.map(cover => (
               <figure key={cover.src} className='relative w-1/3 aspect-2/3'>
-                {fillImage(cover.src, cover.alt, '33vw', 'object-contain')}
+                <FadeFillImage
+                  src={cover.src}
+                  alt={cover.alt}
+                  sizes='33vw'
+                  className='object-contain'
+                  blurDataURL={blurs[cover.src]}
+                />
               </figure>
             ))}
           </div>
@@ -162,8 +156,8 @@ export default async function Blitmap() {
           >
             Black-and-white variations for rapid cover ideation
           </p>
-        </section>
-      </Fade>
+        </div>
+      </section>
     </article>
   )
 }

@@ -67,6 +67,17 @@ export const BLITMAP_PROCESS_WORK_COVERS = [
 export const BLITNET_INTRO_VIDEO_SRC = '1793079594/sup_door_open_kxzayl';
 export const BLITNET_INTRO_POSTER_SRC = '1792735117/sup_door_open_poster_e3lhys';
 
+export const BLITNET_ENVIRONMENTS = [
+  {
+    src: '1784704944/NightPurple_Interior_Underground_Parallax_Foreground_9.19_yvfatv',
+    alt: 'Blit.net dark underground environment',
+  },
+  {
+    src: '1784698134/GreenSwamp_Interior_Underground_Parallax_All_9.19_qj0dhk',
+    alt: 'Blit.net light swamp environment',
+  },
+] as const;
+
 /* Navigation tabs */
 export interface NavItem {
   label: string,

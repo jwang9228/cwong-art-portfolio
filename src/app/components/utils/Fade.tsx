@@ -8,7 +8,7 @@ const FADE_UP_UI_PX_TRANSLATION = 10;
 const FADE_IN_DURATION = 0.3;
 
 // UI Timing
-const UI_DURATION = 0.4;
+const UI_DURATION = 0.5;
 const UI_EASE = [0.2, 0.65, 0.3, 0.9] as const;
 
 // Art Timing
@@ -55,9 +55,9 @@ const FADE_IN_VARIANTS: FadeVariant = {
 
 type ValidTag = 'div' | 'section' | 'main' | 'span' | 'header' | 'footer' | 'nav';
 
-// Viewport margin — how far below the fold an element is still considered 
-// "approaching" the viewport.
-const IN_VIEW_MARGIN = '0px 0px -40px 0px';
+// Expand the root downward so elements still below the fold count as
+// approaching — positive bottom margin triggers earlier while scrolling.
+const IN_VIEW_MARGIN = '0px 0px 20% 0px';
 
 interface FadeProps {
   children: ReactNode;
