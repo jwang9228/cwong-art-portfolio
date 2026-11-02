@@ -1,5 +1,5 @@
 import { getGalleryImages } from '../../lib/cloudinary';
-import GalleryImage from '../utils/GalleryImage';
+import RevealImage from '../utils/RevealImage';
 
 const HERO_GALLERY_PATH = 'cwong-art/landing/gallery';
 const HERO_GALLERY_MAX_IMAGES = 30;
@@ -11,7 +11,7 @@ export default async function HeroGallery() {
     <section className='grid grid-cols-1 tablet:grid-cols-2
       gap-4 tablet:gap-5 laptop:gap-6 pt-6'>
       {resources.map((image, index) => (
-        <GalleryImage
+        <RevealImage
           key={image.asset_id}
           image={image}
           alt='Gallery Image'

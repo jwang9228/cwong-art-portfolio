@@ -1,6 +1,6 @@
 import Intro from '../../components/blitnet/Intro';
 import Fade from '../../components/utils/Fade';
-import FadeFillImage from '../../components/utils/FadeFillImage';
+import RevealImage from '../../components/utils/RevealImage';
 import {
   getCloudinaryOriginalImageUrl,
   getCloudinaryVideoUrl,
@@ -40,7 +40,8 @@ export default async function Blitnet() {
         <section className='flex flex-col laptop:flex-row w-full px-2 gap-2'>
           {BLITNET_ENVIRONMENTS.map(({ src, alt }) => (
             <figure key={src} className='relative w-full laptop:w-1/2 aspect-video'>
-              <FadeFillImage
+              <RevealImage
+                fill
                 src={src}
                 alt={alt}
                 sizes='(max-width: 1023px) 100vw, 50vw'

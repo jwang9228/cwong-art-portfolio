@@ -8,7 +8,7 @@ import {
 } from '../../lib/constants';
 import { fetchBlurDataURLMap } from '../../lib/cloudinary';
 import Fade from '../../components/utils/Fade';
-import FadeFillImage from '../../components/utils/FadeFillImage';
+import RevealImage from '../../components/utils/RevealImage';
 
 // Per-thumbnail scatter: mobile = fanned vertical stack; tablet+ = overlapping row.
 const THUMBNAIL_LAYOUT = [
@@ -44,7 +44,8 @@ export default async function Blitmap() {
   return (
     <article className='flex flex-col'>
       <figure className='relative h-[70dvh] w-full'>
-        <FadeFillImage
+        <RevealImage
+          fill
           src={BLITMAP_LANDING_IMAGE_SRC}
           alt='Blitmap Cover'
           sizes='100vw'
@@ -58,7 +59,6 @@ export default async function Blitmap() {
       <Fade
         as='header'
         speed='ui'
-        delay={0.2}
         inView 
         className='flex flex-col gap-y-3 py-4.5 tablet:py-5 laptop:py-6 text-center text-balance'
       >
@@ -73,7 +73,8 @@ export default async function Blitmap() {
       <section className='relative flex w-full'>
         {BLITMAP_ISSUE_5_COVERS.map(cover => (
           <figure key={cover.src} className='relative w-1/2 aspect-2/3'>
-            <FadeFillImage
+            <RevealImage
+              fill
               src={cover.src}
               alt={cover.alt}
               sizes='50vw'
@@ -100,7 +101,8 @@ export default async function Blitmap() {
                 ring-1 ring-primary/25 overflow-hidden
                 ${layout.className}`}
             >
-              <FadeFillImage
+              <RevealImage
+                fill
                 src={thumbnail.src}
                 alt={thumbnail.alt}
                 sizes='(max-width: 767px) 72vw, 25vw'
@@ -114,7 +116,8 @@ export default async function Blitmap() {
 
       <section className='relative flex flex-col px-1 gap-y-2.5'>
         <figure className='relative w-full aspect-800/486'>
-          <FadeFillImage
+          <RevealImage
+            fill
             src={BLITMAP_PROCESS_WORK_CHARACTERS_SRC}
             alt='Blitmap Process Work Characters'
             sizes='100vw'
@@ -126,7 +129,8 @@ export default async function Blitmap() {
         <div className='flex gap-x-1'>
           {BLITMAP_PROCESS_WORK_SKETCHES.map(sketch => (
             <figure key={sketch.src} className='relative w-1/2 aspect-2/3'>
-              <FadeFillImage
+              <RevealImage
+                fill
                 src={sketch.src}
                 alt={sketch.alt}
                 sizes='50vw'
@@ -141,7 +145,8 @@ export default async function Blitmap() {
           <div className='flex gap-x-1'>
             {BLITMAP_PROCESS_WORK_COVERS.map(cover => (
               <figure key={cover.src} className='relative w-1/3 aspect-2/3'>
-                <FadeFillImage
+                <RevealImage
+                  fill
                   src={cover.src}
                   alt={cover.alt}
                   sizes='33vw'

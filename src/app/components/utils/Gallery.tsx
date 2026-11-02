@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'motion/react';
-import GalleryImage from './GalleryImage';
+import RevealImage from './RevealImage';
 import {
   CLOUDINARY_LIGHTBOX_MAX_WIDTH,
   CloudinaryResource,
@@ -191,13 +191,13 @@ export default function Gallery({
                     onPointerEnter={() => preloadLightboxImage(image)}
                     className='cursor-zoom-in'
                   >
-                    <GalleryImage
+                    <RevealImage
                       image={image}
                       alt='Gallery Image'
                       sizes={getTierSizes(tier.count)}
                       inView
                       priority={originalIndex < priorityCutoff}
-                      loadDelay={getCascadeDelay(columnIndex, rowIndex)}
+                      delay={getCascadeDelay(columnIndex, rowIndex)}
                     />
                   </motion.div>
                 ))}
