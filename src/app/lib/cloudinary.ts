@@ -53,7 +53,7 @@ export const fetchBlurDataURLMap = async (
   return Object.fromEntries(entries);
 }
 
-export const getGalleryImages = async (folderPath: string, maxImages: number = 30): Promise<CloudinaryResource[]> => {
+export const getGalleryImages = async (folderPath: string, maxImages: number = 50): Promise<CloudinaryResource[]> => {
   'use cache';
   cacheLife('hours');
   cacheTag('gallery-images', `gallery:${folderPath}`);
@@ -62,8 +62,18 @@ export const getGalleryImages = async (folderPath: string, maxImages: number = 3
     const { resources } = await cloudinary.search
       .expression(`folder:${folderPath}`)
       .sort_by('public_id', 'asc')
+      .with_field('context')
       .max_results(maxImages)
       .execute();
+
+    // Sort by Cloudinary's "Contextual metadata", if set on an asset. 
+    // Lower order number = higher priority, shown first
+    resources.sort((a, b) => {
+      const aOrder = Number(a.context?.order ?? Infinity);
+      const bOrder = Number(b.context?.order ?? Infinity);
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return a.public_id.localeCompare(b.public_id);
+    })
 
     return await Promise.all(
       resources.map(async (resource: CloudinaryResource) => ({
