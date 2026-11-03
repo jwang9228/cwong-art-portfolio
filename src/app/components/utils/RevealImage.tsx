@@ -32,6 +32,8 @@ type RevealImageFill = RevealImageBase & {
 
 export type RevealImageProps = RevealImageIntrinsic | RevealImageFill;
 
+const isFillProps = (props: RevealImageProps): props is RevealImageFill => props.fill === true;
+
 /**
  * Cloudinary image that fades in only after load (optionally when in view).
  * Intrinsic: sizes from the resource (galleries).
@@ -46,53 +48,42 @@ export default function RevealImage(props: RevealImageProps) {
     delay = 0,
   } = props;
   // Fill frames default to in-view gating; intrinsic gallery tiles opt in.
-  const inView = props.inView ?? props.fill === true;
+  const inView = props.inView ?? isFillProps(props);
 
-  if (props.fill) {
-    const {
-      src,
-      className = '',
-      blurDataURL,
-      quality = 'good',
-    } = props;
-
-    return (
-      <Fade
-        speed='art'
-        inView={inView}
-        delay={delay}
-        ready={loaded}
-        className='absolute inset-0'
-      >
-        <Image
-          src={toCloudinarySrc(src, quality)}
-          alt={alt}
-          fill
-          sizes={sizes}
-          className={className}
-          {...(priority ? { priority: true } : {})}
-          {...(blurDataURL ? { placeholder: 'blur' as const, blurDataURL } : {})}
-          onLoad={() => setLoaded(true)}
-        />
-      </Fade>
-    );
-  }
-
-  const { image, className = 'w-full h-auto' } = props;
+  const { src, width, height, blurDataURL, className } = isFillProps(props)
+    ? {
+        src: toCloudinarySrc(props.src, props.quality ?? 'good'),
+        width: undefined,
+        height: undefined,
+        blurDataURL: props.blurDataURL,
+        className: props.className ?? '',
+      }
+    : {
+        src: toCloudinarySrc(props.image),
+        width: props.image.width,
+        height: props.image.height,
+        blurDataURL: props.image.blurDataURL,
+        className: props.className ?? 'w-full h-auto',
+      };
 
   return (
-    <Fade speed='art' delay={delay} inView={inView} ready={loaded}>
+    <Fade
+      speed='art'
+      inView={inView}
+      delay={delay}
+      ready={loaded}
+      className={isFillProps(props) ? 'absolute inset-0' : undefined}
+    >
       <Image
-        src={toCloudinarySrc(image)}
+        src={src}
         alt={alt}
-        width={image.width}
-        height={image.height}
         sizes={sizes}
         className={className}
         priority={priority}
-        placeholder={image.blurDataURL ? 'blur' : 'empty'}
-        blurDataURL={image.blurDataURL}
+        placeholder={blurDataURL ? 'blur' : 'empty'}
+        blurDataURL={blurDataURL}
         onLoad={() => setLoaded(true)}
+        {...(isFillProps(props) ? { fill: true } : { width, height })}
       />
     </Fade>
   );

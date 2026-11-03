@@ -6,9 +6,26 @@ import {
   BLITMAP_PROCESS_WORK_SKETCHES,
   BLITMAP_PROCESS_WORK_COVERS
 } from '../../lib/constants';
-import { fetchBlurDataURLMap } from '../../lib/cloudinary';
+import {
+  CloudinaryImageMeta,
+  fetchCloudinaryImageMetaMap,
+} from '../../lib/cloudinary';
+import { cloudinaryAspectRatioStyle } from '../../lib/cloudinary-image';
 import Fade from '../../components/utils/Fade';
 import RevealImage from '../../components/utils/RevealImage';
+
+/**
+ * Pairs each item with its blur placeholder and derives one shared
+ * `aspect-ratio` for the row, so equal-width cells end up the same size
+ * regardless of each source asset's own ratio.
+ */
+const withRowAspect = <T extends { src: string }>(
+  items: readonly T[],
+  images: Record<string, CloudinaryImageMeta>,
+) => ({
+  items: items.map((item) => ({ ...item, blurDataURL: images[item.src]?.blurDataURL })),
+  aspectStyle: cloudinaryAspectRatioStyle(items.map((item) => images[item.src])),
+});
 
 // Per-thumbnail scatter: mobile = fanned vertical stack; tablet+ = overlapping row.
 const THUMBNAIL_LAYOUT = [
@@ -39,7 +56,13 @@ const BLITMAP_IMAGE_SRCS = [
 ] as const;
 
 export default async function Blitmap() {
-  const blurs = await fetchBlurDataURLMap(BLITMAP_IMAGE_SRCS, 'blitmap-blurs');
+  const images = await fetchCloudinaryImageMetaMap(BLITMAP_IMAGE_SRCS, 'blitmap-images');
+  const landing = images[BLITMAP_LANDING_IMAGE_SRC];
+  const processCharacters = images[BLITMAP_PROCESS_WORK_CHARACTERS_SRC];
+  const issue5 = withRowAspect(BLITMAP_ISSUE_5_COVERS, images);
+  const thumbnails = withRowAspect(BLITMAP_THUMBNAILS, images);
+  const sketches = withRowAspect(BLITMAP_PROCESS_WORK_SKETCHES, images);
+  const processCovers = withRowAspect(BLITMAP_PROCESS_WORK_COVERS, images);
 
   return (
     <article className='flex flex-col'>
@@ -52,7 +75,7 @@ export default async function Blitmap() {
           className='object-cover'
           quality='best'
           priority
-          blurDataURL={blurs[BLITMAP_LANDING_IMAGE_SRC]}
+          blurDataURL={landing?.blurDataURL}
         />
       </figure>
 
@@ -70,16 +93,20 @@ export default async function Blitmap() {
         </p>
       </Fade>
 
-      <section className='relative flex w-full'>
-        {BLITMAP_ISSUE_5_COVERS.map(cover => (
-          <figure key={cover.src} className='relative w-1/2 aspect-2/3'>
+      <section className='relative flex w-full px-1 gap-x-1'>
+        {issue5.items.map(cover => (
+          <figure
+            key={cover.src}
+            className='relative w-1/2'
+            style={issue5.aspectStyle}
+          >
             <RevealImage
               fill
               src={cover.src}
               alt={cover.alt}
               sizes='50vw'
-              className='object-contain'
-              blurDataURL={blurs[cover.src]}
+              className='object-cover'
+              blurDataURL={cover.blurDataURL}
             />
           </figure>
         ))}
@@ -89,17 +116,18 @@ export default async function Blitmap() {
         className='whiteboard-grid relative flex flex-col items-center w-full py-8 my-4
           tablet:flex-row tablet:justify-center tablet:items-center tablet:py-10'
       >
-        {BLITMAP_THUMBNAILS.map((thumbnail, index) => {
+        {thumbnails.items.map((thumbnail, index) => {
           const layout = THUMBNAIL_LAYOUT[index];
 
           return (
             <figure
               key={thumbnail.src}
-              className={`relative w-2/3 aspect-3/4 shrink-0
+              className={`relative w-2/3 shrink-0
                 tablet:w-[30%] tablet:max-w-none
                 rounded-lg shadow-[0_16px_48px_rgba(0,0,0,0.4)] border-4 border-white 
                 ring-1 ring-primary/25 overflow-hidden
                 ${layout.className}`}
+              style={thumbnails.aspectStyle}
             >
               <RevealImage
                 fill
@@ -107,7 +135,7 @@ export default async function Blitmap() {
                 alt={thumbnail.alt}
                 sizes='(max-width: 767px) 72vw, 25vw'
                 className='object-cover'
-                blurDataURL={blurs[thumbnail.src]}
+                blurDataURL={thumbnail.blurDataURL}
               />
             </figure>
           );
@@ -115,27 +143,34 @@ export default async function Blitmap() {
       </section>
 
       <section className='relative flex flex-col px-1 gap-y-2.5'>
-        <figure className='relative w-full aspect-800/486'>
+        <figure
+          className='relative w-full'
+          style={cloudinaryAspectRatioStyle(processCharacters)}
+        >
           <RevealImage
             fill
             src={BLITMAP_PROCESS_WORK_CHARACTERS_SRC}
             alt='Blitmap Process Work Characters'
             sizes='100vw'
             className='object-contain'
-            blurDataURL={blurs[BLITMAP_PROCESS_WORK_CHARACTERS_SRC]}
+            blurDataURL={processCharacters?.blurDataURL}
           />
         </figure>
 
         <div className='flex gap-x-1'>
-          {BLITMAP_PROCESS_WORK_SKETCHES.map(sketch => (
-            <figure key={sketch.src} className='relative w-1/2 aspect-2/3'>
+          {sketches.items.map(sketch => (
+            <figure
+              key={sketch.src}
+              className='relative w-1/2'
+              style={sketches.aspectStyle}
+            >
               <RevealImage
                 fill
                 src={sketch.src}
                 alt={sketch.alt}
                 sizes='50vw'
                 className='object-contain'
-                blurDataURL={blurs[sketch.src]}
+                blurDataURL={sketch.blurDataURL}
               />
             </figure>
           ))}
@@ -143,15 +178,19 @@ export default async function Blitmap() {
 
         <div className='flex flex-col gap-y-2.5 tablet:gap-y-3 laptop:gap-y-4'>
           <div className='flex gap-x-1'>
-            {BLITMAP_PROCESS_WORK_COVERS.map(cover => (
-              <figure key={cover.src} className='relative w-1/3 aspect-2/3'>
+            {processCovers.items.map(cover => (
+              <figure
+                key={cover.src}
+                className='relative w-1/3'
+                style={processCovers.aspectStyle}
+              >
                 <RevealImage
                   fill
                   src={cover.src}
                   alt={cover.alt}
                   sizes='33vw'
                   className='object-contain'
-                  blurDataURL={blurs[cover.src]}
+                  blurDataURL={cover.blurDataURL}
                 />
               </figure>
             ))}

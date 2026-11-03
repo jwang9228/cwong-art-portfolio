@@ -2,10 +2,11 @@ import Intro from '../../components/blitnet/Intro';
 import Fade from '../../components/utils/Fade';
 import RevealImage from '../../components/utils/RevealImage';
 import {
+  cloudinaryAspectRatioStyle,
   getCloudinaryOriginalImageUrl,
   getCloudinaryVideoUrl,
 } from '../../lib/cloudinary-image';
-import { fetchBlurDataURLMap } from '../../lib/cloudinary';
+import { fetchCloudinaryImageMetaMap } from '../../lib/cloudinary';
 import {
   BLITNET_ENVIRONMENTS,
   BLITNET_INTRO_POSTER_SRC,
@@ -15,9 +16,12 @@ import {
 export default async function Blitnet() {
   const videoSrc = `${getCloudinaryVideoUrl(BLITNET_INTRO_VIDEO_SRC)}.webm`;
   const posterSrc = `${getCloudinaryOriginalImageUrl(BLITNET_INTRO_POSTER_SRC)}.png`;
-  const blurs = await fetchBlurDataURLMap(
+  const images = await fetchCloudinaryImageMetaMap(
     BLITNET_ENVIRONMENTS.map((environment) => environment.src),
-    'blitnet-blurs',
+    'blitnet-images',
+  );
+  const environmentAspect = cloudinaryAspectRatioStyle(
+    BLITNET_ENVIRONMENTS.map((environment) => images[environment.src]),
   );
 
   return (
@@ -38,23 +42,31 @@ export default async function Blitnet() {
         </Fade>
 
         <section className='flex flex-col laptop:flex-row w-full px-2 gap-2'>
-          {BLITNET_ENVIRONMENTS.map(({ src, alt }) => (
-            <figure key={src} className='relative w-full laptop:w-1/2 aspect-video'>
-              <RevealImage
-                fill
-                src={src}
-                alt={alt}
-                sizes='(max-width: 1023px) 100vw, 50vw'
-                className='object-cover [image-rendering:pixelated]'
-                quality='best'
-                blurDataURL={blurs[src]}
-              />
-            </figure>
-          ))}
+          {BLITNET_ENVIRONMENTS.map(({ src, alt }) => {
+            const meta = images[src];
+
+            return (
+              <figure
+                key={src}
+                className='relative w-full laptop:w-1/2'
+                style={environmentAspect}
+              >
+                <RevealImage
+                  fill
+                  src={src}
+                  alt={alt}
+                  sizes='(max-width: 1023px) 100vw, 50vw'
+                  className='object-cover [image-rendering:pixelated]'
+                  quality='best'
+                  blurDataURL={meta?.blurDataURL}
+                />
+              </figure>
+            );
+          })}
         </section>
 
         <Fade>
-          <p className='text-sm'>World Exploration</p>
+          <p className=''>World Exploration</p>
         </Fade>
       </article>
     </Intro>

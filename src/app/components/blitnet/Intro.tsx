@@ -90,7 +90,7 @@ export default function Intro({ videoSrc, posterSrc, children }: IntroProps) {
         className={`px-4 w-auto h-auto 
           object-contain [image-rendering:pixelated]
           ${introState === 'exiting'
-            ? 'scale-[2.5] opacity-0 transition-all duration-850 ease-in-out'
+            ? 'scale-200 opacity-0 transition-all duration-850 ease-in-out'
             : 'scale-100 opacity-100'}`}
         muted
         playsInline

@@ -34,23 +34,70 @@ export const fetchBlurDataURL = async (resource: CloudinaryResourceSrc): Promise
   }
 }
 
-/** Batch blur placeholders for `{version}/{public_id}` constant srcs. */
-export const fetchBlurDataURLMap = async (
+/** Dimensions + LQIP for a case-study `{version}/{public_id}` constant. */
+export type CloudinaryImageMeta = {
+  width: number;
+  height: number;
+  blurDataURL?: string;
+};
+
+/**
+ * Batch Admin lookup of width/height (plus blur placeholders) for curated
+ * constant srcs. Keys match the input `{version}/{public_id}` strings so
+ * pages can drive `aspect-ratio` from the resource instead of hand-tuned
+ * Tailwind aspect utilities.
+ */
+export const fetchCloudinaryImageMetaMap = async (
   srcs: readonly string[],
   tag: string,
-): Promise<Record<string, string | undefined>> => {
+): Promise<Record<string, CloudinaryImageMeta>> => {
   'use cache';
   cacheLife('hours');
   cacheTag(tag);
 
-  const entries = await Promise.all(
-    srcs.map(async (src) => {
-      const blurDataURL = await fetchBlurDataURL(parseVersionedCloudinarySrc(src));
-      return [src, blurDataURL] as const;
-    })
-  );
+  if (srcs.length === 0) return {};
 
-  return Object.fromEntries(entries);
+  const parsed = srcs.map((src) => ({
+    src,
+    ...parseVersionedCloudinarySrc(src),
+  }));
+
+  try {
+    const { resources } = await cloudinary.api.resources_by_ids(
+      parsed.map((entry) => entry.public_id),
+    );
+
+    const byPublicId = new Map(
+      resources.map((resource) => [resource.public_id, resource]),
+    );
+
+    const entries = await Promise.all(
+      parsed.map(async ({ src, public_id, version }): Promise<[string, CloudinaryImageMeta] | null> => {
+        const resource = byPublicId.get(public_id);
+        if (!resource?.width || !resource?.height) {
+          console.error(`Cloudinary Meta Missing [${public_id}]`);
+          return null;
+        }
+
+        const blurDataURL = await fetchBlurDataURL({ public_id, version });
+        return [
+          src,
+          {
+            width: resource.width,
+            height: resource.height,
+            blurDataURL,
+          },
+        ];
+      }),
+    );
+
+    return Object.fromEntries(
+      entries.filter((entry): entry is [string, CloudinaryImageMeta] => entry != null),
+    );
+  } catch (error) {
+    console.error(`Cloudinary Meta Fetch Error [${tag}]:`, error);
+    return {};
+  }
 }
 
 export const getGalleryImages = async (folderPath: string, maxImages: number = 50): Promise<CloudinaryResource[]> => {

@@ -17,6 +17,28 @@ export type CloudinaryResource = {
 
 export type CloudinaryResourceSrc = Pick<CloudinaryResource, 'public_id' | 'version'>;
 
+type CloudinaryDimensions = Pick<CloudinaryResource, 'width' | 'height'>;
+
+/**
+ * Inline `aspect-ratio` for fill frames sized to the uploaded asset(s).
+ * One meta → that asset's own ratio. Several (e.g. an equal-width row) →
+ * the average ratio, so `object-cover` doesn't preferentially zoom
+ * whichever member is wider or taller.
+ */
+export const cloudinaryAspectRatioStyle = (
+  metas: CloudinaryDimensions | undefined | ReadonlyArray<CloudinaryDimensions | undefined>,
+): { aspectRatio: string } | undefined => {
+  const defined = (Array.isArray(metas) ? metas : [metas]).filter(
+    (meta): meta is CloudinaryDimensions => meta != null,
+  );
+  if (defined.length === 0) return undefined;
+
+  const width = defined.reduce((sum, meta) => sum + meta.width, 0) / defined.length;
+  const height = defined.reduce((sum, meta) => sum + meta.height, 0) / defined.length;
+
+  return { aspectRatio: `${width} / ${height}` };
+};
+
 const parseCloudinarySrc = (src: string): {
   id: string;
   quality: CloudinaryQuality;
