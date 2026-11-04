@@ -107,7 +107,7 @@ export const getGalleryImages = async (folderPath: string, maxImages: number = 5
 
   try {
     const { resources } = await cloudinary.search
-      .expression(`folder:${folderPath}`)
+      .expression(`folder:"${folderPath}"`)
       .sort_by('public_id', 'asc')
       .with_field('context')
       .max_results(maxImages)

@@ -6,32 +6,40 @@ import {
   getCloudinaryOriginalImageUrl,
   getCloudinaryVideoUrl,
 } from '../../lib/cloudinary-image';
-import { fetchCloudinaryImageMetaMap } from '../../lib/cloudinary';
+import { fetchCloudinaryImageMetaMap, getGalleryImages } from '../../lib/cloudinary';
 import {
   BLITNET_ENVIRONMENTS,
   BLITNET_INTRO_POSTER_SRC,
   BLITNET_INTRO_VIDEO_SRC,
 } from '../../lib/constants';
+import Gallery from '../../components/utils/Gallery';
+
+const BLITNET_ENVIRONMENT_GALLERY_PATH = 'cwong-art/Professional Work/Blit.net/environment';
+const BLITNET_ENVIRONMENT_GALLERY_MAX_IMAGES = 10;
 
 export default async function Blitnet() {
   const videoSrc = `${getCloudinaryVideoUrl(BLITNET_INTRO_VIDEO_SRC)}.webm`;
   const posterSrc = `${getCloudinaryOriginalImageUrl(BLITNET_INTRO_POSTER_SRC)}.png`;
+
   const images = await fetchCloudinaryImageMetaMap(
     BLITNET_ENVIRONMENTS.map((environment) => environment.src),
     'blitnet-images',
   );
+
   const environmentAspect = cloudinaryAspectRatioStyle(
     BLITNET_ENVIRONMENTS.map((environment) => images[environment.src]),
   );
 
+  const resources = await getGalleryImages(BLITNET_ENVIRONMENT_GALLERY_PATH, BLITNET_ENVIRONMENT_GALLERY_MAX_IMAGES);
+
   return (
     <Intro videoSrc={videoSrc} posterSrc={posterSrc}>
-      <article className='flex flex-col gap-y-8 py-2'>
+      <article className='flex flex-col gap-y-8 p-2'>
         <Fade
           as='header'
           speed='ui'
           inView
-          className='flex flex-col text-center text-balance gap-y-2 px-2'
+          className='flex flex-col text-center text-balance gap-y-2'
         >
           <h1 className='text-xl tablet:text-2xl laptop:text-3xl font-semibold'>
             SUP x Blit.net
@@ -41,7 +49,7 @@ export default async function Blitnet() {
           </p>
         </Fade>
 
-        <section className='flex flex-col laptop:flex-row w-full px-2 gap-2'>
+        <section className='flex flex-col laptop:flex-row w-full gap-2'>
           {BLITNET_ENVIRONMENTS.map(({ src, alt }) => {
             const meta = images[src];
 
@@ -65,9 +73,14 @@ export default async function Blitnet() {
           })}
         </section>
 
-        <Fade>
-          <p className=''>World Exploration</p>
-        </Fade>
+        <section className='flex flex-col gap-y-2 pt-2'>
+          <Fade className='pl-0.5'>
+            <p className='italic font-normal laptop:text-lg'>
+              World Exploration
+            </p>
+          </Fade>
+          <Gallery resources={resources} lightbox={false} />
+        </section>
       </article>
     </Intro>
   );

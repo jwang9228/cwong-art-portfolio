@@ -110,9 +110,11 @@ const PRIORITY_ROWS = 2;
 export default function Gallery({ 
   resources, 
   columns = DEFAULT_COLUMNS,
+  lightbox = true
 } : { 
   resources: CloudinaryResource[], 
   columns?: ColumnConfig,
+  lightbox?: boolean
 }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [lightboxReady, setLightboxReady] = useState(false);
@@ -187,9 +189,9 @@ export default function Gallery({
                 {column.map(({ item: image, originalIndex, rowIndex }) => (
                   <motion.div
                     key={image.asset_id}
-                    onClick={() => openLightbox(originalIndex)}
-                    onPointerEnter={() => preloadLightboxImage(image)}
-                    className='cursor-zoom-in'
+                    onClick={lightbox ? () => openLightbox(originalIndex) : undefined}
+                    onPointerEnter={lightbox ? () => preloadLightboxImage(image) : undefined}
+                    className={lightbox ? 'cursor-zoom-in' : undefined}
                   >
                     <RevealImage
                       image={image}
@@ -208,7 +210,7 @@ export default function Gallery({
       </section>
 
       <AnimatePresence>
-        {selectedImage && (
+        {lightbox && selectedImage && (
           <Lightbox
             selectedImage={selectedImage}
             selectedImageIndex={selectedImageIndex as number}
