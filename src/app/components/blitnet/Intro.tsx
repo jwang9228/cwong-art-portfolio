@@ -87,11 +87,11 @@ export default function Intro({ videoSrc, posterSrc, children }: IntroProps) {
     <div className='fixed inset-0 flex items-center justify-center'>
       <video
         ref={videoRef}
-        className={`px-4 w-auto h-auto 
-          object-contain [image-rendering:pixelated]
+        className={`block px-4 w-auto h-auto object-contain
+          [image-rendering:pixelated] [clip-path:inset(1px)]
           ${introState === 'exiting'
             ? 'scale-200 opacity-0 transition-all duration-850 ease-in-out'
-            : 'scale-100 opacity-100'}`}
+            : 'opacity-100'}`}
         muted
         playsInline
         preload='auto'

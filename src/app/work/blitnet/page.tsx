@@ -49,7 +49,7 @@ export default async function Blitnet() {
           </p>
         </Fade>
 
-        <section className='flex flex-col laptop:flex-row w-full gap-2'>
+        <section className='flex flex-col laptop:flex-row w-full gap-1.5'>
           {BLITNET_ENVIRONMENTS.map(({ src, alt }) => {
             const meta = images[src];
 
@@ -73,13 +73,21 @@ export default async function Blitnet() {
           })}
         </section>
 
-        <section className='flex flex-col gap-y-2 pt-2'>
+        <section className='flex flex-col gap-y-1.5 pt-2'>
           <Fade className='pl-0.5'>
             <p className='italic font-normal laptop:text-lg'>
               World Exploration
             </p>
           </Fade>
           <Gallery resources={resources} lightbox={false} />
+        </section>
+
+        <section className='flex flex-col gap-y-1.5'>
+          <Fade className='pl-0.5'>
+            <p className='italic font-normal laptop:text-lg'>
+              Assets & Animations
+            </p>
+          </Fade>
         </section>
       </article>
     </Intro>
