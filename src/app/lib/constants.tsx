@@ -12,68 +12,68 @@ export const COPYRIGHT = `\u00A9 ${new Date().getFullYear()} ${PORTFOLIO_NAME}`;
 export const LANDING_IMAGE_SRC = '1780127439/landing';
 
 /* Blitmap project */
-export const BLITMAP_LANDING_IMAGE_SRC = '1784625992/thumbnail_blitmap1_buwba4';
+export const BLITMAP_LANDING_IMAGE_SRC = '1784625992/blitmap_hero';
 export const BLITMAP_ISSUE_5_COVERS = [
   {
-    src: '1791516464/cropped-comic_nobg_zlnlfe',
+    src: '1791516464/issue5_front',
     alt: 'Blitmap Issue 5 Front Cover',
   },
   {
-    src: '1791516254/croppedcover_nobg2_egzxm5',
+    src: '1791516254/issue5_back',
     alt: 'Blitmap Issue 5 Back Cover',
   },
 ] as const;
 export const BLITMAP_THUMBNAILS = [
   {
-    src: '1785275194/IMG_2555_1_ygisyf',
+    src: '1785275194/blitmap_covers',
     alt: 'Blitmap Thumbnail 1',
   },
   {
-    src: '1784618657/IMG_2647_kh91i0',
+    src: '1784618657/Blitmap_thumbnail',
     alt: 'Blitmap Thumbnail 2'
   },
   {
-    src: '1785275189/IMG_2616_s8owkp',
+    src: '1785275189/blitmap_stand',
     alt: 'Blitmap Thumbnail 3',
   },
 ] as const;
-export const BLITMAP_PROCESS_WORK_CHARACTERS_SRC = '1785445843/comic_process2_xvkw9u'
+export const BLITMAP_PROCESS_WORK_CHARACTERS_SRC = '1785445843/blitmap_comic_process'
 export const BLITMAP_PROCESS_WORK_SKETCHES = [
   {
-    src: '1791517328/3.25.24_Blitmap_Cover5_Nigel4_nqikkz',
+    src: '1791517328/blitmap_process_sketch_1',
     alt: 'Blitmap Process Work Sketch 1'
   },
   {
-    src: '1785445845/comic_process1_n28mhn',
+    src: '1785445845/blitmap_process_sketch_2',
     alt: 'Blitmap Process Work Sketch 2'
   }
 ] as const;
 export const BLITMAP_PROCESS_WORK_COVERS = [
   {
-    src: '1784934929/figma1_yo9m6h',
+    src: '1784934929/blitmap_process_cover_1',
     alt: 'Blitmap Process Work Cover 1'
   }, 
   {
-    src: '1785445847/comic_process3_ianjxy',
+    src: '1785445847/blitmap_process_cover_2',
     alt: 'Blitmap Process Work Cover 2'
   },
   {
-    src: '1785446783/comic_process4_wwoe77',
+    src: '1785446783/blitmap_process_cover_3',
     alt: 'Blitmap Process Work Cover 3'
   }
 ] as const;
 
 /* Blitnet project */
-export const BLITNET_INTRO_VIDEO_SRC = '1793079594/sup_door_open_kxzayl';
-export const BLITNET_INTRO_POSTER_SRC = '1792735117/sup_door_open_poster_e3lhys';
+export const BLITNET_INTRO_VIDEO_SRC = '1793079594/sup_door_open';
+export const BLITNET_INTRO_POSTER_SRC = '1792735117/sup_door_open_poster';
 
 export const BLITNET_ENVIRONMENTS = [
   {
-    src: '1784704944/NightPurple_Interior_Underground_Parallax_Foreground_9.19_yvfatv',
+    src: '1784704944/NightPurple_Interior_Underground_Parallax_Foreground',
     alt: 'Blit.net dark underground environment',
   },
   {
-    src: '1784698134/GreenSwamp_Interior_Underground_Parallax_All_9.19_qj0dhk',
+    src: '1784698134/GreenSwamp_Interior_Underground_Parallax',
     alt: 'Blit.net light swamp environment',
   },
 ] as const;
@@ -131,17 +131,17 @@ export interface ProjectItem {
 
 export const PROJECTS: ProjectItem[] = [
   {
-    thumbnail: '1784688569/Blitnet_thumbnail_ir3vst',
+    thumbnail: '1784688569/Blitnet_thumbnail',
     label: 'SUP / Blit.net',
     href: '/work/blitnet'
   },
   {
-    thumbnail: '1784618657/IMG_2647_kh91i0',
+    thumbnail: '1784618657/Blitmap_thumbnail',
     label: 'SUP / Blitmap',
     href: '/work/blitmap'
   },
   {
-    thumbnail: '1784618622/GenshinTarot_labzsu',
+    thumbnail: '1784618622/GenshinTarot',
     label: 'Genshin Tarot',
     href: '/work/genshin-tarot'
   }

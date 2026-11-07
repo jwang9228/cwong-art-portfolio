@@ -4,7 +4,6 @@ import { EMAIL, JOB_TITLES } from '../../lib/constants';
 import { motion } from 'motion/react';
 import Fade from '../utils/Fade';
 import Link from 'next/link';
-import Banner from './Banner';
 
 const HERO_VARIANTS = {
   hidden: {},
@@ -18,8 +17,6 @@ const HERO_VARIANTS = {
 export default function Hero({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Banner />
-      
       <motion.section
         variants={HERO_VARIANTS}
         className='flex flex-col items-center gap-y-12
