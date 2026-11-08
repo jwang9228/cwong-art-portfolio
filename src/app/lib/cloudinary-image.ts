@@ -110,9 +110,12 @@ export const getCloudinaryUrl = ({
  * Builds a Cloudinary video URL.
  * Videos are served as-is without transforms to preserve format and transparency.
  */
-export const getCloudinaryVideoUrl = (resource: CloudinaryResourceSrc | string): string => {
+export const getCloudinaryVideoUrl = (
+  resource: CloudinaryResourceSrc | string,
+  extension: string = 'webm',
+): string => {
   const id = resourceId(resource);
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/v${id}`;
+  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/v${id}.${extension}`;
 }
 
 /**

@@ -11,14 +11,16 @@ import {
   BLITNET_ENVIRONMENTS,
   BLITNET_INTRO_POSTER_SRC,
   BLITNET_INTRO_VIDEO_SRC,
+  BLITNET_RIFFBIT_ANIMS,
 } from '../../lib/constants';
 import Gallery from '../../components/utils/Gallery';
+import LoopingVideo from '../../components/utils/LoopingVideo';
 
 const BLITNET_ENVIRONMENT_GALLERY_PATH = 'cwong-art/Professional Work/Blit.net/environment';
 const BLITNET_ENVIRONMENT_GALLERY_MAX_IMAGES = 10;
 
 export default async function Blitnet() {
-  const videoSrc = `${getCloudinaryVideoUrl(BLITNET_INTRO_VIDEO_SRC)}.webm`;
+  const videoSrc = getCloudinaryVideoUrl(BLITNET_INTRO_VIDEO_SRC);
   const posterSrc = `${getCloudinaryOriginalImageUrl(BLITNET_INTRO_POSTER_SRC)}.png`;
 
   const images = await fetchCloudinaryImageMetaMap(
@@ -87,6 +89,20 @@ export default async function Blitnet() {
             <p className='italic font-normal laptop:text-lg'>
               Assets & Animations
             </p>
+          </Fade>
+          <Fade
+            speed='art'
+            inView
+            className='flex tablet:max-w-md laptop:max-w-xl tablet:px-4 py-6
+              justify-evenly tablet:justify-between items-center'
+          >
+            {BLITNET_RIFFBIT_ANIMS.map(riffbitAnim => 
+              <LoopingVideo 
+                key={riffbitAnim.src} 
+                src={getCloudinaryVideoUrl(riffbitAnim.src)} 
+                className='h-32 laptop:h-48 w-auto object-contain [image-rendering:pixelated]'
+              />
+            )}
           </Fade>
         </section>
       </article>

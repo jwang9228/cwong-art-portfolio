@@ -78,6 +78,12 @@ export const BLITNET_ENVIRONMENTS = [
   },
 ] as const;
 
+export const BLITNET_RIFFBIT_ANIMS = [
+  { src: '1794012028/RiffBit_animation_idle' },
+  { src: '1794012034/RiffBit_animation_walk' },
+  { src: '1794012031/RiffBit_animation_jumping' }
+]
+
 /* Navigation tabs */
 export interface NavItem {
   label: string,
