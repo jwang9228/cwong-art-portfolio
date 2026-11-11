@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import PageWrapper from './components/utils/PageWrapper';
 import PageHeader from './components/navigation/PageHeader';
 import Footer from './components/navigation/Footer';
+import { CLOUDINARY_CDN_ORIGIN } from './lib/cloudinary-image';
 import './globals.css';
 
 const rethinkSans = Rethink_Sans({
@@ -42,8 +43,8 @@ export default function Layout({ children } : { children: ReactNode }) {
       className={`${rethinkSans.variable} ${philosopher.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        <link rel='preconnect' href='https://res.cloudinary.com' crossOrigin='anonymous' />
-        <link rel='dns-prefetch' href='https://res.cloudinary.com' />
+        <link rel='preconnect' href={CLOUDINARY_CDN_ORIGIN} crossOrigin='anonymous' />
+        <link rel='dns-prefetch' href={CLOUDINARY_CDN_ORIGIN} />
       </head>
       <body className='layout-root font-base antialiased'>
         <PageHeader />

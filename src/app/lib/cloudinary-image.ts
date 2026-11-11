@@ -1,5 +1,12 @@
 import type { ImageLoaderProps } from 'next/image';
 
+export const CLOUDINARY_HOST = 'res.cloudinary.com';
+export const CLOUDINARY_CDN_ORIGIN = `https://${CLOUDINARY_HOST}`;
+
+/** CDN origin + cloud name — prefix for delivery URLs. */
+export const CLOUDINARY_BASE_URL =
+  `${CLOUDINARY_CDN_ORIGIN}/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}`;
+
 export const CLOUDINARY_LIGHTBOX_MAX_WIDTH = 2560;
 
 export type CloudinaryQuality = 'good' | 'best';
@@ -85,7 +92,7 @@ export const getBlurPlaceholderUrl = (resource: CloudinaryResourceSrc): string =
     'q_auto:low',
   ].join(',');
 
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/v${id}`;
+  return `${CLOUDINARY_BASE_URL}/image/upload/${transforms}/v${id}`;
 }
 
 export const getCloudinaryUrl = ({
@@ -103,7 +110,7 @@ export const getCloudinaryUrl = ({
     `q_auto:${quality}`,
   ].join(',');
 
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/v${id}`;
+  return `${CLOUDINARY_BASE_URL}/image/upload/${transforms}/v${id}`;
 }
 
 /**
@@ -115,7 +122,7 @@ export const getCloudinaryVideoUrl = (
   extension: string = 'webm',
 ): string => {
   const id = resourceId(resource);
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/v${id}.${extension}`;
+  return `${CLOUDINARY_BASE_URL}/video/upload/v${id}.${extension}`;
 }
 
 /**
@@ -127,7 +134,7 @@ export const getCloudinaryImageUrl = (
   extension: string = 'png',
 ): string => {
   const id = resourceId(resource);
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v${id}.${extension}`;
+  return `${CLOUDINARY_BASE_URL}/image/upload/v${id}.${extension}`;
 }
 
 /** Default export required by next.config `images.loaderFile`. */

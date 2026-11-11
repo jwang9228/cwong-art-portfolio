@@ -30,16 +30,14 @@ export default async function Blitnet() {
   const videoSrc = getCloudinaryVideoUrl(BLITNET_INTRO_VIDEO_SRC);
   const posterSrc = getCloudinaryImageUrl(BLITNET_INTRO_POSTER_SRC);
 
-  const images = await fetchCloudinaryImageMetaMap(
-    BLITNET_ENVIRONMENTS.map((environment) => environment.src),
-    'blitnet-images',
-  );
+  const [images, resources] = await Promise.all([
+    fetchCloudinaryImageMetaMap(BLITNET_ENVIRONMENTS.map((e) => e.src), 'blitnet-images'),
+    getGalleryImages(BLITNET_ENVIRONMENT_GALLERY_PATH, BLITNET_ENVIRONMENT_GALLERY_MAX_IMAGES),
+  ]);
 
   const environmentAspect = cloudinaryAspectRatioStyle(
     BLITNET_ENVIRONMENTS.map((environment) => images[environment.src]),
   );
-
-  const resources = await getGalleryImages(BLITNET_ENVIRONMENT_GALLERY_PATH, BLITNET_ENVIRONMENT_GALLERY_MAX_IMAGES);
 
   return (
     <Intro videoSrc={videoSrc} posterSrc={posterSrc}>
@@ -75,6 +73,7 @@ export default async function Blitnet() {
                   sizes='(max-width: 1023px) 100vw, 50vw'
                   className='object-cover [image-rendering:pixelated]'
                   quality='best'
+                  priority
                   blurDataURL={meta?.blurDataURL}
                 />
               </figure>
@@ -97,7 +96,7 @@ export default async function Blitnet() {
               Assets & Animations
             </p>
           </Fade>
-          <div className='flex flex-col whiteboard-grid gap-y-9 py-5 my-2'>
+          <div className='flex flex-col whiteboard-grid gap-y-9 py-6 my-2'>
             <Fade 
               speed='art'
               inView
