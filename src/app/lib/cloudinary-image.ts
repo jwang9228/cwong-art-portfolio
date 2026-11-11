@@ -119,12 +119,15 @@ export const getCloudinaryVideoUrl = (
 }
 
 /**
- * Builds a Cloudinary image URL for the original upload.
- * No transforms, so a PNG poster stays a PNG and matches the video's first frame.
+ * Builds a Cloudinary `image/upload` URL with no transforms.
+ * Pass `webp` for animated sprite loops, `png` (default) for static posters/originals.
  */
-export const getCloudinaryOriginalImageUrl = (resource: CloudinaryResourceSrc | string): string => {
+export const getCloudinaryImageUrl = (
+  resource: CloudinaryResourceSrc | string,
+  extension: string = 'png',
+): string => {
   const id = resourceId(resource);
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v${id}`;
+  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v${id}.${extension}`;
 }
 
 /** Default export required by next.config `images.loaderFile`. */

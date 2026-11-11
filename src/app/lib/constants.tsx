@@ -79,10 +79,35 @@ export const BLITNET_ENVIRONMENTS = [
 ] as const;
 
 export const BLITNET_RIFFBIT_ANIMS = [
-  { src: '1794012028/RiffBit_animation_idle' },
-  { src: '1794012034/RiffBit_animation_walk' },
-  { src: '1794012031/RiffBit_animation_jumping' }
-]
+  { src: '1794366689/RiffBit_animation_idle', alt: 'RiffBit character idle animation' },
+  { src: '1794366695/RiffBit_animation_walk', alt: 'RiffBit character walk animation' },
+  { src: '1794366692/RiffBit_animation_jump', alt: 'RiffBit character jump animation' },
+] as const;
+
+export const BLITNET_PROP_LAMPPOSTS = [
+  { src: '1794365539/lamppost1', alt: 'Blit.net lamppost animation 1' },
+  { src: '1794365537/lamppost2', alt: 'Blit.net lamppost animation 2' },
+] as const;
+
+export const BLITNET_PROP_COIN = {
+  src: '1794363582/coin',
+  alt: 'Blit.net collectible coin animation',
+} as const;
+
+export const BLITNET_PROP_CHECKPOINT = {
+  src: '1794363579/checkpoint',
+  alt: 'Blit.net checkpoint flag animation',
+} as const;
+
+export const BLITNET_PROP_FIREBALL = {
+  src: '1794362994/fireball',
+  alt: 'Blit.net fireball animation',
+} as const;
+
+export const BLITNET_PROP_MAGIC_POWDER = {
+  src: '1793588773/magic_powder',
+  alt: 'Blitnet Prop Magic Powder',
+}
 
 /* Navigation tabs */
 export interface NavItem {
