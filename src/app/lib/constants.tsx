@@ -8,8 +8,8 @@ export const EMAIL = 'cwongart@gmail.com';
 export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
 export const COPYRIGHT = `\u00A9 ${new Date().getFullYear()} ${PORTFOLIO_NAME}`;
 
-// Cloudinary loader src: `{version}/{public_id}` (see cloudinary-image.ts)
-export const LANDING_IMAGE_SRC = '1780127439/landing';
+/* Landing */
+export const LANDING_IMAGE_SRC = '1794550035/landing';
 
 /* Blitmap project */
 export const BLITMAP_LANDING_IMAGE_SRC = '1784625992/blitmap_hero';
@@ -65,15 +65,15 @@ export const BLITMAP_PROCESS_WORK_COVERS = [
 
 /* Blitnet project */
 export const BLITNET_INTRO_VIDEO_SRC = '1793079594/sup_door_open';
-export const BLITNET_INTRO_POSTER_SRC = '1792735117/sup_door_open_poster';
+export const BLITNET_INTRO_POSTER_SRC = '1794697191/sup_door_open_poster';
 
 export const BLITNET_ENVIRONMENTS = [
   {
-    src: '1784704944/NightPurple_Interior_Underground_Parallax_Foreground',
+    src: '1794693481/NightPurple_Interior_Underground_Parallax',
     alt: 'Blit.net dark underground environment',
   },
   {
-    src: '1784698134/GreenSwamp_Interior_Underground_Parallax',
+    src: '1794693480/GreenSwamp_Interior_Underground_Parallax',
     alt: 'Blit.net light swamp environment',
   },
 ] as const;
@@ -104,9 +104,19 @@ export const BLITNET_PROP_FIREBALL = {
   alt: 'Blit.net fireball animation',
 } as const;
 
-export const BLITNET_PROP_MAGIC_POWDER = {
-  src: '1793588773/magic_powder',
-  alt: 'Blitnet Prop Magic Powder',
+export const BLITNET_SUP_DOOR_IDLE = {
+  src: '1794551805/sup_door_idle',
+  alt: 'Blit.net SUP door idle animation'
+} as const;
+
+export const BLITNET_CICI_IDLE = {
+  src: '1794551802/cici_idle',
+  alt: 'Blit.net Character Cici idle animation'
+} as const;
+
+export const BLITNET_DOOR_OPEN_CLOSE = {
+  src: '1794644200/door_open_close',
+  alt: 'Blit.net Door open close animation'
 }
 
 /* Navigation tabs */
@@ -162,7 +172,7 @@ export interface ProjectItem {
 
 export const PROJECTS: ProjectItem[] = [
   {
-    thumbnail: '1784688569/Blitnet_thumbnail',
+    thumbnail: '1794697194/Blitnet_thumbnail',
     label: 'SUP / Blit.net',
     href: '/work/blitnet'
   },

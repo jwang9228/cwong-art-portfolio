@@ -11,6 +11,8 @@ import {
   getGalleryImages,
 } from '../../lib/cloudinary';
 import {
+  BLITNET_CICI_IDLE,
+  BLITNET_DOOR_OPEN_CLOSE,
   BLITNET_ENVIRONMENTS,
   BLITNET_INTRO_POSTER_SRC,
   BLITNET_INTRO_VIDEO_SRC,
@@ -19,6 +21,7 @@ import {
   BLITNET_PROP_FIREBALL,
   BLITNET_PROP_LAMPPOSTS,
   BLITNET_RIFFBIT_ANIMS,
+  BLITNET_SUP_DOOR_IDLE,
 } from '../../lib/constants';
 import CloudinaryAnimatedImage from '../../components/cloudinary/CloudinaryAnimatedImage';
 import Gallery from '../../components/utils/Gallery';
@@ -93,10 +96,10 @@ export default async function Blitnet() {
         <section className='flex flex-col'>
           <Fade className='pl-0.5'>
             <p className='italic font-normal laptop:text-lg'>
-              Assets & Animations
+              Animated Assets
             </p>
           </Fade>
-          <div className='flex flex-col whiteboard-grid gap-y-9 py-6 my-2'>
+          <div className='flex flex-col whiteboard-grid gap-y-12 py-6 my-2'>
             <Fade 
               speed='art'
               inView
@@ -146,6 +149,27 @@ export default async function Blitnet() {
                   className='h-32 laptop:h-42 w-auto object-contain [image-rendering:pixelated]'
                 />
               )}
+            </Fade>
+            <Fade 
+              speed='art'
+              inView
+              className='flex justify-evenly items-center'
+            >
+              <CloudinaryAnimatedImage
+                src={BLITNET_DOOR_OPEN_CLOSE.src}
+                alt={BLITNET_DOOR_OPEN_CLOSE.alt}
+                className='h-28 laptop:h-42 w-auto object-contain [image-rendering:pixelated]'
+              />
+              <CloudinaryAnimatedImage
+                src={BLITNET_SUP_DOOR_IDLE.src}
+                alt={BLITNET_SUP_DOOR_IDLE.alt}
+                className='h-30 laptop:h-42 w-auto object-contain [image-rendering:pixelated]'
+              />
+              <CloudinaryAnimatedImage
+                src={BLITNET_CICI_IDLE.src}
+                alt={BLITNET_CICI_IDLE.alt}
+                className='h-28 laptop:h-42 w-auto object-contain [image-rendering:pixelated]'
+              />
             </Fade>
           </div>
         </section>

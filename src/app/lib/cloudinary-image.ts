@@ -127,11 +127,11 @@ export const getCloudinaryVideoUrl = (
 
 /**
  * Builds a Cloudinary `image/upload` URL with no transforms.
- * Pass `webp` for animated sprite loops, `png` (default) for static posters/originals.
+ * Defaults to `webp` (posters, animated sprite loops).
  */
 export const getCloudinaryImageUrl = (
   resource: CloudinaryResourceSrc | string,
-  extension: string = 'png',
+  extension: string = 'webp',
 ): string => {
   const id = resourceId(resource);
   return `${CLOUDINARY_BASE_URL}/image/upload/v${id}.${extension}`;

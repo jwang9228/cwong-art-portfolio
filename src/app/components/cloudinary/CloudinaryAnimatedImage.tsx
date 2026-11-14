@@ -20,7 +20,7 @@ export default function CloudinaryAnimatedImage({
   return (
     // eslint-disable-next-line @next/next/no-img-element -- animated WebP must skip next/image
     <img
-      src={getCloudinaryImageUrl(src, 'webp')}
+      src={getCloudinaryImageUrl(src)}
       alt={alt}
       loading='lazy'
       decoding='async'
