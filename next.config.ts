@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import { CLOUDINARY_HOST } from './src/app/lib/cloudinary-image';
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
@@ -8,7 +9,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com',
+        hostname: CLOUDINARY_HOST,
         pathname: '/**',
       },
     ],

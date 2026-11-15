@@ -1,5 +1,12 @@
 import type { ImageLoaderProps } from 'next/image';
 
+export const CLOUDINARY_HOST = 'res.cloudinary.com';
+export const CLOUDINARY_CDN_ORIGIN = `https://${CLOUDINARY_HOST}`;
+
+/** CDN origin + cloud name — prefix for delivery URLs. */
+export const CLOUDINARY_BASE_URL =
+  `${CLOUDINARY_CDN_ORIGIN}/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}`;
+
 export const CLOUDINARY_LIGHTBOX_MAX_WIDTH = 2560;
 
 export type CloudinaryQuality = 'good' | 'best';
@@ -17,17 +24,54 @@ export type CloudinaryResource = {
 
 export type CloudinaryResourceSrc = Pick<CloudinaryResource, 'public_id' | 'version'>;
 
-function parseCloudinarySrc(src: string): {
+type CloudinaryDimensions = Pick<CloudinaryResource, 'width' | 'height'>;
+
+/**
+ * Inline `aspect-ratio` for fill frames sized to the uploaded asset(s).
+ * One meta → that asset's own ratio. Several (e.g. an equal-width row) →
+ * the average ratio, so `object-cover` doesn't preferentially zoom
+ * whichever member is wider or taller.
+ */
+export const cloudinaryAspectRatioStyle = (
+  metas: CloudinaryDimensions | undefined | ReadonlyArray<CloudinaryDimensions | undefined>,
+): { aspectRatio: string } | undefined => {
+  const defined = (Array.isArray(metas) ? metas : [metas]).filter(
+    (meta): meta is CloudinaryDimensions => meta != null,
+  );
+  if (defined.length === 0) return undefined;
+
+  const width = defined.reduce((sum, meta) => sum + meta.width, 0) / defined.length;
+  const height = defined.reduce((sum, meta) => sum + meta.height, 0) / defined.length;
+
+  return { aspectRatio: `${width} / ${height}` };
+};
+
+type CloudinaryImageMetaMap = Record<string, { blurDataURL?: string } & CloudinaryDimensions>;
+
+/**
+ * Pairs each item with its blur placeholder and derives one shared
+ * `aspect-ratio` for the row, so equal-width cells end up the same size
+ * regardless of each source asset's own ratio.
+ */
+export const withRowAspect = <T extends { src: string }>(
+  items: readonly T[],
+  images: CloudinaryImageMetaMap,
+) => ({
+  items: items.map((item) => ({ ...item, blurDataURL: images[item.src]?.blurDataURL })),
+  aspectStyle: cloudinaryAspectRatioStyle(items.map((item) => images[item.src])),
+});
+
+const parseCloudinarySrc = (src: string): {
   id: string;
   quality: CloudinaryQuality;
-} {
+} => {
   if (src.startsWith(BEST_PREFIX)) {
     return { id: src.slice(BEST_PREFIX.length), quality: 'best' };
   }
   return { id: src, quality: 'good' };
 }
 
-function resourceId(resource: CloudinaryResourceSrc | string): string {
+const resourceId = (resource: CloudinaryResourceSrc | string): string => {
   if (typeof resource === 'string') return parseCloudinarySrc(resource).id;
 
   return resource.version != null
@@ -39,10 +83,10 @@ function resourceId(resource: CloudinaryResourceSrc | string): string {
  * Builds the `src` passed to next/image.
  * Tier is encoded in the string (`best:…`) so the shared loaderFile can pick q_auto without Next `quality`.
  */
-export function toCloudinarySrc(
+export const toCloudinarySrc = (
   resource: CloudinaryResourceSrc | string,
   quality: CloudinaryQuality = 'good'
-): string {
+): string => {
   const id = resourceId(resource);
   return quality === 'best' ? `${BEST_PREFIX}${id}` : id;
 }
@@ -53,7 +97,7 @@ export function toCloudinarySrc(
  * Format is pinned to `f_jpg` (rather than `f_auto`) so the resulting
  * bytes are deterministic regardless of the server-side fetch's Accept header.
  */
-export function getBlurPlaceholderUrl(resource: CloudinaryResourceSrc): string {
+export const getBlurPlaceholderUrl = (resource: CloudinaryResourceSrc): string => {
   const id = resourceId(resource);
   const transforms = [
     'f_jpg',
@@ -63,16 +107,16 @@ export function getBlurPlaceholderUrl(resource: CloudinaryResourceSrc): string {
     'q_auto:low',
   ].join(',');
 
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/v${id}`;
+  return `${CLOUDINARY_BASE_URL}/image/upload/${transforms}/v${id}`;
 }
 
-export function getCloudinaryUrl({
+export const getCloudinaryUrl = ({
   src,
   width,
 }: {
   src: string;
   width: number;
-}): string {
+}): string => {
   const { id, quality } = parseCloudinarySrc(src);
   const transforms = [
     'f_auto',
@@ -81,16 +125,42 @@ export function getCloudinaryUrl({
     `q_auto:${quality}`,
   ].join(',');
 
-  return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/v${id}`;
+  return `${CLOUDINARY_BASE_URL}/image/upload/${transforms}/v${id}`;
+}
+
+/**
+ * Builds a Cloudinary video URL.
+ * Videos are served as-is without transforms to preserve format and transparency.
+ */
+export const getCloudinaryVideoUrl = (
+  resource: CloudinaryResourceSrc | string,
+  extension: string = 'webm',
+): string => {
+  const id = resourceId(resource);
+  return `${CLOUDINARY_BASE_URL}/video/upload/v${id}.${extension}`;
+}
+
+/**
+ * Builds a Cloudinary `image/upload` URL with no transforms.
+ * Defaults to `webp` (posters, animated sprite loops).
+ */
+export const getCloudinaryImageUrl = (
+  resource: CloudinaryResourceSrc | string,
+  extension: string = 'webp',
+): string => {
+  const id = resourceId(resource);
+  return `${CLOUDINARY_BASE_URL}/image/upload/v${id}.${extension}`;
 }
 
 /** Default export required by next.config `images.loaderFile`. */
-export default function cloudinaryLoader({
+const cloudinaryLoader = ({
   src,
   width,
-}: ImageLoaderProps): string {
+}: ImageLoaderProps): string => {
   return getCloudinaryUrl({
     src,
     width: Math.min(width, CLOUDINARY_LIGHTBOX_MAX_WIDTH),
   });
 }
+
+export default cloudinaryLoader

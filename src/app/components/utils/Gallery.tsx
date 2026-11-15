@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'motion/react';
-import GalleryImage from './GalleryImage';
+import RevealImage from './RevealImage';
 import {
   CLOUDINARY_LIGHTBOX_MAX_WIDTH,
   CloudinaryResource,
@@ -17,7 +17,7 @@ const Lightbox = dynamic(() => import('./Lightbox'), { ssr: false });
 // Match next/image default deviceSizes (capped by our loader max).
 const LIGHTBOX_SRC_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 2560];
 
-function getLightboxWidth() {
+const getLightboxWidth = () => {
   const target = Math.min(
     window.innerWidth * (window.devicePixelRatio || 1),
     CLOUDINARY_LIGHTBOX_MAX_WIDTH
@@ -26,7 +26,7 @@ function getLightboxWidth() {
     ?? CLOUDINARY_LIGHTBOX_MAX_WIDTH;
 }
 
-function preloadLightboxImage(resource: CloudinaryResource) {
+const preloadLightboxImage = (resource: CloudinaryResource) => {
   const preload = new window.Image();
   preload.src = getCloudinaryUrl({
     src: toCloudinarySrc(resource, 'best'),
@@ -53,7 +53,7 @@ interface ColumnTier {
 
 const DEFAULT_COLUMNS: ColumnConfig = { base: 2, laptop: 3 };
 
-function getColumnTiers(columns: ColumnConfig): ColumnTier[] {
+const getColumnTiers = (columns: ColumnConfig): ColumnTier[] => {
   return BREAKPOINT_ORDER
     .filter((key) => columns[key] != null)
     .map((key) => ({ key, count: columns[key]! }));
@@ -86,7 +86,7 @@ const TIER_HIDDEN_FROM_CLASS: Record<BreakpointKey, string> = {
   desktop: 'desktop:hidden',
 };
 
-function getTierVisibilityClass(tiers: ColumnTier[], tierIndex: number): string {
+const getTierVisibilityClass = (tiers: ColumnTier[], tierIndex: number): string => {
   const tier = tiers[tierIndex];
   const nextTier = tiers[tierIndex + 1];
 
@@ -98,7 +98,7 @@ function getTierVisibilityClass(tiers: ColumnTier[], tierIndex: number): string 
   return classes.join(' ');
 }
 
-function getTierSizes(columnCount: number): string {
+const getTierSizes = (columnCount: number): string => {
   return `${Math.round(100 / columnCount)}vw`;
 }
 
@@ -110,9 +110,11 @@ const PRIORITY_ROWS = 2;
 export default function Gallery({ 
   resources, 
   columns = DEFAULT_COLUMNS,
+  lightbox = true
 } : { 
   resources: CloudinaryResource[], 
   columns?: ColumnConfig,
+  lightbox?: boolean
 }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [lightboxReady, setLightboxReady] = useState(false);
@@ -187,17 +189,17 @@ export default function Gallery({
                 {column.map(({ item: image, originalIndex, rowIndex }) => (
                   <motion.div
                     key={image.asset_id}
-                    onClick={() => openLightbox(originalIndex)}
-                    onPointerEnter={() => preloadLightboxImage(image)}
-                    className='cursor-zoom-in'
+                    onClick={lightbox ? () => openLightbox(originalIndex) : undefined}
+                    onPointerEnter={lightbox ? () => preloadLightboxImage(image) : undefined}
+                    className={lightbox ? 'cursor-zoom-in' : undefined}
                   >
-                    <GalleryImage
+                    <RevealImage
                       image={image}
                       alt='Gallery Image'
                       sizes={getTierSizes(tier.count)}
                       inView
                       priority={originalIndex < priorityCutoff}
-                      loadDelay={getCascadeDelay(columnIndex, rowIndex)}
+                      delay={getCascadeDelay(columnIndex, rowIndex)}
                     />
                   </motion.div>
                 ))}
@@ -208,7 +210,7 @@ export default function Gallery({
       </section>
 
       <AnimatePresence>
-        {selectedImage && (
+        {lightbox && selectedImage && (
           <Lightbox
             selectedImage={selectedImage}
             selectedImageIndex={selectedImageIndex as number}
@@ -224,3 +226,4 @@ export default function Gallery({
     </>
   )
 }
+

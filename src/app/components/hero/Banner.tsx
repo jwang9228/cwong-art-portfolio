@@ -1,17 +1,25 @@
 import { LANDING_IMAGE_SRC } from '../../lib/constants';
-import Image from 'next/image';
+import { fetchCloudinaryImageMetaMap } from '../../lib/cloudinary';
 import Fade from '../utils/Fade';
+import RevealImage from '../utils/RevealImage';
 
-export default function Banner() {
+export default async function Banner() {
+  const images = await fetchCloudinaryImageMetaMap(
+    [LANDING_IMAGE_SRC],
+    'landing-banner',
+  );
+  const meta = images[LANDING_IMAGE_SRC];
+
   return (
     <Fade type='in' className='relative w-full h-[35dvh] laptop:h-[40dvh]'>
-      <Image
+      <RevealImage
+        fill
         src={LANDING_IMAGE_SRC}
         alt='Portfolio Banner'
-        fill
-        priority
         sizes='100vw'
         className='object-cover laptop:object-contain'
+        priority
+        blurDataURL={meta?.blurDataURL}
       />
     </Fade>
   )

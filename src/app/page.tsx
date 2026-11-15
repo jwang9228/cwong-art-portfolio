@@ -1,4 +1,5 @@
 import Hero from './components/hero/Hero';
+import Banner from './components/hero/Banner';
 import HeroGallery from './components/hero/HeroGallery';
 import { Metadata } from 'next';
 
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <Hero>
-      <HeroGallery />
-    </Hero>
+    <>
+      <Banner />
+      <Hero>
+        <HeroGallery />
+      </Hero>
+    </>
   )
 }
