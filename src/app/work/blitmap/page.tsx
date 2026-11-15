@@ -6,26 +6,10 @@ import {
   BLITMAP_PROCESS_WORK_SKETCHES,
   BLITMAP_PROCESS_WORK_COVERS
 } from '../../lib/constants';
-import {
-  CloudinaryImageMeta,
-  fetchCloudinaryImageMetaMap,
-} from '../../lib/cloudinary';
-import { cloudinaryAspectRatioStyle } from '../../lib/cloudinary-image';
+import { fetchCloudinaryImageMetaMap } from '../../lib/cloudinary';
+import { cloudinaryAspectRatioStyle, withRowAspect } from '../../lib/cloudinary-image';
 import Fade from '../../components/utils/Fade';
 import RevealImage from '../../components/utils/RevealImage';
-
-/**
- * Pairs each item with its blur placeholder and derives one shared
- * `aspect-ratio` for the row, so equal-width cells end up the same size
- * regardless of each source asset's own ratio.
- */
-const withRowAspect = <T extends { src: string }>(
-  items: readonly T[],
-  images: Record<string, CloudinaryImageMeta>,
-) => ({
-  items: items.map((item) => ({ ...item, blurDataURL: images[item.src]?.blurDataURL })),
-  aspectStyle: cloudinaryAspectRatioStyle(items.map((item) => images[item.src])),
-});
 
 // Per-thumbnail scatter: mobile = fanned vertical stack; tablet+ = overlapping row.
 const THUMBNAIL_LAYOUT = [

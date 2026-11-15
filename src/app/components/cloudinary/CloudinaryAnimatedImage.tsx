@@ -7,10 +7,11 @@ interface CloudinaryAnimatedImageProps {
   className?: string;
 }
 
+/** Shared base class for every animated sprite loop. */
+const BASE_CLASS_NAME = 'w-auto object-contain [image-rendering:pixelated]';
+
 /**
- * Cloudinary animated WebP sprite loop. Assets should be encoded with infinite
- * loop (`ffmpeg … -loop 0`). Uses a plain `<img>` so animation + alpha survive
- * (next/image would flatten them).
+ * Cloudinary animated WebP sprite loop. Uses a plain `<img>`, next/image flattens
  */
 export default function CloudinaryAnimatedImage({
   src,
@@ -24,7 +25,7 @@ export default function CloudinaryAnimatedImage({
       alt={alt}
       loading='lazy'
       decoding='async'
-      className={className}
+      className={`${BASE_CLASS_NAME} ${className ?? ''}`.trim()}
     />
   );
 }

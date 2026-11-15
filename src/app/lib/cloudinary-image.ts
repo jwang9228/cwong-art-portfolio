@@ -46,6 +46,21 @@ export const cloudinaryAspectRatioStyle = (
   return { aspectRatio: `${width} / ${height}` };
 };
 
+type CloudinaryImageMetaMap = Record<string, { blurDataURL?: string } & CloudinaryDimensions>;
+
+/**
+ * Pairs each item with its blur placeholder and derives one shared
+ * `aspect-ratio` for the row, so equal-width cells end up the same size
+ * regardless of each source asset's own ratio.
+ */
+export const withRowAspect = <T extends { src: string }>(
+  items: readonly T[],
+  images: CloudinaryImageMetaMap,
+) => ({
+  items: items.map((item) => ({ ...item, blurDataURL: images[item.src]?.blurDataURL })),
+  aspectStyle: cloudinaryAspectRatioStyle(items.map((item) => images[item.src])),
+});
+
 const parseCloudinarySrc = (src: string): {
   id: string;
   quality: CloudinaryQuality;

@@ -2,9 +2,9 @@ import Intro from '../../components/blitnet/Intro';
 import Fade from '../../components/utils/Fade';
 import RevealImage from '../../components/utils/RevealImage';
 import {
-  cloudinaryAspectRatioStyle,
   getCloudinaryImageUrl,
   getCloudinaryVideoUrl,
+  withRowAspect,
 } from '../../lib/cloudinary-image';
 import {
   fetchCloudinaryImageMetaMap,
@@ -38,9 +38,7 @@ export default async function Blitnet() {
     getGalleryImages(BLITNET_ENVIRONMENT_GALLERY_PATH, BLITNET_ENVIRONMENT_GALLERY_MAX_IMAGES),
   ]);
 
-  const environmentAspect = cloudinaryAspectRatioStyle(
-    BLITNET_ENVIRONMENTS.map((environment) => images[environment.src]),
-  );
+  const environments = withRowAspect(BLITNET_ENVIRONMENTS, images);
 
   return (
     <Intro videoSrc={videoSrc} posterSrc={posterSrc}>
@@ -60,28 +58,24 @@ export default async function Blitnet() {
         </Fade>
 
         <section className='flex flex-col laptop:flex-row w-full gap-1.5'>
-          {BLITNET_ENVIRONMENTS.map(({ src, alt }) => {
-            const meta = images[src];
-
-            return (
-              <figure
-                key={src}
-                className='relative w-full laptop:w-1/2'
-                style={environmentAspect}
-              >
-                <RevealImage
-                  fill
-                  src={src}
-                  alt={alt}
-                  sizes='(max-width: 1023px) 100vw, 50vw'
-                  className='object-cover [image-rendering:pixelated]'
-                  quality='best'
-                  priority
-                  blurDataURL={meta?.blurDataURL}
-                />
-              </figure>
-            );
-          })}
+          {environments.items.map(({ src, alt, blurDataURL }) => (
+            <figure
+              key={src}
+              className='relative w-full laptop:w-1/2'
+              style={environments.aspectStyle}
+            >
+              <RevealImage
+                fill
+                src={src}
+                alt={alt}
+                sizes='(max-width: 1023px) 100vw, 50vw'
+                className='object-cover [image-rendering:pixelated]'
+                quality='best'
+                priority
+                blurDataURL={blurDataURL}
+              />
+            </figure>
+          ))}
         </section>
 
         <section className='flex flex-col gap-y-1.5 pt-2'>
@@ -111,7 +105,7 @@ export default async function Blitnet() {
                     key={src}
                     src={src}
                     alt={alt}
-                    className='h-48 laptop:h-56 w-auto object-contain [image-rendering:pixelated]'
+                    className='h-48 laptop:h-56'
                   />
                 )}
               </div>
@@ -120,18 +114,18 @@ export default async function Blitnet() {
                   <CloudinaryAnimatedImage
                     src={BLITNET_PROP_COIN.src}
                     alt={BLITNET_PROP_COIN.alt}
-                    className='h-18 laptop:h-24 w-auto object-contain [image-rendering:pixelated]'
+                    className='h-18 laptop:h-24'
                   />
                   <CloudinaryAnimatedImage
                     src={BLITNET_PROP_CHECKPOINT.src}
                     alt={BLITNET_PROP_CHECKPOINT.alt}
-                    className='h-24 laptop:h-30 w-auto object-contain [image-rendering:pixelated]'
+                    className='h-24 laptop:h-30'
                   />
                 </div>
                 <CloudinaryAnimatedImage
                   src={BLITNET_PROP_FIREBALL.src}
                   alt={BLITNET_PROP_FIREBALL.alt}
-                  className='h-18 laptop:h-24 w-auto object-contain [image-rendering:pixelated]'
+                  className='h-18 laptop:h-24'
                 />
               </div>
             </Fade>
@@ -148,7 +142,7 @@ export default async function Blitnet() {
                     key={src} 
                     src={src} 
                     alt={alt}
-                    className='h-32 laptop:h-42 w-auto object-contain [image-rendering:pixelated]'
+                    className='h-32 laptop:h-42'
                   />
                 )}
               </Fade>
@@ -160,17 +154,17 @@ export default async function Blitnet() {
                 <CloudinaryAnimatedImage
                   src={BLITNET_DOOR_OPEN_CLOSE.src}
                   alt={BLITNET_DOOR_OPEN_CLOSE.alt}
-                  className='h-28 tablet:h-30 laptop:h-42 w-auto object-contain [image-rendering:pixelated]'
+                  className='h-28 tablet:h-30 laptop:h-42'
                 />
                 <CloudinaryAnimatedImage
                   src={BLITNET_SUP_DOOR_IDLE.src}
                   alt={BLITNET_SUP_DOOR_IDLE.alt}
-                  className='h-30 tablet:h-32 laptop:h-44 w-auto object-contain [image-rendering:pixelated]'
+                  className='h-30 tablet:h-32 laptop:h-44'
                 />
                 <CloudinaryAnimatedImage
                   src={BLITNET_CICI_IDLE.src}
                   alt={BLITNET_CICI_IDLE.alt}
-                  className='h-28 tablet:h-30 laptop:h-42 w-auto object-contain [image-rendering:pixelated]'
+                  className='h-28 tablet:h-30 laptop:h-42'
                 />
               </Fade>
             </div>

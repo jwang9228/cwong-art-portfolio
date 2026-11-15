@@ -117,7 +117,7 @@ export const BLITNET_CICI_IDLE = {
 export const BLITNET_DOOR_OPEN_CLOSE = {
   src: '1794644200/door_open_close',
   alt: 'Blit.net Door open close animation'
-}
+} as const;
 
 /* Navigation tabs */
 export interface NavItem {
