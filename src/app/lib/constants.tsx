@@ -12,53 +12,53 @@ export const COPYRIGHT = `\u00A9 ${new Date().getFullYear()} ${PORTFOLIO_NAME}`;
 export const LANDING_IMAGE_SRC = '1794550035/landing';
 
 /* Blitmap project */
-export const BLITMAP_LANDING_IMAGE_SRC = '1784625992/blitmap_hero';
+export const BLITMAP_LANDING_IMAGE_SRC = '1794794270/blitmap_hero';
 export const BLITMAP_ISSUE_5_COVERS = [
   {
-    src: '1791516464/issue5_front',
+    src: '1794794264/issue5_cover_front',
     alt: 'Blitmap Issue 5 Front Cover',
   },
   {
-    src: '1791516254/issue5_back',
+    src: '1794794265/issue5_cover_back',
     alt: 'Blitmap Issue 5 Back Cover',
   },
 ] as const;
 export const BLITMAP_THUMBNAILS = [
   {
-    src: '1785275194/blitmap_covers',
+    src: '1794794267/blitmap_covers_side',
     alt: 'Blitmap Thumbnail 1',
   },
   {
-    src: '1784618657/Blitmap_thumbnail',
+    src: '1794794259/blitmap_covers_close',
     alt: 'Blitmap Thumbnail 2'
   },
   {
-    src: '1785275189/blitmap_stand',
+    src: '1794794268/blitmap_covers_stand',
     alt: 'Blitmap Thumbnail 3',
   },
 ] as const;
-export const BLITMAP_PROCESS_WORK_CHARACTERS_SRC = '1785445843/blitmap_comic_process'
+export const BLITMAP_PROCESS_WORK_CHARACTERS_SRC = '1794794272/blitmap_character_process'
 export const BLITMAP_PROCESS_WORK_SKETCHES = [
   {
-    src: '1791517328/blitmap_process_sketch_1',
+    src: '1794794259/blitmap_cover_sketch1',
     alt: 'Blitmap Process Work Sketch 1'
   },
   {
-    src: '1785445845/blitmap_process_sketch_2',
+    src: '1794794260/blitmap_cover_sketch2',
     alt: 'Blitmap Process Work Sketch 2'
   }
 ] as const;
 export const BLITMAP_PROCESS_WORK_COVERS = [
   {
-    src: '1784934929/blitmap_process_cover_1',
+    src: '1794794266/blitmap_process_cover1',
     alt: 'Blitmap Process Work Cover 1'
   }, 
   {
-    src: '1785445847/blitmap_process_cover_2',
+    src: '1794794262/blitmap_process_cover2',
     alt: 'Blitmap Process Work Cover 2'
   },
   {
-    src: '1785446783/blitmap_process_cover_3',
+    src: '1794794263/blitmap_process_cover3',
     alt: 'Blitmap Process Work Cover 3'
   }
 ] as const;
