@@ -44,7 +44,7 @@ export default async function Blitnet() {
           <h1 className='text-xl tablet:text-2xl laptop:text-3xl font-semibold'>
             SUP x Blit.net
           </h1>
-          <p className='font-normal text-base laptop:text-lg'>
+          <p className='font-normal text-base tablet:text-lg laptop:text-xl'>
             Environment and asset work for Blit&apos;s pixel platformer
           </p>
         </Fade>
@@ -61,7 +61,7 @@ export default async function Blitnet() {
                 src={src}
                 alt={alt}
                 sizes='(max-width: 1023px) 100vw, 50vw'
-                className='object-cover [image-rendering:pixelated]'
+                className='object-cover'
                 quality='best'
                 priority
                 blurDataURL={blurDataURL}
@@ -72,7 +72,7 @@ export default async function Blitnet() {
 
         <section className='flex flex-col gap-y-1.5 pt-2'>
           <Fade className='pl-0.5'>
-            <p className='italic font-normal laptop:text-lg'>
+            <p className='italic font-normal tablet:text-lg'>
               World Exploration
             </p>
           </Fade>
@@ -81,7 +81,7 @@ export default async function Blitnet() {
 
         <section className='flex flex-col'>
           <Fade className='pl-1.5'>
-            <p className='italic font-normal laptop:text-lg'>
+            <p className='italic font-normal tablet:text-lg'>
               Animated Assets
             </p>
           </Fade>
