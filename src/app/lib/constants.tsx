@@ -119,6 +119,22 @@ export const BLITNET_DOOR_OPEN_CLOSE = {
   alt: 'Blit.net Door open close animation'
 } as const;
 
+/* Genshin Tarot project */
+export const GENSHIN_TAROT_BOX_HERO = {
+  src: '1795328616/GenshinTarot_box_hero',
+  alt: 'Genshin Tarot game box hero image'
+} as const;
+
+export const GENSHIN_TAROT_RAZOR_DESK = {
+  src: '1795240288/GenshinTarot_razor_desk',
+  alt: 'Genshin Tarot Razor cards desk arrangement'
+} as const;
+
+export const GENSHIN_TAROT_RAZOR_CARD = {
+  src: '1795327338/GenshinTarot_razor_card',
+  alt: 'Genshin Tarot Razor card'
+} as const;
+
 /* Navigation tabs */
 export interface NavItem {
   label: string,
@@ -182,7 +198,7 @@ export const PROJECTS: ProjectItem[] = [
     href: '/work/blitmap'
   },
   {
-    thumbnail: '1784618622/GenshinTarot',
+    thumbnail: '1795330079/GenshinTarot_thumbnail',
     label: 'Genshin Tarot',
     href: '/work/genshin-tarot'
   }
