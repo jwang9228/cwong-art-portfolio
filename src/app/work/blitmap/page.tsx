@@ -72,7 +72,7 @@ export default async function Blitmap() {
         <h1 className='text-xl tablet:text-2xl laptop:text-3xl font-semibold font-mono'>
           SUP x Blitmap: Fragments of the Machine
         </h1>
-        <p className='font-normal text-base tablet:text-lg latpop:text-xl'>
+        <p className='font-normal text-base tablet:text-lg laptop:text-xl'>
           Cover art for Blitmap&apos;s sci-fi comic series, in collaboration with Titan Comics
         </p>
       </Fade>
