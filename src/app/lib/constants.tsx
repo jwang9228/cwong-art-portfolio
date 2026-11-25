@@ -8,6 +8,11 @@ export const EMAIL = 'cwongart@gmail.com';
 export const JOB_TITLES = ['Character Design', 'Illustration', 'Concept Art'];
 export const COPYRIGHT = `\u00A9 ${new Date().getFullYear()} ${PORTFOLIO_NAME}`;
 
+export const SELF_PORTRAIT_SRC = {
+  src: '1795586018/portrait',
+  alt: 'Courtney Wong Self Portrait'
+}
+
 /* Landing */
 export const LANDING_IMAGE_SRC = '1794550035/landing';
 
