@@ -37,8 +37,6 @@ export default function Hero({ children }: { children: React.ReactNode }) {
         <Fade>
           <Link
             href={`mailto:${EMAIL}`}
-            target='_blank'
-            rel='noopener noreferrer'
             className='w-fit px-4 py-2.5 text-sm tablet:text-base
              text-background bg-primary font-medium tracking-widest'
           >
