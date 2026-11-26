@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 
-const REVEAL_DURATION = 0.75;
+const REVEAL_DURATION = 0.7;
 const REVEAL_EASE = [0.25, 0.1, 0.25, 1] as const;
 
 const HELLO_PATHS = [
