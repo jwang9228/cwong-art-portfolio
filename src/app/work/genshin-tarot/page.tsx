@@ -31,7 +31,7 @@ export default async function GenshinTarot() {
   const hero = images[GENSHIN_TAROT_BOX_HERO.src];
 
   return (
-    <article className='flex flex-col gap-y-8 p-2'>
+    <article className='flex flex-col gap-y-6 tablet:gap-y-8 p-2'>
       <Fade
         as='header'
         speed='ui'

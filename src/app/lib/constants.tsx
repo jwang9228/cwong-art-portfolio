@@ -124,6 +124,28 @@ export const BLITNET_DOOR_OPEN_CLOSE = {
   alt: 'Blit.net Door open close animation'
 } as const;
 
+export const SUP_STREAM_FLYERS = [
+  {
+    src: '1795733508/supstream_flyer1',
+    alt: 'Sup Stream Flyer 1'
+  },
+  {
+    src: '1795763424/supstream_flyer2',
+    alt: 'Sup Stream Flyer 2'
+  }
+] as const;
+
+export const SUP_COLORCHARS = [
+  {
+    src: '1795733505/sup_colorchars_1',
+    alt: 'Sup Color Character 1'
+  },
+  {
+    src: '1795733505/sup_colorchars_2',
+    alt: 'Sup Color Character 2'
+  }
+] as const;
+
 /* Genshin Tarot project */
 export const GENSHIN_TAROT_BOX_HERO = {
   src: '1795328616/GenshinTarot_box_hero',
