@@ -109,6 +109,7 @@ export default async function Blitnet() {
               More from Blit
             </p>
           </Fade>
+          
           <div className='flex flex-col laptop:flex-row gap-y-8 pt-2 tablet:pt-4
             laptop:gap-x-1.5 laptop:justify-evenly'>
             <div className='grid grid-cols-1 tablet:grid-cols-2
